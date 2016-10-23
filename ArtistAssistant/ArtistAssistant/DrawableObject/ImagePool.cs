@@ -4,11 +4,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace ArtistAssistant.DrawableObject
+namespace DrawableObject
 {
     using System.Collections.Generic;
     using System.Drawing;
-    using Properties;
+    using System.Resources;
 
     /// <summary>
     /// A pool of all the images that can be used for <see cref="DrawableObject"/>s.
@@ -78,7 +78,10 @@ namespace ArtistAssistant.DrawableObject
                 if (!uniqueInstance.pool.ContainsKey(imageType))
                 {
                     string imageName = imageType.ToString();
-                    uniqueInstance.pool.Add(imageType, (Image)Resources.ResourceManager.GetObject(imageName));
+                    using (ResXResourceSet resXFile = new ResXResourceSet(@".\Graphics.resx"))
+                    {
+                        uniqueInstance.pool.Add(imageType, (Image)resXFile.GetObject(imageName));
+                    }
                 }
 
                 return ImageWrapper.Create(uniqueInstance.pool[imageType]).Image;

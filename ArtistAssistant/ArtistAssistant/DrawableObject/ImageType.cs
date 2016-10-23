@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace ArtistAssistant.DrawableObject
+namespace DrawableObject
 {
     /// <summary>
     /// The types of the images that a <see cref="DrawableObject"/> can contain

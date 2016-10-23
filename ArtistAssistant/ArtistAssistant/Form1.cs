@@ -1,4 +1,4 @@
-﻿using ArtistAssistant.DrawableObject;
+﻿using DrawableObject;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

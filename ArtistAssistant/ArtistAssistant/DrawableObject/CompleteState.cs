@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace ArtistAssistant.DrawableObject
+namespace DrawableObject
 {
     using System.Drawing;
 
@@ -155,8 +155,17 @@ namespace ArtistAssistant.DrawableObject
         /// </param>
         public override void Select(Graphics graphics)
         {
-            // Not finished yet
             this.selected = true;
+
+            // Draw a box around the object.
+            Point topLeft = this.Location;
+            Point topRight = new Point(this.Location.X + this.Size.Width, this.Location.Y);
+            Point bottomLeft = new Point(this.Location.X, this.Location.Y + this.Size.Height);
+            Point bottomRight = new Point(topRight.X, bottomLeft.Y);
+            graphics.DrawLine(Pens.Black, topLeft, topRight);
+            graphics.DrawLine(Pens.Black, topRight, bottomRight);
+            graphics.DrawLine(Pens.Black, bottomRight, bottomLeft);
+            graphics.DrawLine(Pens.Black, bottomLeft, topLeft);
         }
     }
 }
