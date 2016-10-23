@@ -12,8 +12,33 @@ namespace ArtistAssistant.DrawableObject
     public enum ImageType
     {
         /// <summary>
-        /// No image
+        /// A fluffy cloud
         /// </summary>
-        None
+        Cloud,
+
+        /// <summary>
+        /// Some mountains
+        /// </summary>
+        Mountain,
+
+        /// <summary>
+        /// A rain cloud
+        /// </summary>
+        Rain,
+
+        /// <summary>
+        /// A tree
+        /// </summary>
+        Tree,
+
+        /// <summary>
+        /// A pine tree
+        /// </summary>
+        Pine,
+
+        /// <summary>
+        /// A pond
+        /// </summary>
+        Pond
     }
 }

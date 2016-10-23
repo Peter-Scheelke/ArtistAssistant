@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArtistAssistant.DrawableObject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace ArtistAssistant
         public Form1()
         {
             InitializeComponent();
+            this.BackgroundImage = ImagePool.GetImage(ImageType.Mountain).Image;
         }
     }
 }
