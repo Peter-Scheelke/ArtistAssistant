@@ -14,7 +14,7 @@ namespace ArtistAssistant.DrawableObject
     internal abstract class State
     {
         /// <summary>
-        /// Gets or sets the <see cref="ImageType"/> of the <see cref="DrawableObject"/>
+        /// Gets or sets the <see cref="ImageType.ImageType"/> of the <see cref="DrawableObject"/>
         /// </summary>
         public abstract ImageType ImageType { get; set; }
 

@@ -20,16 +20,21 @@ namespace ArtistAssistant.DrawableObject
         private Image image;
 
         /// <summary>
+        /// The <see cref="ImageType.ImageType"/> of the <see cref="System.Drawing.Image"/>
+        /// contained in the <see cref="IntrinsicState"/> object
+        /// </summary>
+        private ImageType imageType;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IntrinsicState"/> class
         /// </summary>
         /// <param name="imageType">
-        /// The <see cref="ImageType"/> of the <see cref="System.Drawing.Image"/> 
+        /// The <see cref="ImageType.ImageType"/> of the <see cref="System.Drawing.Image"/> 
         /// contained by the <see cref="IntrinsicState"/>
         /// </param>
         public IntrinsicState(ImageType imageType)
         {
             this.ImageType = imageType;
-            this.image = ImagePool.GetImage(this.ImageType);
         }
 
         /// <summary>
@@ -50,12 +55,12 @@ namespace ArtistAssistant.DrawableObject
         {
             get
             {
-                return this.ImageType;
+                return this.imageType;
             }
 
             set
             {
-                this.ImageType = value;
+                this.imageType = value;
                 this.image = ImagePool.GetImage(this.ImageType);
             }
         }

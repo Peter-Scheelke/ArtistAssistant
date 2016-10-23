@@ -143,6 +143,7 @@ namespace ArtistAssistant.DrawableObject
         /// <param name="graphics">The <see cref="Graphics"/> object on which the <see cref="CompleteState"/> sill be drawn</param>
         public override void Draw(Graphics graphics)
         {
+            graphics.DrawImage(this.Image, this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
         }
 
         /// <summary>
