@@ -46,19 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\CommandType.cs" />
-    <Compile Include="Command\ICommand.cs" />
     <Compile Include="DrawableObject\CompleteState.cs" />
     <Compile Include="DrawableObject\DrawableObject.cs" />
     <Compile Include="DrawableObject\ExtrinsicState.cs" />
     <Compile Include="DrawableObject\ImagePool.cs" />
     <Compile Include="DrawableObject\ImageType.cs" />
     <Compile Include="DrawableObject\IntrinsicState.cs" />
-    <Compile Include="DrawableObject\Graphics.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Graphics.resx</DependentUpon>
-    </Compile>
     <Compile Include="DrawableObject\State.cs" />
     <Compile Include="DrawableObject\StateFactory.cs" />
     <Compile Include="Form1.cs">
@@ -69,24 +62,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DrawableObject\Graphics.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Graphics.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -98,12 +87,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="DrawableObject\Graphics\Cloud.png" />
-    <Content Include="DrawableObject\Graphics\Mountain.png" />
-    <Content Include="DrawableObject\Graphics\Pine.png" />
-    <Content Include="DrawableObject\Graphics\Pond.png" />
-    <Content Include="DrawableObject\Graphics\Rain.png" />
-    <Content Include="DrawableObject\Graphics\Tree.png" />
+    <Content Include="Graphics\Cloud.png" />
+    <Content Include="Graphics\Mountain.png" />
+    <Content Include="Graphics\Pine.png" />
+    <Content Include="Graphics\Pond.png" />
+    <Content Include="Graphics\Rain.png" />
+    <Content Include="Graphics\Tree.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

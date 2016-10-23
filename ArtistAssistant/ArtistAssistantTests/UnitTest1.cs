@@ -3,12 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ArtistAssistant.DrawableObject;
 using System.Drawing;
 using System.Reflection;
-using DrawableObject;
 
 namespace ArtistAssistantTests
 {
     [TestClass]
-    public class UnitTests
+    public class UnitTest1
     {
         [TestMethod]
         public void TestImagePool()
@@ -75,12 +74,12 @@ namespace ArtistAssistantTests
         [TestMethod]
         public void TestDrawableObjectCreation()
         {
-            DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(10, 10));
+            DrawableObject drawableObject = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(10, 10));
             Assert.IsTrue(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Cloud)));
             Assert.IsFalse(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Mountain)));
             Assert.IsFalse(drawableObject.Image == null);
 
-            drawableObject = DrawableObject.DrawableObject.Create(ImageType.Mountain, new Point(0, 0), new Size(10, 10));
+            drawableObject = DrawableObject.Create(ImageType.Mountain, new Point(0, 0), new Size(10, 10));
             Assert.IsFalse(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Cloud)));
             Assert.IsTrue(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Mountain)));
             Assert.IsFalse(drawableObject.Image == null);
