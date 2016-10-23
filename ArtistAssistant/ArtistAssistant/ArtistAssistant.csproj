@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\CommandType.cs" />
+    <Compile Include="Command\ICommand.cs" />
     <Compile Include="DrawableObject\CompleteState.cs" />
     <Compile Include="DrawableObject\DrawableObject.cs" />
     <Compile Include="DrawableObject\ExtrinsicState.cs" />

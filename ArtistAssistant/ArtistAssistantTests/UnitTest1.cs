@@ -75,11 +75,13 @@ namespace ArtistAssistantTests
         public void TestDrawableObjectCreation()
         {
             DrawableObject drawableObject = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(10, 10));
+            Assert.IsTrue(drawableObject.Id == 0);
             Assert.IsTrue(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Cloud)));
             Assert.IsFalse(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Mountain)));
             Assert.IsFalse(drawableObject.Image == null);
 
             drawableObject = DrawableObject.Create(ImageType.Mountain, new Point(0, 0), new Size(10, 10));
+            Assert.IsTrue(drawableObject.Id == 1);
             Assert.IsFalse(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Cloud)));
             Assert.IsTrue(object.ReferenceEquals(drawableObject.Image, ImagePool.GetImage(ImageType.Mountain)));
             Assert.IsFalse(drawableObject.Image == null);

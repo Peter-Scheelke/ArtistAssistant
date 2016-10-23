@@ -16,6 +16,12 @@ namespace ArtistAssistant.DrawableObject
     public class DrawableObject
     {
         /// <summary>
+        /// The number of <see cref="DrawableObject"/>s that have been created
+        /// Used to create a unique identification number for each <see cref="DrawableObject"/>
+        /// </summary>
+        private static int drawableObjectCount = 0;
+
+        /// <summary>
         /// The <see cref="State"/> of the <see cref="DrawableObject"/>
         /// </summary>
         private State state;
@@ -33,7 +39,14 @@ namespace ArtistAssistant.DrawableObject
         {
             StateFactory factory = new StateFactory();
             this.state = factory.Create(imageType, location, size);
+            this.Id = DrawableObject.drawableObjectCount;
+            ++DrawableObject.drawableObjectCount;
         }
+
+        /// <summary>
+        /// Gets a unique identifier for the <see cref="DrawableObject"/>
+        /// </summary>
+        public int Id { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ImageType"/> of the <see cref="DrawableObject"/>
