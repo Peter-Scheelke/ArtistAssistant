@@ -16,7 +16,7 @@ namespace ArtistAssistant
         public Form1()
         {
             InitializeComponent();
-            this.BackgroundImage = ImagePool.GetImage(ImageType.Mountain).Image;
+            this.BackgroundImage = ImagePool.GetImage(ImageType.Mountain);
         }
     }
 }

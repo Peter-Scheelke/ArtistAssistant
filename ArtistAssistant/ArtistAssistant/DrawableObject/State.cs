@@ -19,6 +19,11 @@ namespace ArtistAssistant.DrawableObject
         public abstract ImageType ImageType { get; set; }
 
         /// <summary>
+        /// Gets the <see cref="State"/>'s <see cref="Image"/>
+        /// </summary>
+        public abstract Image Image { get; }
+
+        /// <summary>
         /// Gets or sets the location of the <see cref="DrawableObject"/>
         /// </summary>
         public abstract Point Location { get; set; }
@@ -31,7 +36,7 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Gets a value indicating whether the <see cref="DrawableObject"/> is selected
         /// </summary>
-        public abstract bool Selected { get; set; }
+        public abstract bool Selected { get; }
 
         /// <summary>
         /// Selects the <see cref="DrawableObject"/>

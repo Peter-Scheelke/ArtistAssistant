@@ -66,7 +66,7 @@ namespace ArtistAssistant.DrawableObject
         /// An <see cref="Image"/> object containing an image created from a resource object based
         /// on the requested <see cref="ImageType"/>
         /// </returns>
-        public static ImageWrapper GetImage(ImageType imageType)
+        public static Image GetImage(ImageType imageType)
         {
             lock (ImagePool.poolLock)
             {
@@ -81,14 +81,14 @@ namespace ArtistAssistant.DrawableObject
                     uniqueInstance.pool.Add(imageType, (Image)Resources.ResourceManager.GetObject(imageName));
                 }
 
-                return ImageWrapper.Create(uniqueInstance.pool[imageType]);
+                return ImageWrapper.Create(uniqueInstance.pool[imageType]).Image;
             }
         }
 
         /// <summary>
         /// Wraps an <see cref="Image"/> to make it read only
         /// </summary>
-        public class ImageWrapper
+        private class ImageWrapper
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="ImageWrapper"/> class

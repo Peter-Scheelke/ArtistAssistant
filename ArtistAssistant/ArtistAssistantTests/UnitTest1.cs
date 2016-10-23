@@ -23,45 +23,45 @@ namespace ArtistAssistantTests
             // and that it doesn't throw any exceptions.
             try
             {
-                Image image = ImagePool.GetImage(ImageType.Cloud).Image;
+                Image image = ImagePool.GetImage(ImageType.Cloud);
                 Assert.IsTrue(ImagePool.Count == 1);
                 Assert.IsFalse(image == null);
-                image = ImagePool.GetImage(ImageType.Cloud).Image;
+                image = ImagePool.GetImage(ImageType.Cloud);
                 Assert.IsTrue(ImagePool.Count == 1);
                 Assert.IsFalse(image == null);
 
-                image = ImagePool.GetImage(ImageType.Mountain).Image;
+                image = ImagePool.GetImage(ImageType.Mountain);
                 Assert.IsTrue(ImagePool.Count == 2);
                 Assert.IsFalse(image == null);
-                image = ImagePool.GetImage(ImageType.Mountain).Image;
+                image = ImagePool.GetImage(ImageType.Mountain);
                 Assert.IsTrue(ImagePool.Count == 2);
                 Assert.IsFalse(image == null);
 
-                image = ImagePool.GetImage(ImageType.Pine).Image;
+                image = ImagePool.GetImage(ImageType.Pine);
                 Assert.IsTrue(ImagePool.Count == 3);
                 Assert.IsFalse(image == null);
-                image = ImagePool.GetImage(ImageType.Pine).Image;
+                image = ImagePool.GetImage(ImageType.Pine);
                 Assert.IsTrue(ImagePool.Count == 3);
                 Assert.IsFalse(image == null);
 
-                image = ImagePool.GetImage(ImageType.Pond).Image;
+                image = ImagePool.GetImage(ImageType.Pond);
                 Assert.IsTrue(ImagePool.Count == 4);
                 Assert.IsFalse(image == null);
-                image = ImagePool.GetImage(ImageType.Pond).Image;
+                image = ImagePool.GetImage(ImageType.Pond);
                 Assert.IsTrue(ImagePool.Count == 4);
                 Assert.IsFalse(image == null);
 
-                image = ImagePool.GetImage(ImageType.Rain).Image;
+                image = ImagePool.GetImage(ImageType.Rain);
                 Assert.IsTrue(ImagePool.Count == 5);
                 Assert.IsFalse(image == null);
-                image = ImagePool.GetImage(ImageType.Rain).Image;
+                image = ImagePool.GetImage(ImageType.Rain);
                 Assert.IsTrue(ImagePool.Count == 5);
                 Assert.IsFalse(image == null);
 
-                image = ImagePool.GetImage(ImageType.Tree).Image;
+                image = ImagePool.GetImage(ImageType.Tree);
                 Assert.IsTrue(ImagePool.Count == 6);
                 Assert.IsFalse(image == null);
-                image = ImagePool.GetImage(ImageType.Tree).Image;
+                image = ImagePool.GetImage(ImageType.Tree);
                 Assert.IsTrue(ImagePool.Count == 6);
                 Assert.IsFalse(image == null);
             }

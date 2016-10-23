@@ -16,24 +16,13 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtrinsicState"/> class
         /// </summary>
-        /// <param name="imageType">
-        /// The type of the image that the <see cref="DrawableObject"/> should reference in its
-        /// <see cref="IntrinsicState"/>
-        /// </param>
         /// <param name="location">The location of the <see cref="DrawableObject"/></param>
         /// <param name="size">The size of the <see cref="DrawableObject"/></param>
-        public ExtrinsicState(ImageType imageType, Point location, Size size)
+        public ExtrinsicState(Point location, Size size)
         {
-            this.ImageType = imageType;
             this.Location = location;
             this.Size = size;
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="ImageType"/> of the <see cref="DrawableObject"/> containing
-        /// the <see cref="ExtrinsicState"/> object
-        /// </summary>
-        public ImageType ImageType { get; set; }
 
         /// <summary>
         /// Gets or sets the location of the <see cref="DrawableObject"/> containing the
@@ -50,16 +39,12 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Returns a new instance of the <see cref="ExtrinsicState"/> class
         /// </summary>
-        /// <param name="imageType">
-        /// The type of the image that the <see cref="DrawableObject"/> should reference in its
-        /// <see cref="IntrinsicState"/>
-        /// </param>
         /// <param name="location">The location of the <see cref="DrawableObject"/></param>
         /// <param name="size">The size of the <see cref="DrawableObject"/></param>
         /// <returns>A new instance of the <see cref="ExtrinsicState"/> class</returns>
-        public static ExtrinsicState Create(ImageType imageType, Point location, Size size)
+        public static ExtrinsicState Create(Point location, Size size)
         {
-            return new ExtrinsicState(imageType, location, size);
+            return new ExtrinsicState(location, size);
         }
     }
 }
