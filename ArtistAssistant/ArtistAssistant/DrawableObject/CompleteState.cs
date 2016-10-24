@@ -127,13 +127,8 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Deselects the <see cref="CompleteState"/>
         /// </summary>
-        /// <param name="graphics">
-        /// The <see cref="Graphics"/> object that will be changed to reflect that the <see cref="CompleteState"/>
-        /// is no longer selected
-        /// </param>
-        public override void Deselect(Graphics graphics)
+        public override void Deselect()
         {
-            // Not finished yet
             this.selected = false;
         }
 
@@ -150,22 +145,9 @@ namespace ArtistAssistant.DrawableObject
         /// Selects the <see cref="CompleteState"/>
         /// </summary>
         /// <param name="graphics">
-        /// The <see cref="Graphics"/> object that will be changed to reflect that the <see cref="CompleteState"/>
-        /// is selected
-        /// </param>
-        public override void Select(Graphics graphics)
+        public override void Select()
         {
             this.selected = true;
-
-            // Draw a box around the object.
-            Point topLeft = this.Location;
-            Point topRight = new Point(this.Location.X + this.Size.Width, this.Location.Y);
-            Point bottomLeft = new Point(this.Location.X, this.Location.Y + this.Size.Height);
-            Point bottomRight = new Point(topRight.X, bottomLeft.Y);
-            graphics.DrawLine(Pens.Black, topLeft, topRight);
-            graphics.DrawLine(Pens.Black, topRight, bottomRight);
-            graphics.DrawLine(Pens.Black, bottomRight, bottomLeft);
-            graphics.DrawLine(Pens.Black, bottomLeft, topLeft);
         }
     }
 }

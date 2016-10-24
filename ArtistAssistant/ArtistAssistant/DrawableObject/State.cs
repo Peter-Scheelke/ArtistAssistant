@@ -41,14 +41,12 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Selects the <see cref="DrawableObject"/>
         /// </summary>
-        /// <param name="graphics">The graphics object that will be updated</param>
-        public abstract void Select(Graphics graphics);
+        public abstract void Select();
 
         /// <summary>
         /// Deselects the <see cref="DrawableObject"/>
         /// </summary>
-        /// <param name="graphics">The graphics object that will be updated</param>
-        public abstract void Deselect(Graphics graphics);
+        public abstract void Deselect();
 
         /// <summary>
         /// Draws the <see cref="DrawableObject"/> on the given <see cref="Graphics"/> object

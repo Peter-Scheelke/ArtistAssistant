@@ -131,8 +131,7 @@ namespace ArtistAssistant.DrawableObject
         /// Deselects the <see cref="IntrinsicState"/>. Except that doesn't make sense, so it throws an exception
         /// instead.
         /// </summary>
-        /// <param name="graphics">The graphics that would be updated if doing this made any sense.</param>
-        public override void Deselect(Graphics graphics)
+        public override void Deselect()
         {
             throw new ApplicationException("Error: Cannot deselect an IntrinsicState object.");
         }
@@ -151,8 +150,7 @@ namespace ArtistAssistant.DrawableObject
         /// Selects the <see cref="IntrinsicState"/>. Except that doesn't make any sense, so it throws an exception
         /// instead.
         /// </summary>
-        /// <param name="graphics">The graphics that would be updated if doing this made any sense.</param>
-        public override void Select(Graphics graphics)
+        public override void Select()
         {
             throw new ApplicationException("Error: Cannot select an IntrinsicState object.");
         }

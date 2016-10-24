@@ -51,8 +51,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ArtistAssistantTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDrawableObjectListObserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArtistAssistant\ArtistAssistant.csproj">
