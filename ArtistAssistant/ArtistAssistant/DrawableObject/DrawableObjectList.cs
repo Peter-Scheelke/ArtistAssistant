@@ -9,6 +9,7 @@ namespace ArtistAssistant.DrawableObject
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+
     /// <summary>
     /// A list of <see cref="DrawableObject"/>s. It subscribes to those objects, and notifies
     /// any observers when those objects change
@@ -26,13 +27,27 @@ namespace ArtistAssistant.DrawableObject
         private List<IDisposable> unsubscribers;
 
         /// <summary>
+        /// Keeps track of whether the <see cref="DrawableObjectList"/>
+        /// is changing which element is currently selected
+        /// </summary>
+        private bool isChangingState;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DrawableObjectList"/> class
         /// </summary>
         public DrawableObjectList()
         {
             this.observers = new List<IObserver<DrawableObjectList>>();
             this.unsubscribers = new List<IDisposable>();
+            this.RenderOrder = new List<DrawableObject>();
+            this.isChangingState = false;
         }
+
+        /// <summary>
+        /// Gets the order in which the <see cref="DrawableObject"/>s in the <see cref="DrawableObjectList"/>
+        /// should be rendered
+        /// </summary>
+        public List<DrawableObject> RenderOrder { get; private set; }
 
         /// <summary>
         /// Creates a new <see cref="DrawableObjectList"/> object
@@ -88,6 +103,7 @@ namespace ArtistAssistant.DrawableObject
         {
             this.unsubscribers.Add(item.Subscribe(this));
             base.Add(item);
+            this.RenderOrder.Add(item);
             this.Notify();
         }
 
@@ -102,6 +118,7 @@ namespace ArtistAssistant.DrawableObject
                 this.unsubscribers.Add(drawableObject.Subscribe(this));
             }
 
+            this.RenderOrder.AddRange(collection);
             base.AddRange(collection);
             this.Notify();
         }
@@ -115,6 +132,7 @@ namespace ArtistAssistant.DrawableObject
         public new void Insert(int index, DrawableObject item)
         {
             this.unsubscribers.Insert(index, item.Subscribe(this));
+            this.RenderOrder.Add(item);
             base.Insert(index, item);
             this.Notify();
         }
@@ -134,6 +152,7 @@ namespace ArtistAssistant.DrawableObject
             }
 
             this.unsubscribers.InsertRange(index, unsubscribers);
+            this.RenderOrder.AddRange(collection);
             base.InsertRange(index, collection);
             this.Notify();
         }
@@ -149,6 +168,7 @@ namespace ArtistAssistant.DrawableObject
             IDisposable unsubsriber = this.unsubscribers[index];
             this.unsubscribers.RemoveAt(index);
             unsubsriber.Dispose();
+            this.RenderOrder.Remove(item);
             base.Remove(item);
             this.Notify();
         }
@@ -162,6 +182,7 @@ namespace ArtistAssistant.DrawableObject
             IDisposable unsubsriber = this.unsubscribers[index];
             this.unsubscribers.RemoveAt(index);
             unsubsriber.Dispose();
+            this.RenderOrder.Remove(this[index]);
             base.RemoveAt(index);
             this.Notify();
         }
@@ -187,6 +208,7 @@ namespace ArtistAssistant.DrawableObject
                 unsubscriber.Dispose();
             }
 
+            this.RenderOrder.RemoveAll(match);
             base.RemoveAll(match);
             this.Notify();
         }
@@ -201,6 +223,7 @@ namespace ArtistAssistant.DrawableObject
             for (int i = index; i < index + count; ++i)
             {
                 this.unsubscribers[i].Dispose();
+                this.RenderOrder.Remove(this[i]);
             }
 
             this.unsubscribers.RemoveRange(index, count);
@@ -219,6 +242,7 @@ namespace ArtistAssistant.DrawableObject
             }
 
             this.unsubscribers.Clear();
+            this.RenderOrder.Clear(); 
             base.Clear();
             this.Notify();
         }
@@ -248,6 +272,34 @@ namespace ArtistAssistant.DrawableObject
         /// <param name="value">The <see cref="DrawableObject"/> that has been updated</param>
         public void OnNext(DrawableObject value)
         {
+            if (this.isChangingState)
+            {
+                return;
+            }
+
+            this.RenderOrder.Remove(value);
+            this.RenderOrder.Add(value);
+
+            // This makes sure that only one element can be selected
+            // at a time (isChangingState prevents OnNext from calling
+            // itself in an infinite loop).
+            if (value.Selected)
+            {
+                this.isChangingState = true;
+                for (int i = 0; i < this.Count; ++i)
+                {
+                    if (this[i].Id != value.Id)
+                    {
+                        if (this[i].Selected)
+                        {
+                            this[i].Deselect();
+                        }
+                    }
+                }
+
+                this.isChangingState = false;
+            }
+
             foreach (IObserver<DrawableObjectList> observer in this.observers)
             {
                 observer.OnNext(this);

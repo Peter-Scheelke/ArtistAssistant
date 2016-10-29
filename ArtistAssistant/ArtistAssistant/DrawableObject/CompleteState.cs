@@ -144,7 +144,6 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Selects the <see cref="CompleteState"/>
         /// </summary>
-        /// <param name="graphics">
         public override void Select()
         {
             this.selected = true;

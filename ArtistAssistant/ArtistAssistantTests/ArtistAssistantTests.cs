@@ -296,5 +296,51 @@ namespace ArtistAssistantTests
             obj.Size = new Size(19, 19);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == list[0].Id && obj.Id != list[0].Id);
         }
+
+        [TestMethod]
+        public void TestRenderOrder()
+        {
+            DrawableObjectList list = DrawableObjectList.Create();
+            DrawableObject obj = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1));
+            Assert.IsTrue(list.RenderOrder.Count == 0);
+            list.Add(obj);
+            Assert.IsTrue(list.RenderOrder.Count == 1);
+
+            obj = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(2, 2));
+            list.Add(obj);
+            Assert.IsTrue(list.RenderOrder.Count == 2);
+
+            Assert.IsTrue(object.ReferenceEquals(list.RenderOrder[1], obj));
+            list[0].Size = new Size(3, 3);
+            Assert.IsTrue(object.ReferenceEquals(list.RenderOrder[0], obj));
+
+            obj.Size = new Size(4, 4);
+            Assert.IsTrue(object.ReferenceEquals(list.RenderOrder[1], obj));
+
+            DrawableObject obj2 = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(12, 12));
+            list.Add(obj2);
+            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[2]));
+
+            list[0].Size = new Size(42, 42);
+            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[1]));
+            list[1].Size = new Size(41, 41);
+            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[0]));
+
+            list[2].Size = new Size(43, 43);
+            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[2]));
+
+            list[0].Select();
+            Assert.IsTrue(list[0].Selected);
+            list[1].Select();
+            list[2].Select();
+            Assert.IsFalse(list[0].Selected);
+            Assert.IsFalse(list[1].Selected);
+            Assert.IsTrue(list[2].Selected);
+            list[2].Deselect();
+            foreach (var item in list)
+            {
+                Assert.IsFalse(item.Selected);
+            }
+        }
     }
 }
