@@ -302,59 +302,72 @@ namespace ArtistAssistantTests
         public void TestRenderOrder()
         {
             DrawableObjectList list = DrawableObjectList.Create();
-            DrawableObject obj = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1));
-            Assert.IsTrue(list.RenderOrder.Count == 0);
-            list.Add(obj);
-            Assert.IsTrue(list.RenderOrder.Count == 1);
+            List<DrawableObject> objList = new List<DrawableObject>();
 
-            obj = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(2, 2));
-            list.Add(obj);
-            Assert.IsTrue(list.RenderOrder.Count == 2);
-
-            Assert.IsTrue(object.ReferenceEquals(list.RenderOrder[1], obj));
-            list[0].Size = new Size(3, 3);
-            Assert.IsTrue(object.ReferenceEquals(list.RenderOrder[0], obj));
-
-            obj.Size = new Size(4, 4);
-            Assert.IsTrue(object.ReferenceEquals(list.RenderOrder[1], obj));
-
-            DrawableObject obj2 = DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(12, 12));
-            list.Add(obj2);
-            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[2]));
-
-            list[0].Size = new Size(42, 42);
-            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[1]));
-            list[1].Size = new Size(41, 41);
-            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[0]));
-
-            list[2].Size = new Size(43, 43);
-            Assert.IsTrue(object.ReferenceEquals(obj2, list.RenderOrder[2]));
-
-            list[0].Select();
-            Assert.IsTrue(list[0].Selected);
-            list[1].Select();
-            list[2].Select();
-            Assert.IsFalse(list[0].Selected);
-            Assert.IsFalse(list[1].Selected);
-            Assert.IsTrue(list[2].Selected);
-            list[2].Deselect();
-            foreach (var item in list)
+            for (int i = 0; i < 10; ++i)
             {
-                Assert.IsFalse(item.Selected);
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
             }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            int lastId = list[list.Count - 1].Id;
+            int secondLastId = list[list.Count - 2].Id;
+
+            int firstId = list[0].Id;
+            int secondId = list[1].Id;
+
+            Assert.IsTrue(list.RenderOrder[0].Id == firstId);
+            Assert.IsTrue(list.RenderOrder[1].Id == secondId);
+
+            Assert.IsTrue(list[list.Count - 2].Id == secondLastId);
+            Assert.IsTrue(list[list.Count - 1].Id == lastId);
+
+            // This should slide the second to last element down to
+            // the second index and slide 2 -> Count - 1 up once
+            list.BringToIndex(list.Count - 2, 1);
+
+            Assert.IsTrue(list.RenderOrder[0].Id == firstId);
+            Assert.IsTrue(list[list.Count - 1].Id == lastId);
+
+            Assert.IsTrue(list.RenderOrder[1].Id == secondLastId);
+            Assert.IsTrue(list.RenderOrder[2].Id == secondId);
+
+            // This should slide the second element back to its original position,
+            // leaving the DrawableObjectList in its original order
+            list.BringToIndex(1, list.Count - 2);
+
+            Assert.IsTrue(list.RenderOrder[0].Id == firstId);
+            Assert.IsTrue(list.RenderOrder[1].Id == secondId);
+
+            Assert.IsTrue(list[list.Count - 2].Id == secondLastId);
+            Assert.IsTrue(list[list.Count - 1].Id == lastId);
         }
 
         [TestMethod]
         public void TestAddCommand()
         {
+            // Set up
             DrawableObjectList list = DrawableObjectList.Create();
+
+            // Create a command
             AddCommand command = AddCommand.Create(list, ImageType.Cloud, new Point(5, 5), new Size(5, 5));
+
+            // The list should be empty
             Assert.IsTrue(list.Count == 0);
+
+            // The list should have one item
             command.Execute();
             Assert.IsTrue(list.Count == 1);
+
+            // The list should have nothing in it
             command.Undo();
             Assert.IsTrue(list.Count == 0);
 
+            // Undoing on an empty list should throw an error
             bool didFail = false;
             try
             {
@@ -369,6 +382,7 @@ namespace ArtistAssistantTests
 
             didFail = false;
 
+            // Test adding a bit more
             command.Execute();
             Assert.IsTrue(list.Count == 1);
             command.Execute();
@@ -377,6 +391,185 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list.Count == 1);
             command.Undo();
             Assert.IsTrue(list.Count == 0);
+        }
+
+        [TestMethod]
+        public void TestBringToIndexCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            // Create a command
+            BringToIndexCommand command = BringToIndexCommand.Create(list, 0, 8);
+
+            int id = list.RenderOrder[0].Id;
+
+            // This should move list[0] to the 8th index and slide everything else down
+            command.Execute();
+            Assert.IsTrue(list.RenderOrder[8].Id == id);
+
+            // This should return the list to its original state
+            command.Undo();
+            Assert.IsTrue(list.RenderOrder[0].Id == id);
+
+            // Create a command to test sliding everything the other way
+            id = list.RenderOrder[8].Id;
+            command = BringToIndexCommand.Create(list, 8, 0);
+
+            // This should move list[8] to the front of the list and slide everything else up
+            command.Execute();
+            Assert.IsTrue(list.RenderOrder[0].Id == id);
+
+            // This should return the list to its original state
+            command.Undo();
+            Assert.IsTrue(list.RenderOrder[8].Id == id);
+        }
+
+        [TestMethod]
+        public void TestRemoveCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            DrawableObject third = list.RenderOrder[3];
+
+            // Create a command
+            RemoveCommand removeCommand = RemoveCommand.Create(list, third.Id);
+
+            // This should remove third from the list
+            removeCommand.Execute();
+            Assert.IsFalse(third.Id == list.RenderOrder[3].Id);
+
+            // This should add third back to the list at the same index
+            removeCommand.Undo();
+            Assert.IsTrue(third.Id == list.RenderOrder[3].Id);
+        }
+
+        [TestMethod]
+        public void TestSelectCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var drawableObj in objList)
+            {
+                list.Add(drawableObj);
+            }
+
+            foreach(var drawableObj in list)
+            {
+                Assert.IsFalse(drawableObj.Selected);
+            }
+
+            DrawableObject obj = list[0];
+
+            // Create a command
+            SelectCommand command = SelectCommand.Create(list, obj);
+
+            // Execute the command. Should select list[0]
+            command.Execute();
+            Assert.IsTrue(list[0].Selected);
+
+            // Undo the command. Should deselect list[0]
+            command.Undo();
+            Assert.IsFalse(list[0].Selected);
+
+            foreach (var drawableObj in list)
+            {
+                Assert.IsFalse(drawableObj.Selected);
+            }
+
+            // Select something in the list
+            list[3].Select();
+            Assert.IsFalse(list[0].Selected);
+            Assert.IsTrue(list[3].Selected);
+
+            // This should deselect list[3] and select list[0]
+            command.Execute();
+            Assert.IsTrue(list[0].Selected);
+            Assert.IsFalse(list[3].Selected);
+
+            // This should deselect list[0] and reselect list[3]
+            command.Undo();
+            Assert.IsFalse(list[0].Selected);
+            Assert.IsTrue(list[3].Selected);
+        }
+
+        [TestMethod]
+        public void TestDeselectCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            // Create command
+            DeselectCommand command = DeselectCommand.Create(list);
+
+            // Select something
+            list[4].Select();
+
+            // Execute the command
+            command.Execute();
+
+            // Nothing should be selected now
+            foreach (var obj in list)
+            {
+                Assert.IsFalse(obj.Selected);
+            }
+
+            // This should reselect only list[4]
+            command.Undo();
+            Assert.IsTrue(list[4].Selected);
+
+            foreach (var obj in list)
+            {
+                if (obj.Id != list[4].Id)
+                {
+                    Assert.IsFalse(obj.Selected);
+                }
+            }
         }
     }
 }

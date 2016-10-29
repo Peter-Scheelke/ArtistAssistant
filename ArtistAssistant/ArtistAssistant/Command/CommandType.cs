@@ -45,6 +45,12 @@ namespace ArtistAssistant.Command
         /// <summary>
         /// A command the duplicates a <see cref="DrawableObject.DrawableObject"/>
         /// </summary>
-        Duplicate
+        Duplicate,
+
+        /// <summary>
+        /// A command that changes the order in which <see cref="DrawableObject.DrawableObject"/>s
+        /// are rendered
+        /// </summary>
+        BringToIndex
     }
 }

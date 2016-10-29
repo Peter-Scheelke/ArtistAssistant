@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AddCommand.cs" />
+    <Compile Include="Command\BringToIndexCommand.cs" />
     <Compile Include="Command\CommandFactory.cs" />
     <Compile Include="Command\CommandType.cs" />
     <Compile Include="Command\DeselectCommand.cs" />

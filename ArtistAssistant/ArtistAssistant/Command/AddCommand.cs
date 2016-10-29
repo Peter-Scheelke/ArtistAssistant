@@ -11,13 +11,13 @@ namespace ArtistAssistant.Command
 
     /// <summary>
     /// A <see cref="ICommand"/> object that adds a <see cref="DrawableObject"/>
-    /// to the <see cref="DrawableObject.DrawableObjectList"/>
+    /// to the list of <see cref="DrawableObject"/>s
     /// </summary>
     public class AddCommand : ICommand
     {
         /// <summary>
         /// The <see cref="DrawableObject"/> that will be added to the
-        /// <see cref="DrawableObject.DrawableObjectList"/>
+        /// list of <see cref="DrawableObject"/>s
         /// </summary>
         private DrawableObject addedObject;
 
@@ -25,7 +25,7 @@ namespace ArtistAssistant.Command
         /// Initializes a new instance of the <see cref="AddCommand"/> class
         /// </summary>
         /// <param name="drawableObjectList">
-        /// The <see cref="DrawableObjectList"/> to which the 
+        /// The list of <see cref="DrawableObject"/>s to which the 
         /// <see cref="DrawableObject"/> will be added
         /// </param>
         /// <param name="imageType">The <see cref="ImageType"/> of the <see cref="DrawableObject"/></param>
@@ -38,7 +38,7 @@ namespace ArtistAssistant.Command
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="DrawableObjectList.DrawableObjectList"/> to which
+        /// Gets or sets the list of <see cref="DrawableObject"/>s to which
         /// the <see cref="DrawableObject.DrawableObject"/> should be added
         /// </summary>
         public DrawableObjectList DrawableObjectList { get; set; }
@@ -47,7 +47,7 @@ namespace ArtistAssistant.Command
         /// Creates a new instance of the <see cref="AddCommand"/> class
         /// </summary>
         /// <param name="drawableObjectList">
-        /// The <see cref="DrawableObjectList"/> to which the 
+        /// The list of <see cref="DrawableObject"/>s to which the 
         /// <see cref="DrawableObject"/> will be added
         /// </param>
         /// <param name="imageType">The <see cref="ImageType"/> of the <see cref="DrawableObject"/></param>
@@ -61,7 +61,7 @@ namespace ArtistAssistant.Command
 
         /// <summary>
         /// Executes the <see cref="AddCommand"/> by adding the <see cref="DrawableObject"/>
-        /// to the <see cref="DrawableObjectList"/>
+        /// to the list of <see cref="DrawableObject"/>s
         /// </summary>
         public void Execute()
         {
@@ -70,7 +70,7 @@ namespace ArtistAssistant.Command
 
         /// <summary>
         /// Undoes the <see cref="AddCommand"/> by removing the <see cref="DrawableObject"/>
-        /// from the <see cref="DrawableObjectList"/>
+        /// from the list of <see cref="DrawableObject"/>s
         /// </summary>
         public void Undo()
         {

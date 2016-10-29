@@ -248,6 +248,47 @@ namespace ArtistAssistant.DrawableObject
         }
 
         /// <summary>
+        /// Moves the <see cref="DrawableObject"/> at the given index in <see cref="RenderOrder"/> to the target index
+        /// </summary>
+        /// <param name="currentIndex">The current index of the <see cref="DrawableObject"/></param>
+        /// <param name="targetIndex">The target index of the <see cref="DrawableObject"/></param>
+        public void BringToIndex(int currentIndex, int targetIndex)
+        {
+            if (currentIndex >= this.Count || currentIndex < 0)
+            {
+                return;
+            }
+
+            if (targetIndex >= Count || targetIndex < 0)
+            {
+                return;
+            }
+
+            DrawableObject temp = this.RenderOrder[currentIndex];
+
+            while (true)
+            {
+                if (targetIndex < currentIndex)
+                {
+                    // Shift things to the right until the target index is free
+                    --currentIndex;
+                    this.RenderOrder[currentIndex + 1] = this.RenderOrder[currentIndex];
+                }
+                else if (targetIndex > currentIndex)
+                {
+                    // Shift stuff left until the target index is free
+                    ++currentIndex;
+                    this.RenderOrder[currentIndex - 1] = this.RenderOrder[currentIndex];
+                }
+                else
+                {
+                    this.RenderOrder[currentIndex] = temp;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
         /// Not used
         /// </summary>
         public void OnCompleted()
@@ -276,9 +317,6 @@ namespace ArtistAssistant.DrawableObject
             {
                 return;
             }
-
-            this.RenderOrder.Remove(value);
-            this.RenderOrder.Add(value);
 
             // This makes sure that only one element can be selected
             // at a time (isChangingState prevents OnNext from calling
