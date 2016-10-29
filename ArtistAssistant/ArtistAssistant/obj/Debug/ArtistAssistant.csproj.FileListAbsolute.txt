@@ -22,3 +22,4 @@ C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\Artis
 C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csproj.GenerateResource.Cache
 C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.exe
 C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.pdb
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.Form1.resources

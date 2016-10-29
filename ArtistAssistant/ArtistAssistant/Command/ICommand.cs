@@ -12,6 +12,11 @@ namespace ArtistAssistant.Command
     public interface ICommand
     {
         /// <summary>
+        /// The <see cref="DrawableObject.DrawableObject"/>
+        /// </summary>
+        DrawableObject.DrawableObjectList DrawableObjectList { get; set; }
+
+        /// <summary>
         /// Execute the command
         /// </summary>
         void Execute();

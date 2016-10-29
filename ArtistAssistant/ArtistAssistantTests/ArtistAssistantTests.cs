@@ -4,6 +4,7 @@ using ArtistAssistant.DrawableObject;
 using System.Drawing;
 using System.Reflection;
 using System.Collections.Generic;
+using ArtistAssistant.Command;
 
 namespace ArtistAssistantTests
 {
@@ -341,6 +342,41 @@ namespace ArtistAssistantTests
             {
                 Assert.IsFalse(item.Selected);
             }
+        }
+
+        [TestMethod]
+        public void TestAddCommand()
+        {
+            DrawableObjectList list = DrawableObjectList.Create();
+            AddCommand command = AddCommand.Create(list, ImageType.Cloud, new Point(5, 5), new Size(5, 5));
+            Assert.IsTrue(list.Count == 0);
+            command.Execute();
+            Assert.IsTrue(list.Count == 1);
+            command.Undo();
+            Assert.IsTrue(list.Count == 0);
+
+            bool didFail = false;
+            try
+            {
+                command.Undo();
+            }
+            catch(Exception)
+            {
+                didFail = true;
+            }
+
+            Assert.IsTrue(didFail);
+
+            didFail = false;
+
+            command.Execute();
+            Assert.IsTrue(list.Count == 1);
+            command.Execute();
+            Assert.IsTrue(list.Count == 2);
+            command.Undo();
+            Assert.IsTrue(list.Count == 1);
+            command.Undo();
+            Assert.IsTrue(list.Count == 0);
         }
     }
 }
