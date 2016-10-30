@@ -38,6 +38,17 @@ namespace ArtistAssistant.Command
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="AddCommand"/> class
+        /// </summary>
+        /// <param name="drawableObjectList">The list of <see cref="DrawableObject"/>s to which a new one is being added</param>
+        /// <param name="addedObject">The <see cref="DrawableObject"/> being added to the list of <see cref="DrawableObject"/>s</param>
+        public AddCommand(DrawableObjectList drawableObjectList, DrawableObject addedObject)
+        {
+            this.DrawableObjectList = drawableObjectList;
+            this.addedObject = addedObject;
+        }
+
+        /// <summary>
         /// Gets or sets the list of <see cref="DrawableObject"/>s to which
         /// the <see cref="DrawableObject.DrawableObject"/> should be added
         /// </summary>
@@ -57,6 +68,17 @@ namespace ArtistAssistant.Command
         public static AddCommand Create(DrawableObjectList drawableObjectList, ImageType imageType, Point location, Size size)
         {
             return new AddCommand(drawableObjectList, imageType, location, size);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AddCommand"/> class
+        /// </summary>
+        /// <param name="drawableObjectList">The list of <see cref="DrawableObject"/>s to which a new one is being added</param>
+        /// <param name="addedObject">The <see cref="DrawableObject"/> being added to the list of <see cref="DrawableObject"/>s</param>
+        /// <returns>A new instance of the <see cref="AddCommand"/> class</returns>
+        public static AddCommand Create(DrawableObjectList drawableObjectList, DrawableObject addedObject)
+        {
+            return new AddCommand(drawableObjectList, addedObject);
         }
 
         /// <summary>

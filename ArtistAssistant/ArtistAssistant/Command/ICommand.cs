@@ -6,15 +6,17 @@
 
 namespace ArtistAssistant.Command
 {
+    using DrawableObject;
+
     /// <summary>
     /// The interface used to create commands
     /// </summary>
     public interface ICommand
     {
         /// <summary>
-        /// The <see cref="DrawableObject.DrawableObject"/>
+        /// Gets or sets the list of <see cref="DrawableObject"/>s
         /// </summary>
-        DrawableObject.DrawableObjectList DrawableObjectList { get; set; }
+        DrawableObjectList DrawableObjectList { get; set; }
 
         /// <summary>
         /// Execute the command

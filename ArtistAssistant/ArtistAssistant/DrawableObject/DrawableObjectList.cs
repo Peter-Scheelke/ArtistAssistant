@@ -259,7 +259,7 @@ namespace ArtistAssistant.DrawableObject
                 return;
             }
 
-            if (targetIndex >= Count || targetIndex < 0)
+            if (targetIndex >= this.Count || targetIndex < 0)
             {
                 return;
             }

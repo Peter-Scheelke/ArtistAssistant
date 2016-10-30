@@ -421,6 +421,17 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list.Count == 1);
             command.Undo();
             Assert.IsTrue(list.Count == 0);
+
+            // Test the other constructor
+            command = AddCommand.Create(list, DrawableObject.Create(ImageType.Cloud, new Point(5, 5), new Size(5, 5)));
+            command.Execute();
+            Assert.IsTrue(list.Count == 1);
+            command.Execute();
+            Assert.IsTrue(list.Count == 2);
+            command.Undo();
+            Assert.IsTrue(list.Count == 1);
+            command.Undo();
+            Assert.IsTrue(list.Count == 0);
         }
 
         /// <summary>
@@ -504,6 +515,14 @@ namespace ArtistAssistantTests
             // This should add third back to the list at the same index
             removeCommand.Undo();
             Assert.IsTrue(third.Id == list.RenderOrder[3].Id);
+
+            // Test the other constructor
+            removeCommand = RemoveCommand.Create(list, third);
+            removeCommand.Execute();
+            Assert.IsFalse(third.Id == list.RenderOrder[3].Id);
+            removeCommand.Undo();
+            Assert.IsTrue(third.Id == list.RenderOrder[3].Id);
+
         }
 
         /// <summary>
@@ -537,6 +556,38 @@ namespace ArtistAssistantTests
 
             // Create a command
             SelectCommand command = SelectCommand.Create(list, obj);
+
+            // Execute the command. Should select list[0]
+            command.Execute();
+            Assert.IsTrue(list[0].Selected);
+
+            // Undo the command. Should deselect list[0]
+            command.Undo();
+            Assert.IsFalse(list[0].Selected);
+
+            foreach (var drawableObj in list)
+            {
+                Assert.IsFalse(drawableObj.Selected);
+            }
+
+            // Select something in the list
+            list[3].Select();
+            Assert.IsFalse(list[0].Selected);
+            Assert.IsTrue(list[3].Selected);
+
+            // This should deselect list[3] and select list[0]
+            command.Execute();
+            Assert.IsTrue(list[0].Selected);
+            Assert.IsFalse(list[3].Selected);
+
+            // This should deselect list[0] and reselect list[3]
+            command.Undo();
+            Assert.IsFalse(list[0].Selected);
+            Assert.IsTrue(list[3].Selected);
+
+            // Test the second constructor
+            list[3].Deselect();
+            command = SelectCommand.Create(list, obj);
 
             // Execute the command. Should select list[0]
             command.Execute();
@@ -743,13 +794,299 @@ namespace ArtistAssistantTests
             command.Undo();
             Assert.IsTrue(list.Count == 10);
 
+            // Make sure you can execute multiple times
             command.Execute();
             command.Execute();
             Assert.IsTrue(list.Count == 12);
+
+            // Make sure undoing doesn't undo too much
             command.Undo();
             command.Undo();
             command.Undo();
             Assert.IsTrue(list.Count == 10);
+        }
+
+        /// <summary>
+        /// Make sure that the <see cref="CommandFactory"/> correctly
+        /// creates <see cref="ICommand"/>s
+        /// </summary>
+        [TestMethod]
+        public void TestCommandFactory()
+        {
+            bool failed = true; // Failed is used to make sure that exceptions were thrown
+            CommandFactory factory = CommandFactory.Create();
+            CommandFactory.CommandArguments parameters;
+            DrawableObjectList list = DrawableObjectList.Create();
+            ICommand command = null;
+            DrawableObject drawableObject = null;
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Mountain, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            failed = CheckAddCommandCreation(failed, factory, out parameters, list, out command, out drawableObject);
+            failed = CheckBringToIndexCommandCreation(failed, factory, out parameters, list, out command);
+            failed = CheckDeselectCommandCreation(failed, factory, out parameters, list, out command);
+            failed = CheckDuplicateCommandCreation(failed, factory, out parameters, list, out command);
+            failed = CheckMoveCommandCreation(failed, factory, out parameters, list, out command);
+            failed = CheckRemoveCommandCreation(failed, factory, out parameters, list, out command);
+            failed = CheckScaleCommandCreation(failed, factory, out parameters, list, out command);
+            failed = CheckSelectCommandCreation(failed, factory, out parameters, list, out command);
+        }
+
+        private static bool CheckSelectCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+
+            // Test SelectCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.Select;
+            parameters.DrawableObjectList = list;
+
+            // Parameters isn't correct for a SelectCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            parameters.Location = list.RenderOrder[list.Count - 1].Location;
+            command = factory.CreateCommand(parameters);
+            Assert.IsFalse(list.RenderOrder[list.Count - 1].Selected);
+            command.Execute();
+            Assert.IsTrue(list.RenderOrder[list.Count - 1].Selected);
+            command.Undo();
+            Assert.IsFalse(list.RenderOrder[list.Count - 1].Selected);
+            return failed;
+        }
+
+        private static bool CheckScaleCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+            // Test ScaleCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.Scale;
+            parameters.DrawableObjectList = list;
+            parameters.AffectedDrawableObject = list[7];
+
+            // Parameters isn't correct for a ScaleCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+
+            parameters.Size = new Size(50, 50);
+            command = factory.CreateCommand(parameters);
+            Assert.IsTrue(list[7].Size.Width == 1);
+            Assert.IsTrue(list[7].Size.Height == 1);
+            command.Execute();
+            Assert.IsTrue(list[7].Size.Width == 50);
+            Assert.IsTrue(list[7].Size.Height == 50);
+            command.Undo();
+            Assert.IsTrue(list[7].Size.Width == 1);
+            Assert.IsTrue(list[7].Size.Height == 1);
+            return failed;
+        }
+
+        private static bool CheckRemoveCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+            // Test RemoveCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.Remove;
+            parameters.DrawableObjectList = list;
+
+            // Parameters isn't correct for a RemoveCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            parameters.Location = list.RenderOrder[list.Count - 1].Location;
+            command = factory.CreateCommand(parameters);
+            int id = list.RenderOrder[list.Count - 1].Id;
+            command.Execute();
+            Assert.IsTrue(list.RenderOrder[list.Count - 1].Id != id);
+            command.Undo();
+            Assert.IsTrue(id == list.RenderOrder[list.Count - 1].Id);
+            return failed;
+        }
+
+        private static bool CheckMoveCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+            // Test MoveCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.Move;
+            parameters.DrawableObjectList = list;
+
+            // Parameters isn't correct for a MoveCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+            parameters.Location = new Point(80, 80);
+            parameters.AffectedDrawableObject = list[8];
+            command = factory.CreateCommand(parameters);
+            Assert.IsTrue(list[8].Location.X == 0 && list[8].Location.Y == 0);
+            command.Execute();
+            Assert.IsTrue(list[8].Location.X == 80 && list[8].Location.Y == 80);
+            command.Undo();
+            Assert.IsTrue(list[8].Location.X == 0 && list[8].Location.Y == 0);
+            return failed;
+        }
+
+        private static bool CheckDuplicateCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+            // Test DuplicateCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.Duplicate;
+            parameters.DrawableObjectList = list;
+
+            // Parameters isn't correct for a DuplicateCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+            parameters.AffectedDrawableObject = list[6];
+            command = factory.CreateCommand(parameters);
+            int count = list.Count;
+            command.Execute();
+            Assert.IsTrue(list.Count == count + 1);
+            Assert.IsTrue(list[6].Size.Width == list[count].Size.Width);
+            Assert.IsTrue(list[6].Size.Height == list[count].Size.Height);
+            Assert.IsTrue(list[6].Location.X == list[count].Location.X);
+            Assert.IsTrue(list[6].ImageType == list[count].ImageType);
+            command.Undo();
+            Assert.IsTrue(list.Count == count);
+            return failed;
+        }
+
+        private static bool CheckDeselectCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+            // Test DeselectCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+
+            // Parameters isn't correct for a DeselectCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            parameters.CommandType = CommandType.Deselect;
+            parameters.DrawableObjectList = list;
+            list[4].Select();
+            for (int i = 0; i < list.Count; ++i)
+            {
+                if (i == 4)
+                {
+                    Assert.IsTrue(list[i].Selected);
+                }
+                else
+                {
+                    Assert.IsFalse(list[i].Selected);
+                }
+            }
+
+            command = factory.CreateCommand(parameters);
+            command.Execute();
+            foreach (DrawableObject item in list)
+            {
+                Assert.IsFalse(item.Selected);
+            }
+
+            command.Undo();
+            for (int i = 0; i < list.Count; ++i)
+            {
+                if (i == 4)
+                {
+                    Assert.IsTrue(list[i].Selected);
+                }
+                else
+                {
+                    Assert.IsFalse(list[i].Selected);
+                }
+            }
+
+            return failed;
+        }
+
+        private static bool CheckBringToIndexCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        {
+            // Test BringToIndexCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.BringToIndex;
+            parameters.DrawableObjectList = list;
+
+            // Parameters isn't correct for a BringToIndexCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            parameters.StartIndex = 0;
+            parameters.TargetIndex = 5;
+            int id0 = list.RenderOrder[0].Id;
+            int id5 = list.RenderOrder[5].Id;
+            command = factory.CreateCommand(parameters);
+            command.Execute();
+            Assert.IsTrue(list.RenderOrder[4].Id == id5);
+            Assert.IsTrue(list.RenderOrder[5].Id == id0);
+            command.Undo();
+            Assert.IsTrue(list.RenderOrder[5].Id == id5);
+            Assert.IsTrue(list.RenderOrder[0].Id == id0);
+            return failed;
+        }
+
+        private static bool CheckAddCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command, out DrawableObject drawableObject)
+        {
+            // Test AddCommand creation
+            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters.CommandType = CommandType.Add;
+            drawableObject = DrawableObject.Create(ImageType.Mountain, new Point(10, 10), new Size(5, 5));
+            parameters.DrawableObjectList = list;
+
+            // Parameters isn't correct for an AddCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            parameters.AffectedDrawableObject = drawableObject;
+            command = factory.CreateCommand(parameters);
+            Assert.IsTrue(list.Count == 10);
+            command.Execute();
+            Assert.IsTrue(list.Count == 11);
+            command.Undo();
+            Assert.IsTrue(list.Count == 10);
+            return failed;
         }
     }
 }

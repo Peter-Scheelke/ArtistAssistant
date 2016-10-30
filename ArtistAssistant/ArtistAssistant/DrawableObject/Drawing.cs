@@ -81,7 +81,13 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Gets the rendered version of the <see cref="Drawing"/>
         /// </summary>
-        public Bitmap RenderedDrawing { get { return (Bitmap)this.renderedDrawing; } }
+        public Bitmap RenderedDrawing
+        {
+            get
+            {
+                return (Bitmap)this.renderedDrawing;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="Pen"/> used to draw a box around selected items
