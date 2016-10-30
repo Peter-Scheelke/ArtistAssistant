@@ -5,21 +5,24 @@ using System.Drawing;
 using System.Reflection;
 using System.Collections.Generic;
 using ArtistAssistant.Command;
+using System.Windows.Forms;
 
 namespace ArtistAssistantTests
 {
     [TestClass]
     public class ArtistAssistantTests
     {
+        /// <summary>
+        /// Make sure that the ImagePool never creates more than one instance
+        /// of an image, that it can find the appropriate resources,
+        /// and that it doesn't throw any exceptions while doing so.
+        /// </summary>
         [TestMethod]
         public void TestImagePool()
         {
             Assert.IsTrue(ImagePool.Count == 0);
             bool failed = false;
 
-            // Make sure that the ImagePool never creates more than one instance
-            // of an image resource, that it can find the appropriate resources,
-            // and that it doesn't throw any exceptions.
             try
             {
                 Image image = ImagePool.GetImage(ImageType.Cloud);
@@ -73,6 +76,9 @@ namespace ArtistAssistantTests
             Assert.IsTrue(ImagePool.Count == 6);
         }
 
+        /// <summary>
+        /// Make sure that <see cref="DrawableObject"/>s can be created correctly
+        /// </summary>
         [TestMethod]
         public void TestDrawableObjectCreation()
         {
@@ -117,6 +123,10 @@ namespace ArtistAssistantTests
             Assert.IsTrue(drawableObject.ImageType == ImageType.Pond);
         }
 
+        /// <summary>
+        /// Make sure that <see cref="DrawableObjectList"/>s can be created
+        /// and that they subscribe to their contained <see cref="DrawableObject"/>s
+        /// </summary>
         [TestMethod]
         public void TestDrawableObjectList()
         {
@@ -270,6 +280,11 @@ namespace ArtistAssistantTests
             Assert.IsFalse(observer.WasNotified);
         }
 
+        /// <summary>
+        /// Make sure the GetIdFromLocation method correctly gets the Id of the
+        /// <see cref="DrawableObject"/> that is highest in the render order and
+        /// contains the given <see cref="Point"/>
+        /// </summary>
         [TestMethod]
         public void TestGetIdFromPoint()
         {
@@ -296,8 +311,20 @@ namespace ArtistAssistantTests
 
             obj.Size = new Size(19, 19);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == list[0].Id && obj.Id != list[0].Id);
+
+            // Make sure it works when the render order gets changed
+            list[1].Size = new Size(20, 20);
+            Assert.IsTrue(list.GetIdFromLocation(testPoint) == list[1].Id);
+
+            list.BringToIndex(0, 1);
+            Assert.IsFalse(list.GetIdFromLocation(testPoint) == list[1].Id);
+
         }
 
+        /// <summary>
+        /// Make sure the Render Order of <see cref="DrawableObjectList"/>s
+        /// can be correctly changed with the BringToIndex method
+        /// </summary>
         [TestMethod]
         public void TestRenderOrder()
         {
@@ -347,6 +374,9 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list[list.Count - 1].Id == lastId);
         }
 
+        /// <summary>
+        /// Make sure the <see cref="AddCommand"/> is working correctly
+        /// </summary>
         [TestMethod]
         public void TestAddCommand()
         {
@@ -373,7 +403,7 @@ namespace ArtistAssistantTests
             {
                 command.Undo();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 didFail = true;
             }
@@ -393,6 +423,10 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list.Count == 0);
         }
 
+        /// <summary>
+        /// Make sure the <see cref="BringToIndexCommand"/>
+        /// is working correctly
+        /// </summary>
         [TestMethod]
         public void TestBringToIndexCommand()
         {
@@ -437,6 +471,9 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list.RenderOrder[8].Id == id);
         }
 
+        /// <summary>
+        /// Make sure the <see cref="RemoveCommand"/> is working correctly
+        /// </summary>
         [TestMethod]
         public void TestRemoveCommand()
         {
@@ -469,6 +506,10 @@ namespace ArtistAssistantTests
             Assert.IsTrue(third.Id == list.RenderOrder[3].Id);
         }
 
+        /// <summary>
+        /// Make sure the <see cref="SelectCommand"/> is
+        /// working correctly
+        /// </summary>
         [TestMethod]
         public void TestSelectCommand()
         {
@@ -487,7 +528,7 @@ namespace ArtistAssistantTests
                 list.Add(drawableObj);
             }
 
-            foreach(var drawableObj in list)
+            foreach (var drawableObj in list)
             {
                 Assert.IsFalse(drawableObj.Selected);
             }
@@ -526,6 +567,10 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list[3].Selected);
         }
 
+        /// <summary>
+        /// Make sure that the <see cref="DeselectCommand"/>
+        /// is working correctly
+        /// </summary>
         [TestMethod]
         public void TestDeselectCommand()
         {
@@ -570,6 +615,141 @@ namespace ArtistAssistantTests
                     Assert.IsFalse(obj.Selected);
                 }
             }
+        }
+
+        /// <summary>
+        /// Make sure that the <see cref="MoveCommand"/>
+        /// is working correctly
+        /// </summary>
+        [TestMethod]
+        public void TestMoveCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            // Create command
+            MoveCommand command = MoveCommand.Create(list, list[3], new Point(10, 10));
+            Assert.IsTrue(list[3].Location.X == 0 && list[3].Location.Y == 0);
+
+            // This should move list[3] to (10, 10)
+            command.Execute();
+            Assert.IsTrue(list[3].Location.X == 10 && list[3].Location.Y == 10);
+
+            // This should move list[3] back to (0, 0)
+            command.Undo();
+            Assert.IsTrue(list[3].Location.X == 0 && list[3].Location.Y == 0);
+
+            command = MoveCommand.Create(list, list[4], new Point(20, 20));
+
+            // There should be no position to go back to
+            command.Undo();
+            Assert.IsTrue(list[4].Location.X == 0 && list[4].Location.Y == 0);
+        }
+
+        /// <summary>
+        /// Make sure the <see cref="ScaleCommand"/> works correctly
+        /// </summary>
+        [TestMethod]
+        public void TestScaleCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            // Create a command
+            ScaleCommand command = ScaleCommand.Create(list, list[5], new Size(15, 15));
+
+            Assert.IsTrue(list[5].Size.Width == 1 && list[5].Size.Height == 1);
+
+            // This should do nothing
+            command.Undo();
+            Assert.IsTrue(list[5].Size.Width == 1 && list[5].Size.Height == 1);
+
+            // This should change the size to (15, 15)
+            command.Execute();
+            Assert.IsTrue(list[5].Size.Width == 15 && list[5].Size.Height == 15);
+
+            // This should change the size back to (1, 1)
+            command.Undo();
+            Assert.IsTrue(list[5].Size.Width == 1 && list[5].Size.Height == 1);
+        }
+
+        /// <summary>
+        /// Make sure the <see cref="DuplicateCommand"/> is working correctly
+        /// </summary>
+        [TestMethod]
+        public void TestDuplicateCommand()
+        {
+            // Set up
+            DrawableObjectList list = DrawableObjectList.Create();
+
+            List<DrawableObject> objList = new List<DrawableObject>();
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Mountain, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            DuplicateCommand command = DuplicateCommand.Create(list, list[0]);
+            Assert.IsTrue(list.Count == 10);
+
+            // This should do nothing
+            command.Undo();
+            Assert.IsTrue(list.Count == 10);
+
+            // This should add a DrawableObject to the list that has the same
+            // image type, location, and size as list[0]
+            command.Execute();
+            Assert.IsTrue(list.Count == 11);
+            Assert.IsTrue(list[0].Size.Width == list[10].Size.Width);
+            Assert.IsTrue(list[0].Size.Height == list[10].Size.Height);
+            Assert.IsTrue(list[0].Location.X == list[10].Location.X);
+            Assert.IsTrue(list[0].Location.Y == list[10].Location.Y);
+
+            ImageType test = list[0].ImageType;
+            ImageType type0 = list[0].ImageType;
+            ImageType type10 = list[8].ImageType;
+
+            Assert.AreEqual(list[0].ImageType, list[10].ImageType);
+
+            command.Undo();
+            Assert.IsTrue(list.Count == 10);
+
+            command.Execute();
+            command.Execute();
+            Assert.IsTrue(list.Count == 12);
+            command.Undo();
+            command.Undo();
+            command.Undo();
+            Assert.IsTrue(list.Count == 10);
         }
     }
 }

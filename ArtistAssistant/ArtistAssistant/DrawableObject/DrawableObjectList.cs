@@ -72,8 +72,8 @@ namespace ArtistAssistant.DrawableObject
         {
             for (int i = this.Count - 1; i >= 0; --i)
             {
-                Size size = this[i].Size;
-                Point topLeft = this[i].Location;
+                Size size = this.RenderOrder[i].Size;
+                Point topLeft = this.RenderOrder[i].Location;
                 bool inXDimension = false;
                 bool inYDimension = false;
                 if (location.X >= topLeft.X && location.X <= topLeft.X + size.Width)
@@ -88,7 +88,7 @@ namespace ArtistAssistant.DrawableObject
 
                 if (inXDimension && inYDimension)
                 {
-                    return this[i].Id;
+                    return this.RenderOrder[i].Id;
                 }
             }
 
