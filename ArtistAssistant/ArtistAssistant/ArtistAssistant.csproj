@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackendWrapper.cs" />
     <Compile Include="Command\AddCommand.cs" />
     <Compile Include="Command\BringToIndexCommand.cs" />
     <Compile Include="Command\CommandFactory.cs" />
