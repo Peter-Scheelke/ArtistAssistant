@@ -278,6 +278,36 @@ namespace ArtistAssistantTests
             observer.WasNotified = false;
             itemAtIndex.ImageType = ImageType.Mountain;
             Assert.IsFalse(observer.WasNotified);
+
+            bool succeeded = true;
+            try
+            {
+                Exception error = new Exception();
+                list.OnError(error);
+                succeeded = false;
+            }
+            catch (Exception) { }
+
+            try
+            {
+                list.OnCompleted();
+                succeeded = false;
+            }
+            catch (Exception) { }
+
+            Assert.IsTrue(succeeded);
+
+            int id = list.RenderOrder[3].Id;
+            list.BringToIndex(-1, 3);
+
+            Assert.IsTrue(list.RenderOrder[3].Id == id);
+
+            id = list.RenderOrder[0].Id;
+            list.BringToIndex(0, 9001);
+            Assert.IsTrue(list.RenderOrder[0].Id == id);
+
+            list.BringToIndex(9001, 0);
+            Assert.IsTrue(list.RenderOrder[0].Id == id);
         }
 
         /// <summary>
@@ -841,9 +871,10 @@ namespace ArtistAssistantTests
             failed = CheckSelectCommandCreation(failed, factory, out parameters, list, out command);
         }
 
+        // The methods below are used to test the CommandFactory
+
         private static bool CheckSelectCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
         {
-
             // Test SelectCommand creation
             parameters = CommandFactory.GetCommandArgumentsObject();
             parameters.CommandType = CommandType.Select;
@@ -1087,6 +1118,53 @@ namespace ArtistAssistantTests
             command.Undo();
             Assert.IsTrue(list.Count == 10);
             return failed;
+        }
+
+        /// <summary>
+        /// Make sure that <see cref="Drawing"/> objects don't throw exceptions
+        /// </summary>
+        [TestMethod]
+        public void TestDrawing()
+        {
+            bool succeeded = true;
+            try
+            {
+                DrawableObjectList list = DrawableObjectList.Create();
+                Bitmap bitmap = new Bitmap(100, 100);
+                Drawing drawing = Drawing.Create(bitmap, list, new Size(100, 100));
+                list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 10), new Size(5, 5)));
+                Image background = drawing.RenderedDrawing;
+
+                for (int i = 0; i < 10; ++i)
+                {
+                    list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 10), new Size(5, 5)));
+                }
+
+                list[5].Select();
+
+                drawing.Size = new Size(50, 50);
+
+                try
+                {
+                    Exception error = new Exception();
+                    drawing.OnError(error);
+                    succeeded = false;
+                }
+                catch (Exception) { }
+
+                try
+                {
+                    drawing.OnCompleted();
+                    succeeded = false;
+                }
+                catch (Exception) { }
+            }
+            catch(Exception)
+            {
+                succeeded = false;
+            }
+
+            Assert.IsTrue(succeeded);
         }
     }
 }
