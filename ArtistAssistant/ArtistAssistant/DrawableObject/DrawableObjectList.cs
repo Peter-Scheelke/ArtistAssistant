@@ -41,6 +41,7 @@ namespace ArtistAssistant.DrawableObject
             this.unsubscribers = new List<IDisposable>();
             this.RenderOrder = new List<DrawableObject>();
             this.isChangingState = false;
+            this.SelectedObject = null;
         }
 
         /// <summary>
@@ -48,6 +49,11 @@ namespace ArtistAssistant.DrawableObject
         /// should be rendered
         /// </summary>
         public List<DrawableObject> RenderOrder { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="DrawableObject"/> that is currently selected
+        /// </summary>
+        public DrawableObject SelectedObject { get; private set; }
 
         /// <summary>
         /// Creates a new <see cref="DrawableObjectList"/> object
@@ -65,8 +71,8 @@ namespace ArtistAssistant.DrawableObject
         /// </summary>
         /// <param name="location">The <see cref="Point"/> being checked</param>
         /// <returns>
-        /// The <see cref="DrawableObject"/> most recently added to the <see cref="DrawableObjectList"/>
-        /// that contains the given <see cref="Point"/>
+        /// The Id of the <see cref="DrawableObject"/> that contains the given <see cref="Point"/>
+        /// and is nearest the top of the render order of the list of <see cref="DrawableObject"/>s 
         /// </returns>
         public int GetIdFromLocation(Point location)
         {
@@ -93,6 +99,43 @@ namespace ArtistAssistant.DrawableObject
             }
 
             return -1;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="DrawableObject"/> that contains the give
+        /// <see cref="Point"/>. The Id will correspond to the most recently
+        /// added item in the <see cref="DrawableObjectList"/>.
+        /// </summary>
+        /// <param name="location">The <see cref="Point"/> being checked</param>
+        /// <returns>
+        /// The <see cref="DrawableObject"/> that contains the given <see cref="Point"/>
+        /// and is nearest the top of the render order of the list of <see cref="DrawableObject"/>s 
+        /// </returns>
+        public DrawableObject GetObjectFromLocation(Point location)
+        {
+            for (int i = this.Count - 1; i >= 0; --i)
+            {
+                Size size = this.RenderOrder[i].Size;
+                Point topLeft = this.RenderOrder[i].Location;
+                bool inXDimension = false;
+                bool inYDimension = false;
+                if (location.X >= topLeft.X && location.X <= topLeft.X + size.Width)
+                {
+                    inXDimension = true;
+                }
+
+                if (location.Y >= topLeft.Y && location.Y <= topLeft.Y + size.Height)
+                {
+                    inYDimension = true;
+                }
+
+                if (inXDimension && inYDimension)
+                {
+                    return this.RenderOrder[i];
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -283,6 +326,7 @@ namespace ArtistAssistant.DrawableObject
                 else
                 {
                     this.RenderOrder[currentIndex] = temp;
+                    this.Notify();
                     break;
                 }
             }
@@ -336,6 +380,11 @@ namespace ArtistAssistant.DrawableObject
                 }
 
                 this.isChangingState = false;
+                this.SelectedObject = value;
+            }
+            else
+            {
+                this.SelectedObject = null;
             }
 
             foreach (IObserver<DrawableObjectList> observer in this.observers)
@@ -362,6 +411,11 @@ namespace ArtistAssistant.DrawableObject
         /// </summary>
         private void Notify()
         {
+            if (this.IndexOf(this.SelectedObject) == -1)
+            {
+                this.SelectedObject = null;
+            }
+
             foreach (IObserver<DrawableObjectList> observer in this.observers)
             {
                 observer.OnNext(this);

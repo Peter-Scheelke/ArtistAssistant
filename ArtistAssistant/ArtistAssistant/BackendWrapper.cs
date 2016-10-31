@@ -6,6 +6,7 @@
 
 namespace ArtistAssistant
 {
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using Command;
@@ -42,6 +43,11 @@ namespace ArtistAssistant
         private CommandFactory commandFactory;
 
         /// <summary>
+        /// The background image to be used for the <see cref="Drawing"/>
+        /// </summary>
+        private Image drawingBackground;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BackendWrapper"/> class
         /// </summary>
         /// <param name="backgroundImage">The background image used in the <see cref="BackendWrapper"/>'s <see cref="Drawing"/></param>
@@ -49,6 +55,7 @@ namespace ArtistAssistant
         public BackendWrapper(Image backgroundImage, Size size)
         {
             this.drawableObjectList = DrawableObjectList.Create();
+            this.drawingBackground = backgroundImage;
             this.drawing = Drawing.Create(backgroundImage, this.drawableObjectList, size);
             this.undoStack = new Stack<ICommand>();
             this.commandFactory = CommandFactory.Create();
@@ -86,40 +93,54 @@ namespace ArtistAssistant
         /// <param name="size">The size of the <see cref="DrawableObject.DrawableObject"/></param>
         public void Add(ImageType imageType, Point location, Size size)
         {
-            DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(imageType, location, size);
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Add;
-            parameters.DrawableObjectList = this.drawableObjectList;
-            parameters.AffectedDrawableObject = drawableObject;
-            this.ExecuteCommand(parameters);
+            try
+            {
+                DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(imageType, location, size);
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Add;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = drawableObject;
+                this.ExecuteCommand(parameters);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
         /// Brings the currently selected <see cref="DrawableObject.DrawableObject"/>
         /// to the front of the <see cref="Drawing"/>
         /// </summary>
-        public void BrintToFront()
+        public void BringToFront()
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Deselect;
-            parameters.DrawableObjectList = this.drawableObjectList;
-            int startIndex = -1;
-
-            for (int i = 0; i < this.drawableObjectList.Count; ++i)
+            try
             {
-                if (this.drawableObjectList.RenderOrder[i].Selected)
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.BringToIndex;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                int startIndex = -1;
+
+                for (int i = 0; i < this.drawableObjectList.Count; ++i)
                 {
-                    startIndex = i;
-                    break;
+                    if (this.drawableObjectList.RenderOrder[i].Selected)
+                    {
+                        startIndex = i;
+                        break;
+                    }
+                }
+
+                // If this isn't true, nothing was selected
+                if (startIndex >= 0)
+                {
+                    parameters.StartIndex = startIndex;
+                    parameters.TargetIndex = this.drawableObjectList.Count - 1;
+                    this.ExecuteCommand(parameters);
                 }
             }
-
-            // If this isn't true, nothing was selected
-            if (startIndex >= 0)
+            catch (Exception)
             {
-                parameters.StartIndex = startIndex;
-                parameters.TargetIndex = this.drawableObjectList.Count - 1;
-                this.ExecuteCommand(parameters);
+                return;
             }
         }
 
@@ -129,26 +150,33 @@ namespace ArtistAssistant
         /// </summary>
         public void SendToBack()
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Deselect;
-            parameters.DrawableObjectList = this.drawableObjectList;
-            int startIndex = -1;
-
-            for (int i = 0; i < this.drawableObjectList.Count; ++i)
+            try
             {
-                if (this.drawableObjectList.RenderOrder[i].Selected)
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.BringToIndex;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                int startIndex = -1;
+
+                for (int i = 0; i < this.drawableObjectList.Count; ++i)
                 {
-                    startIndex = i;
-                    break;
+                    if (this.drawableObjectList.RenderOrder[i].Selected)
+                    {
+                        startIndex = i;
+                        break;
+                    }
+                }
+
+                // If this isn't true, nothing was selected
+                if (startIndex >= 0)
+                {
+                    parameters.StartIndex = startIndex;
+                    parameters.TargetIndex = 0;
+                    this.ExecuteCommand(parameters);
                 }
             }
-
-            // If this isn't true, nothing was selected
-            if (startIndex >= 0)
+            catch (Exception)
             {
-                parameters.StartIndex = startIndex;
-                parameters.TargetIndex = 0;
-                this.ExecuteCommand(parameters);
+                return;
             }
         }
 
@@ -158,13 +186,17 @@ namespace ArtistAssistant
         /// </summary>
         public void Deselect()
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Deselect;
-            parameters.DrawableObjectList = this.drawableObjectList;
-
-            /* TODO: Finish this */
-
-            this.ExecuteCommand(parameters);
+            try
+            {
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Deselect;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                this.ExecuteCommand(parameters);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -173,28 +205,57 @@ namespace ArtistAssistant
         /// </summary>
         public void Duplicate()
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Duplicate;
-            parameters.DrawableObjectList = this.drawableObjectList;
+            try
+            {
+                // Duplicate the object
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Duplicate;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
+                this.ExecuteCommand(parameters);
 
-            /* TODO: Finish this */
+                // Move the object slightly (so it isn't in the exact same place)
+                parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Move;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.RenderOrder[this.drawableObjectList.Count - 1];
+                Point newLocation = new Point(parameters.AffectedDrawableObject.Location.X + 15, parameters.AffectedDrawableObject.Location.Y + 15);
+                parameters.Location = newLocation;
+                this.ExecuteCommand(parameters);
 
-            this.ExecuteCommand(parameters);
+                // Select the new object
+                parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Select;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.RenderOrder[this.drawableObjectList.Count - 1];
+                this.ExecuteCommand(parameters);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
         /// Moves the currently selected <see cref="DrawableObject.DrawableObject"/>
         /// to the given location
         /// </summary>
+        /// <param name="location">The new location the selected item should move to</param>
         public void Move(Point location)
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Move;
-            parameters.DrawableObjectList = this.drawableObjectList;
-
-            /* TODO: Finish this */
-
-            this.ExecuteCommand(parameters);
+            try
+            { 
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Move;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
+                parameters.Location = location;
+                this.ExecuteCommand(parameters);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -203,13 +264,18 @@ namespace ArtistAssistant
         /// </summary>
         public void Remove()
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Remove;
-            parameters.DrawableObjectList = this.drawableObjectList;
-
-            /* TODO: Finish this */
-
-            this.ExecuteCommand(parameters);
+            try
+            {
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Remove;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
+                this.ExecuteCommand(parameters);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -219,13 +285,19 @@ namespace ArtistAssistant
         /// <param name="size">The new <see cref="Size"/> of the currently selected <see cref="DrawableObject.DrawableObject"/></param>
         public void Scale(Size size)
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Scale;
-            parameters.DrawableObjectList = this.drawableObjectList;
-
-            /* TODO: Finish this */
-
-            this.ExecuteCommand(parameters);
+            try
+            {
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Scale;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
+                parameters.Size = size;
+                this.ExecuteCommand(parameters);
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -235,13 +307,21 @@ namespace ArtistAssistant
         /// <param name="location">The location of the <see cref="DrawableObject.DrawableObject"/> to be selected</param>
         public void Select(Point location)
         {
-            var parameters = CommandFactory.GetCommandArgumentsObject();
-            parameters.CommandType = CommandType.Select;
-            parameters.DrawableObjectList = this.drawableObjectList;
-            
-            /* TODO: Finish this */
-
-            this.ExecuteCommand(parameters);
+            try
+            {
+                var parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Select;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = this.drawableObjectList.GetObjectFromLocation(location);
+                if (parameters.AffectedDrawableObject != null)
+                {
+                    this.ExecuteCommand(parameters);
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         /// <summary>
@@ -249,13 +329,66 @@ namespace ArtistAssistant
         /// </summary>
         public void Undo()
         {
-            ICommand commandToUndo = this.undoStack.Pop();
-            commandToUndo.Undo();
+            try
+            {
+                ICommand commandToUndo = this.undoStack.Pop();
+                commandToUndo.Undo();
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
-        // Other things to create:
-        // Way to resize drawing?
-        // Way to get size of selected item
+        /// <summary>
+        /// Clears the <see cref="Drawing"/>, sets a new background and size,
+        /// clears the undo stack, etc.
+        /// </summary>
+        /// <param name="backgroundImage">The new background image</param>
+        /// <param name="size">The new <see cref="Size"/></param>
+        public void ClearAndStartNewDrawing(Image backgroundImage, Size size)
+        {
+            this.drawing.Dispose();
+            this.drawableObjectList.Clear();
+            this.drawingBackground = backgroundImage;
+
+            this.drawing = Drawing.Create(backgroundImage, this.drawableObjectList, size);
+            this.undoStack.Clear();
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Size"/> of the selected item in the
+        /// <see cref="Drawing"/> if an item is selected
+        /// </summary>
+        /// <returns>The size of the selected item</returns>
+        public Size? GetSizeOfSelectedItem()
+        {
+            if (this.drawableObjectList.SelectedObject != null)
+            {
+                return this.drawableObjectList.SelectedObject.Size;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the location of the selected item in the
+        /// <see cref="Drawing"/> if an item is selected
+        /// </summary>
+        /// <returns>The location of the selected item</returns>
+        public Point? GetLocationOfSelectedItem()
+        {
+            if (this.drawableObjectList.SelectedObject != null)
+            {
+                return this.drawableObjectList.SelectedObject.Location;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// Creates and executes an <see cref="ICommand"/> based on the given

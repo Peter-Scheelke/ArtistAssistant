@@ -23,3 +23,12 @@ C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.exe
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.pdb
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.ArtistAssistantForm.resources
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.exe.config
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.exe
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.pdb
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csprojResolveAssemblyReference.cache
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.ArtistAssistantForm.resources
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.Properties.Resources.resources
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csproj.GenerateResource.Cache
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.exe
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.pdb

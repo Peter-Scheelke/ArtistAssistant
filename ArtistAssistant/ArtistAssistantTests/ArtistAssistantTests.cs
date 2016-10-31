@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using ArtistAssistant.Command;
 using System.Windows.Forms;
+using ArtistAssistant;
 
 namespace ArtistAssistantTests
 {
@@ -324,30 +325,38 @@ namespace ArtistAssistantTests
 
             DrawableObjectList list = DrawableObjectList.Create();
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == -1);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint) == null);
 
             list.Add(obj);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == -1);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint) == null);
 
             obj = DrawableObject.Create(ImageType.Cloud, new Point(30, 30), new Size(19, 19));
             list.Add(obj);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == -1);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint) == null);
 
             obj.Size = new Size(20, 20);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == obj.Id);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint).Id == obj.Id);
 
             list[0].Location = obj.Location;
             list[0].Size = obj.Size;
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == obj.Id && obj.Id != list[0].Id);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint).Id == obj.Id);
 
             obj.Size = new Size(19, 19);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == list[0].Id && obj.Id != list[0].Id);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint).Id == list[0].Id);
 
             // Make sure it works when the render order gets changed
             list[1].Size = new Size(20, 20);
             Assert.IsTrue(list.GetIdFromLocation(testPoint) == list[1].Id);
+            Assert.IsTrue(list.GetObjectFromLocation(testPoint).Id == list[1].Id);
 
             list.BringToIndex(0, 1);
             Assert.IsFalse(list.GetIdFromLocation(testPoint) == list[1].Id);
+            Assert.IsFalse(list.GetObjectFromLocation(testPoint).Id == list[1].Id);
 
         }
 
@@ -889,7 +898,7 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
-            parameters.Location = list.RenderOrder[list.Count - 1].Location;
+            parameters.AffectedDrawableObject = list.RenderOrder[list.Count - 1];
             command = factory.CreateCommand(parameters);
             Assert.IsFalse(list.RenderOrder[list.Count - 1].Selected);
             command.Execute();
@@ -946,7 +955,7 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
-            parameters.Location = list.RenderOrder[list.Count - 1].Location;
+            parameters.AffectedDrawableObject = list.RenderOrder[list.Count - 1];
             command = factory.CreateCommand(parameters);
             int id = list.RenderOrder[list.Count - 1].Id;
             command.Execute();
@@ -1165,6 +1174,69 @@ namespace ArtistAssistantTests
             }
 
             Assert.IsTrue(succeeded);
+        }
+
+        [TestMethod]
+        public void TestBackendWrapper()
+        {
+            BackendWrapper backend = BackendWrapper.Create(new Bitmap(500, 500), new Size(500, 500));
+
+            Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+            Assert.IsTrue(backend.GetSizeOfSelectedItem() == null);
+
+            try
+            {
+                backend.Add(ImageType.Mountain, new Point(50, 50), new Size(75, 75));
+                backend.Select(new Point(60, 60));
+                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+
+                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 50);
+                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 50);
+
+                backend.Move(new Point(30, 30));
+                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 30);
+                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 30);
+
+                backend.Duplicate();
+                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 45);
+                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 45);
+
+                backend.Scale(new Size(80, 80));
+                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 80);
+                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 80);
+
+                backend.Undo();
+                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+
+                backend.BringToFront();
+                backend.SendToBack();
+
+                backend.Remove();
+                Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+
+                // These shouldn't do anything (no exceptions should be thrown though)
+                backend.Move(new Point(30, 30));
+                backend.BringToFront();
+                backend.SendToBack();
+                backend.Scale(new Size(80, 80));
+
+                backend.Undo();
+                Assert.IsFalse(backend.GetLocationOfSelectedItem() == null);
+
+                backend.Deselect();
+                Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+                backend.Undo();
+                Assert.IsFalse(backend.GetLocationOfSelectedItem() == null);
+
+                backend.ClearAndStartNewDrawing(new Bitmap(500, 500), new Size(500, 500));
+                Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+            }
+            catch(Exception)
+            {
+                Assert.Fail();
+            }
         }
     }
 }

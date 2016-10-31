@@ -37,6 +37,11 @@ namespace ArtistAssistant.DrawableObject
         private Size size;
 
         /// <summary>
+        /// The background image of the <see cref="Drawing"/>
+        /// </summary>
+        private Bitmap backgroundImage;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Drawing"/> class
         /// </summary>
         /// <param name="backgroundImage">The <see cref="Drawing"/>'s background image</param>
@@ -47,7 +52,7 @@ namespace ArtistAssistant.DrawableObject
         /// <param name="size">The size of the <see cref="Drawing"/></param>
         public Drawing(Image backgroundImage, DrawableObjectList drawableObjectList, Size size)
         {
-            this.BackgroundImage = (Bitmap)backgroundImage.Clone();
+            this.backgroundImage = (Bitmap)backgroundImage.Clone();
             this.drawableObjectList = drawableObjectList;
             this.size = size;
             this.unsubscriber = this.drawableObjectList.Subscribe(this);
@@ -58,7 +63,19 @@ namespace ArtistAssistant.DrawableObject
         /// <summary>
         /// Gets or sets the background image of the drawing
         /// </summary>
-        public Bitmap BackgroundImage { get; set; }
+        public Bitmap BackgroundImage
+        {
+            get
+            {
+                return this.backgroundImage;
+            }
+
+            set
+            {
+                this.backgroundImage = (Bitmap)value.Clone();
+                this.Render();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the size of the <see cref="Drawing"/>

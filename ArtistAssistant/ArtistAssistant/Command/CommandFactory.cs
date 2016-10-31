@@ -78,15 +78,15 @@ namespace ArtistAssistant.Command
                     command = MoveCommand.Create(parameters.DrawableObjectList, parameters.AffectedDrawableObject, (Point)parameters.Location);
                     break;
                 case CommandType.Remove:
-                    int id = parameters.DrawableObjectList.GetIdFromLocation((Point)parameters.Location);
-                    command = RemoveCommand.Create(parameters.DrawableObjectList, id);
+                    DrawableObject removedObject = parameters.AffectedDrawableObject;
+                    command = RemoveCommand.Create(parameters.DrawableObjectList, removedObject);
                     break;
                 case CommandType.Scale:
                     command = ScaleCommand.Create(parameters.DrawableObjectList, parameters.AffectedDrawableObject, (Size)parameters.Size);
                     break;
                 case CommandType.Select:
-                    id = parameters.DrawableObjectList.GetIdFromLocation((Point)parameters.Location);
-                    command = SelectCommand.Create(parameters.DrawableObjectList, id);
+                    DrawableObject selectedObject = parameters.AffectedDrawableObject;
+                    command = SelectCommand.Create(parameters.DrawableObjectList, selectedObject);
                     break;
                 default:
                     throw new Exception($"Error: CommandType {parameters.CommandType} is invalid.");
@@ -139,11 +139,10 @@ namespace ArtistAssistant.Command
                 return parameters.AffectedDrawableObject != null && parameters.Location != null;
             }
 
-            // RemoveCommands each need to have a location to figure out what DrawableObject to remove
-            // (the location is used to find a DrawableObject in the RenderOrder that contains the location)
+            // RemoveCommands each need to have a DrawableObject to remove
             if (parameters.CommandType == CommandType.Remove)
             {
-                return parameters.Location != null;
+                return parameters.AffectedDrawableObject != null;
             }
 
             // ScaleCommands each need to have a Size to scale and a DrawableObject to scale
@@ -152,11 +151,10 @@ namespace ArtistAssistant.Command
                 return parameters.Size != null && parameters.AffectedDrawableObject != null;
             }
 
-            // SelectCommands each need to have a location to figure out what DrawableObject to select
-            // (the location is used to find a DrawableObject in the RenderOrder that contains the location)
+            // SelectCommands each need to have a DrawableObject to select
             if (parameters.CommandType == CommandType.Select)
             {
-                return parameters.Location != null;
+                return parameters.AffectedDrawableObject != null;
             }
 
             return false;

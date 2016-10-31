@@ -27,6 +27,11 @@ namespace ArtistAssistant.Command
         private int originalIndex;
 
         /// <summary>
+        /// Tracks whether the <see cref="DrawableObject"/> being removed was selected at the time it was removed
+        /// </summary>
+        private bool wasSelected;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RemoveCommand"/> class
         /// </summary>
         /// <param name="drawableObjectList">
@@ -106,6 +111,7 @@ namespace ArtistAssistant.Command
         {
             if (this.removedObject != null)
             {
+                this.wasSelected = this.removedObject.Selected;
                 this.DrawableObjectList.Remove(this.removedObject);
             }
         }
@@ -119,6 +125,10 @@ namespace ArtistAssistant.Command
             {
                 this.DrawableObjectList.Add(this.removedObject);
                 this.DrawableObjectList.BringToIndex(this.DrawableObjectList.Count - 1, this.originalIndex);
+                if (this.wasSelected)
+                {
+                    this.removedObject.Select();
+                }
             }
         }
     }

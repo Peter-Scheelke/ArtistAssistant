@@ -4,3 +4,18 @@ Cloud: http://www.freeiconspng.com/uploads/cloud-icon-14.png
 Tree: http://www.iconsdb.com/icons/preview/black/tree-46-xxl.png
 Pine: http://nccmalone.com/rw_common/images/NCC%20Tree-1.png
 Pond: http://ian.umces.edu/imagelibrary/albums/userpics/12789/normal_ian-symbol-pond.png
+
+GUI Icons:
+Cursor: https://maxcdn.icons8.com/windows8/PNG/512/Very_Basic/cursor-512.png
+Move: https://d30y9cdsu7xlg0.cloudfront.net/png/2862-200.png
+Resize: https://www.iconfinder.com/icons/763371/crop_edit_editor_resize_icon#size=128
+Undo: https://www.iconfinder.com/icons/352187/undo_icon#size=128
+Bring to Front: https://d30y9cdsu7xlg0.cloudfront.net/png/181353-200.png
+New: https://www.iconfinder.com/icons/383148/edit_icon#size=128
+Delete: https://www.iconfinder.com/icons/1370026/bin_delete_remove_trash_trash_bin_trash_can_icon#size=128
+Duplicate: https://www.iconfinder.com/icons/887253/clone_copy_front_layers_icon#size=128
+New Drawing: https://www.iconfinder.com/icons/763344/add_document_editor_new_notebook_text_icon#size=128
+Image: https://www.iconfinder.com/icons/171485/image_photo_icon#size=128
+Upload/Download: https://www.iconfinder.com/icons/322433/cloud_upload_icon#size=128
+Send to Front/Sent to Back: https://d30y9cdsu7xlg0.cloudfront.net/png/181353-200.png
+Paint: https://www.iconfinder.com/icons/1536076/brush_create_creating_paint_icon#size=128
