@@ -580,5 +580,15 @@ namespace ArtistAssistant
                 this.newObjectButton.PerformClick();
             }
         }
+
+        private void downloadButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void uploadButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

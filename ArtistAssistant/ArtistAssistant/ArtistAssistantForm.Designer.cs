@@ -111,7 +111,7 @@ namespace ArtistAssistant
             // 
             // uploadButton
             // 
-            this.uploadButton.BackColor = System.Drawing.SystemColors.Window;
+            this.uploadButton.BackColor = System.Drawing.Color.White;
             this.uploadButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.upload;
             this.uploadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.uploadButton.Location = new System.Drawing.Point(3, 115);
@@ -119,11 +119,12 @@ namespace ArtistAssistant
             this.uploadButton.Size = new System.Drawing.Size(50, 50);
             this.uploadButton.TabIndex = 2;
             this.uploadButton.UseVisualStyleBackColor = false;
+            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
             this.uploadButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // newObjectButton
             // 
-            this.newObjectButton.BackColor = System.Drawing.SystemColors.Window;
+            this.newObjectButton.BackColor = System.Drawing.Color.White;
             this.newObjectButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.additem1;
             this.newObjectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.newObjectButton.Location = new System.Drawing.Point(3, 283);
@@ -136,7 +137,7 @@ namespace ArtistAssistant
             // 
             // selectButton
             // 
-            this.selectButton.BackColor = System.Drawing.SystemColors.Window;
+            this.selectButton.BackColor = System.Drawing.Color.White;
             this.selectButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.cursor;
             this.selectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.selectButton.Location = new System.Drawing.Point(3, 171);
@@ -149,7 +150,7 @@ namespace ArtistAssistant
             // 
             // bringToFrontButton
             // 
-            this.bringToFrontButton.BackColor = System.Drawing.SystemColors.Window;
+            this.bringToFrontButton.BackColor = System.Drawing.Color.White;
             this.bringToFrontButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.bringtofront;
             this.bringToFrontButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bringToFrontButton.Location = new System.Drawing.Point(3, 451);
@@ -162,7 +163,7 @@ namespace ArtistAssistant
             // 
             // sendToBackButton
             // 
-            this.sendToBackButton.BackColor = System.Drawing.SystemColors.Window;
+            this.sendToBackButton.BackColor = System.Drawing.Color.White;
             this.sendToBackButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.sendtoback;
             this.sendToBackButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.sendToBackButton.Location = new System.Drawing.Point(3, 507);
@@ -175,7 +176,7 @@ namespace ArtistAssistant
             // 
             // undoButton
             // 
-            this.undoButton.BackColor = System.Drawing.SystemColors.Window;
+            this.undoButton.BackColor = System.Drawing.Color.White;
             this.undoButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.undo;
             this.undoButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.undoButton.Location = new System.Drawing.Point(3, 619);
@@ -188,7 +189,7 @@ namespace ArtistAssistant
             // 
             // duplicateButton
             // 
-            this.duplicateButton.BackColor = System.Drawing.SystemColors.Window;
+            this.duplicateButton.BackColor = System.Drawing.Color.White;
             this.duplicateButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.duplicate;
             this.duplicateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.duplicateButton.Location = new System.Drawing.Point(3, 395);
@@ -201,7 +202,7 @@ namespace ArtistAssistant
             // 
             // deleteButton
             // 
-            this.deleteButton.BackColor = System.Drawing.SystemColors.Window;
+            this.deleteButton.BackColor = System.Drawing.Color.White;
             this.deleteButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.delete;
             this.deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.deleteButton.Location = new System.Drawing.Point(3, 563);
@@ -214,7 +215,7 @@ namespace ArtistAssistant
             // 
             // scaleButton
             // 
-            this.scaleButton.BackColor = System.Drawing.SystemColors.Window;
+            this.scaleButton.BackColor = System.Drawing.Color.White;
             this.scaleButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.resize;
             this.scaleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.scaleButton.Location = new System.Drawing.Point(3, 339);
@@ -227,7 +228,7 @@ namespace ArtistAssistant
             // 
             // moveButton
             // 
-            this.moveButton.BackColor = System.Drawing.SystemColors.Window;
+            this.moveButton.BackColor = System.Drawing.Color.White;
             this.moveButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.move;
             this.moveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.moveButton.Location = new System.Drawing.Point(3, 227);
@@ -240,7 +241,7 @@ namespace ArtistAssistant
             // 
             // downloadButton
             // 
-            this.downloadButton.BackColor = System.Drawing.SystemColors.Window;
+            this.downloadButton.BackColor = System.Drawing.Color.White;
             this.downloadButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.download;
             this.downloadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.downloadButton.Location = new System.Drawing.Point(3, 59);
@@ -248,11 +249,12 @@ namespace ArtistAssistant
             this.downloadButton.Size = new System.Drawing.Size(50, 50);
             this.downloadButton.TabIndex = 1;
             this.downloadButton.UseVisualStyleBackColor = false;
+            this.downloadButton.Click += new System.EventHandler(this.downloadButton_Click);
             this.downloadButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // newDrawingButton
             // 
-            this.newDrawingButton.BackColor = System.Drawing.SystemColors.Window;
+            this.newDrawingButton.BackColor = System.Drawing.Color.White;
             this.newDrawingButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.newdrawing;
             this.newDrawingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.newDrawingButton.Location = new System.Drawing.Point(3, 3);
@@ -388,7 +390,7 @@ namespace ArtistAssistant
             // 
             // treePictureBox
             // 
-            this.treePictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.treePictureBox.BackColor = System.Drawing.Color.White;
             this.treePictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Tree;
             this.treePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.treePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -401,7 +403,7 @@ namespace ArtistAssistant
             // 
             // rainPictureBox
             // 
-            this.rainPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.rainPictureBox.BackColor = System.Drawing.Color.White;
             this.rainPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Rain;
             this.rainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.rainPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -414,7 +416,7 @@ namespace ArtistAssistant
             // 
             // pondPictureBox
             // 
-            this.pondPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.pondPictureBox.BackColor = System.Drawing.Color.White;
             this.pondPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Pond;
             this.pondPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pondPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -427,7 +429,7 @@ namespace ArtistAssistant
             // 
             // pinePictureBox
             // 
-            this.pinePictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.pinePictureBox.BackColor = System.Drawing.Color.White;
             this.pinePictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Pine;
             this.pinePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pinePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -440,7 +442,7 @@ namespace ArtistAssistant
             // 
             // mountainPictureBox
             // 
-            this.mountainPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.mountainPictureBox.BackColor = System.Drawing.Color.White;
             this.mountainPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Mountain;
             this.mountainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mountainPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -453,7 +455,7 @@ namespace ArtistAssistant
             // 
             // cloudPictureBox
             // 
-            this.cloudPictureBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.cloudPictureBox.BackColor = System.Drawing.Color.White;
             this.cloudPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Cloud;
             this.cloudPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cloudPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -561,8 +563,8 @@ namespace ArtistAssistant
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1390, 685);
-            this.Controls.Add(this.addItemMenuPanel);
             this.Controls.Add(this.scaleItemMenuPanel);
+            this.Controls.Add(this.addItemMenuPanel);
             this.Controls.Add(this.createDrawingMenuPanel);
             this.Controls.Add(this.toolbarPanel);
             this.Controls.Add(this.drawingPictureBox);

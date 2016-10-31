@@ -32,3 +32,5 @@ C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistA
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csproj.GenerateResource.Cache
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.exe
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.pdb
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\Newtonsoft.Json.dll
+C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\Newtonsoft.Json.xml
