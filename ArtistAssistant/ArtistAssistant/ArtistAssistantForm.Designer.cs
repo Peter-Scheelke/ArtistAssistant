@@ -30,6 +30,7 @@ namespace ArtistAssistant
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArtistAssistantForm));
             this.toolbarPanel = new System.Windows.Forms.Panel();
             this.uploadButton = new System.Windows.Forms.Button();
@@ -62,6 +63,13 @@ namespace ArtistAssistant
             this.mountainPictureBox = new System.Windows.Forms.PictureBox();
             this.cloudPictureBox = new System.Windows.Forms.PictureBox();
             this.drawingPictureBox = new System.Windows.Forms.PictureBox();
+            this.scaleItemMenuPanel = new System.Windows.Forms.Panel();
+            this.scaleObjectButton = new System.Windows.Forms.Button();
+            this.scaleHeightLabel = new System.Windows.Forms.Label();
+            this.scaleWidthLabel = new System.Windows.Forms.Label();
+            this.scaleHeightNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.scaleWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.toolbarPanel.SuspendLayout();
             this.createDrawingMenuPanel.SuspendLayout();
             this.addItemMenuPanel.SuspendLayout();
@@ -74,6 +82,9 @@ namespace ArtistAssistant
             ((System.ComponentModel.ISupportInitialize)(this.mountainPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cloudPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.drawingPictureBox)).BeginInit();
+            this.scaleItemMenuPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleHeightNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleWidthNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // toolbarPanel
@@ -108,6 +119,7 @@ namespace ArtistAssistant
             this.uploadButton.Size = new System.Drawing.Size(50, 50);
             this.uploadButton.TabIndex = 2;
             this.uploadButton.UseVisualStyleBackColor = false;
+            this.uploadButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // newObjectButton
             // 
@@ -120,6 +132,7 @@ namespace ArtistAssistant
             this.newObjectButton.TabIndex = 5;
             this.newObjectButton.UseVisualStyleBackColor = false;
             this.newObjectButton.Click += new System.EventHandler(this.NewObjectButton_Click);
+            this.newObjectButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // selectButton
             // 
@@ -132,6 +145,7 @@ namespace ArtistAssistant
             this.selectButton.TabIndex = 3;
             this.selectButton.UseVisualStyleBackColor = false;
             this.selectButton.Click += new System.EventHandler(this.SelectButton_Click);
+            this.selectButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // bringToFrontButton
             // 
@@ -143,6 +157,8 @@ namespace ArtistAssistant
             this.bringToFrontButton.Size = new System.Drawing.Size(50, 50);
             this.bringToFrontButton.TabIndex = 8;
             this.bringToFrontButton.UseVisualStyleBackColor = false;
+            this.bringToFrontButton.Click += new System.EventHandler(this.BringToFrontButton_Click);
+            this.bringToFrontButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // sendToBackButton
             // 
@@ -154,6 +170,8 @@ namespace ArtistAssistant
             this.sendToBackButton.Size = new System.Drawing.Size(50, 50);
             this.sendToBackButton.TabIndex = 9;
             this.sendToBackButton.UseVisualStyleBackColor = false;
+            this.sendToBackButton.Click += new System.EventHandler(this.SendToBackButton_Click);
+            this.sendToBackButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // undoButton
             // 
@@ -165,6 +183,8 @@ namespace ArtistAssistant
             this.undoButton.Size = new System.Drawing.Size(50, 50);
             this.undoButton.TabIndex = 11;
             this.undoButton.UseVisualStyleBackColor = false;
+            this.undoButton.Click += new System.EventHandler(this.UndoButton_Click);
+            this.undoButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // duplicateButton
             // 
@@ -177,6 +197,7 @@ namespace ArtistAssistant
             this.duplicateButton.TabIndex = 7;
             this.duplicateButton.UseVisualStyleBackColor = false;
             this.duplicateButton.Click += new System.EventHandler(this.DuplicateButton_Click);
+            this.duplicateButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // deleteButton
             // 
@@ -188,6 +209,8 @@ namespace ArtistAssistant
             this.deleteButton.Size = new System.Drawing.Size(50, 50);
             this.deleteButton.TabIndex = 10;
             this.deleteButton.UseVisualStyleBackColor = false;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            this.deleteButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // scaleButton
             // 
@@ -199,6 +222,8 @@ namespace ArtistAssistant
             this.scaleButton.Size = new System.Drawing.Size(50, 50);
             this.scaleButton.TabIndex = 6;
             this.scaleButton.UseVisualStyleBackColor = false;
+            this.scaleButton.Click += new System.EventHandler(this.ScaleButton_Click);
+            this.scaleButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // moveButton
             // 
@@ -211,6 +236,7 @@ namespace ArtistAssistant
             this.moveButton.TabIndex = 4;
             this.moveButton.UseVisualStyleBackColor = false;
             this.moveButton.Click += new System.EventHandler(this.MoveButton_Click);
+            this.moveButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // downloadButton
             // 
@@ -222,6 +248,7 @@ namespace ArtistAssistant
             this.downloadButton.Size = new System.Drawing.Size(50, 50);
             this.downloadButton.TabIndex = 1;
             this.downloadButton.UseVisualStyleBackColor = false;
+            this.downloadButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // newDrawingButton
             // 
@@ -234,6 +261,7 @@ namespace ArtistAssistant
             this.newDrawingButton.TabIndex = 0;
             this.newDrawingButton.UseVisualStyleBackColor = false;
             this.newDrawingButton.Click += new System.EventHandler(this.NewDrawingButton_Click);
+            this.newDrawingButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // createDrawingMenuPanel
             // 
@@ -257,6 +285,7 @@ namespace ArtistAssistant
             this.startDrawingButton.Text = "Start Drawing";
             this.startDrawingButton.UseVisualStyleBackColor = true;
             this.startDrawingButton.Click += new System.EventHandler(this.StartDrawingButton_Click);
+            this.startDrawingButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // backgroundFileButton
             // 
@@ -268,6 +297,7 @@ namespace ArtistAssistant
             this.backgroundFileButton.Text = "Select File";
             this.backgroundFileButton.UseVisualStyleBackColor = true;
             this.backgroundFileButton.Click += new System.EventHandler(this.BackgroundFileButton_Click);
+            this.backgroundFileButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // colorButton
             // 
@@ -279,6 +309,7 @@ namespace ArtistAssistant
             this.colorButton.Text = "Select Color";
             this.colorButton.UseVisualStyleBackColor = true;
             this.colorButton.Click += new System.EventHandler(this.ColorButton_Click);
+            this.colorButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // addItemMenuPanel
             // 
@@ -320,6 +351,11 @@ namespace ArtistAssistant
             // addHeightNumericUpDown
             // 
             this.addHeightNumericUpDown.Location = new System.Drawing.Point(70, 111);
+            this.addHeightNumericUpDown.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
             this.addHeightNumericUpDown.Name = "addHeightNumericUpDown";
             this.addHeightNumericUpDown.Size = new System.Drawing.Size(57, 20);
             this.addHeightNumericUpDown.TabIndex = 8;
@@ -329,10 +365,16 @@ namespace ArtistAssistant
             0,
             0,
             0});
+            this.addHeightNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // addWidthNumericUpDown
             // 
             this.addWidthNumericUpDown.Location = new System.Drawing.Point(70, 85);
+            this.addWidthNumericUpDown.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
             this.addWidthNumericUpDown.Name = "addWidthNumericUpDown";
             this.addWidthNumericUpDown.Size = new System.Drawing.Size(57, 20);
             this.addWidthNumericUpDown.TabIndex = 7;
@@ -342,6 +384,7 @@ namespace ArtistAssistant
             0,
             0,
             0});
+            this.addWidthNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // treePictureBox
             // 
@@ -430,6 +473,88 @@ namespace ArtistAssistant
             this.drawingPictureBox.TabStop = false;
             this.drawingPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawingPictureBox_MouseClick);
             // 
+            // scaleItemMenuPanel
+            // 
+            this.scaleItemMenuPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.scaleItemMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scaleItemMenuPanel.Controls.Add(this.scaleObjectButton);
+            this.scaleItemMenuPanel.Controls.Add(this.scaleHeightLabel);
+            this.scaleItemMenuPanel.Controls.Add(this.scaleWidthLabel);
+            this.scaleItemMenuPanel.Controls.Add(this.scaleHeightNumericUpDown);
+            this.scaleItemMenuPanel.Controls.Add(this.scaleWidthNumericUpDown);
+            this.scaleItemMenuPanel.Location = new System.Drawing.Point(65, 346);
+            this.scaleItemMenuPanel.Name = "scaleItemMenuPanel";
+            this.scaleItemMenuPanel.Size = new System.Drawing.Size(139, 105);
+            this.scaleItemMenuPanel.TabIndex = 11;
+            // 
+            // scaleObjectButton
+            // 
+            this.scaleObjectButton.Location = new System.Drawing.Point(21, 60);
+            this.scaleObjectButton.Name = "scaleObjectButton";
+            this.scaleObjectButton.Size = new System.Drawing.Size(99, 23);
+            this.scaleObjectButton.TabIndex = 3;
+            this.scaleObjectButton.TabStop = false;
+            this.scaleObjectButton.Text = "Scale";
+            this.scaleObjectButton.UseVisualStyleBackColor = true;
+            this.scaleObjectButton.Click += new System.EventHandler(this.ScaleObjectButton_Click);
+            this.scaleObjectButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
+            // 
+            // scaleHeightLabel
+            // 
+            this.scaleHeightLabel.AutoSize = true;
+            this.scaleHeightLabel.Location = new System.Drawing.Point(16, 36);
+            this.scaleHeightLabel.Name = "scaleHeightLabel";
+            this.scaleHeightLabel.Size = new System.Drawing.Size(41, 13);
+            this.scaleHeightLabel.TabIndex = 10;
+            this.scaleHeightLabel.Text = "Height:";
+            // 
+            // scaleWidthLabel
+            // 
+            this.scaleWidthLabel.AutoSize = true;
+            this.scaleWidthLabel.Location = new System.Drawing.Point(19, 10);
+            this.scaleWidthLabel.Name = "scaleWidthLabel";
+            this.scaleWidthLabel.Size = new System.Drawing.Size(38, 13);
+            this.scaleWidthLabel.TabIndex = 9;
+            this.scaleWidthLabel.Text = "Width:";
+            // 
+            // scaleHeightNumericUpDown
+            // 
+            this.scaleHeightNumericUpDown.Location = new System.Drawing.Point(63, 34);
+            this.scaleHeightNumericUpDown.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.scaleHeightNumericUpDown.Name = "scaleHeightNumericUpDown";
+            this.scaleHeightNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.scaleHeightNumericUpDown.TabIndex = 8;
+            this.scaleHeightNumericUpDown.TabStop = false;
+            this.scaleHeightNumericUpDown.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.scaleHeightNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
+            // 
+            // scaleWidthNumericUpDown
+            // 
+            this.scaleWidthNumericUpDown.Location = new System.Drawing.Point(63, 8);
+            this.scaleWidthNumericUpDown.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.scaleWidthNumericUpDown.Name = "scaleWidthNumericUpDown";
+            this.scaleWidthNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.scaleWidthNumericUpDown.TabIndex = 7;
+            this.scaleWidthNumericUpDown.TabStop = false;
+            this.scaleWidthNumericUpDown.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+            this.scaleWidthNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
+            // 
             // ArtistAssistantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -437,6 +562,7 @@ namespace ArtistAssistant
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1390, 685);
             this.Controls.Add(this.addItemMenuPanel);
+            this.Controls.Add(this.scaleItemMenuPanel);
             this.Controls.Add(this.createDrawingMenuPanel);
             this.Controls.Add(this.toolbarPanel);
             this.Controls.Add(this.drawingPictureBox);
@@ -446,6 +572,7 @@ namespace ArtistAssistant
             this.MaximizeBox = false;
             this.Name = "ArtistAssistantForm";
             this.Text = "Artist Assistant";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             this.toolbarPanel.ResumeLayout(false);
             this.createDrawingMenuPanel.ResumeLayout(false);
             this.addItemMenuPanel.ResumeLayout(false);
@@ -459,6 +586,10 @@ namespace ArtistAssistant
             ((System.ComponentModel.ISupportInitialize)(this.mountainPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cloudPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.drawingPictureBox)).EndInit();
+            this.scaleItemMenuPanel.ResumeLayout(false);
+            this.scaleItemMenuPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleHeightNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scaleWidthNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -496,6 +627,13 @@ namespace ArtistAssistant
         private System.Windows.Forms.Label addItemHeightLabel;
         private System.Windows.Forms.Label addItemWidthLabel;
         private System.Windows.Forms.PictureBox drawingPictureBox;
+        private System.Windows.Forms.Panel scaleItemMenuPanel;
+        private System.Windows.Forms.Button scaleObjectButton;
+        private System.Windows.Forms.Label scaleHeightLabel;
+        private System.Windows.Forms.Label scaleWidthLabel;
+        private System.Windows.Forms.NumericUpDown scaleHeightNumericUpDown;
+        private System.Windows.Forms.NumericUpDown scaleWidthNumericUpDown;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 

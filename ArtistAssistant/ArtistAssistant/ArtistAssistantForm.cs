@@ -81,6 +81,7 @@ namespace ArtistAssistant
             this.menus = new List<Panel>();
             this.menus.Add(this.createDrawingMenuPanel);
             this.menus.Add(this.addItemMenuPanel);
+            this.menus.Add(this.scaleItemMenuPanel);
         }
 
         /// <summary>
@@ -132,6 +133,30 @@ namespace ArtistAssistant
             }
         }
 
+        /// <summary>
+        /// Colors the side panel buttons based on what the current mode is
+        /// </summary>
+        private void ColorBySelectedMode()
+        {
+            this.newObjectButton.BackColor = this.deselectionColor;
+            this.selectButton.BackColor = this.deselectionColor;
+            this.moveButton.BackColor = this.deselectionColor;
+
+            switch (this.currentMode)
+            {
+                case DrawingMode.Add:
+                    this.newObjectButton.BackColor = this.selectionColor;
+                    break;
+                case DrawingMode.Move:
+                    this.moveButton.BackColor = this.selectionColor;
+                    break;
+                case DrawingMode.Select:
+                    this.selectButton.BackColor = this.selectionColor;
+                    break;
+            }
+
+            this.Refresh();
+        }
 
         /// <summary>
         /// The event handler that handles MouseClick events for <see cref="drawingPictureBox"/>
@@ -172,10 +197,10 @@ namespace ArtistAssistant
         /// <param name="e">The arguments of the event</param>
         private void NewDrawingButton_Click(object sender, System.EventArgs e)
         {
-            this.currentMode = DrawingMode.None;
             bool isVisible = this.createDrawingMenuPanel.Visible;
             this.HideMenus();
             this.createDrawingMenuPanel.Visible = !isVisible;
+            this.ColorBySelectedMode();
         }
 
         /// <summary>
@@ -272,15 +297,9 @@ namespace ArtistAssistant
         {
             bool isVisible = this.addItemMenuPanel.Visible;
             this.HideMenus();
-
-            if (this.currentMode != DrawingMode.Add)
-            {
-                this.currentMode = DrawingMode.Add;
-            }
-            else
-            {
-                this.addItemMenuPanel.Visible = !isVisible;
-            }
+            this.currentMode = DrawingMode.Add;
+            this.addItemMenuPanel.Visible = !isVisible;
+            this.ColorBySelectedMode();
         }
 
         /// <summary>
@@ -365,6 +384,7 @@ namespace ArtistAssistant
         private void MoveButton_Click(object sender, EventArgs e)
         {
             this.currentMode = DrawingMode.Move;
+            this.ColorBySelectedMode();
         }
 
         /// <summary>
@@ -376,6 +396,7 @@ namespace ArtistAssistant
         private void SelectButton_Click(object sender, EventArgs e)
         {
             this.currentMode = DrawingMode.Select;
+            this.ColorBySelectedMode();
         }
 
         /// <summary>
@@ -389,9 +410,175 @@ namespace ArtistAssistant
             if (this.backend != null)
             {
                 this.backend.Duplicate();
+                this.Refresh();
             }
+        }
 
-            this.Refresh();
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="deleteButton"/>
+        /// Deletes the currently selected item
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (this.backend != null)
+            {
+                this.backend.Remove();
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="bringToFrontButton"/>
+        /// Brings the selected item to the front of the drawing
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void BringToFrontButton_Click(object sender, EventArgs e)
+        {
+            if (this.backend != null)
+            {
+                this.backend.BringToFront();
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="sendToBackButton"/>
+        /// Sends the currently selected item to the back of the drawing
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void SendToBackButton_Click(object sender, EventArgs e)
+        {
+            if (this.backend != null)
+            {
+                this.backend.SendToBack();
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="undoButton"/>
+        /// Undoes the most recent change that hasn't been undone yet (doesn't undo undoes)
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void UndoButton_Click(object sender, EventArgs e)
+        {
+            if (this.backend != null)
+            {
+                this.backend.Undo();
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="scaleButton"/>
+        /// Opens the menu that allows the currently selected item to be scaled
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void ScaleButton_Click(object sender, EventArgs e)
+        {
+            bool isVisible = this.scaleItemMenuPanel.Visible;
+            this.HideMenus();
+            this.scaleItemMenuPanel.Visible = !isVisible;
+        }
+
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="scaleObjectButton"/>
+        /// Scales the currently selected item to the values in the <see cref="NumericUpDown"/>
+        /// boxes nearby
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void ScaleObjectButton_Click(object sender, EventArgs e)
+        {
+            if (this.backend != null)
+            {
+                int width = (int)this.scaleWidthNumericUpDown.Value;
+                int height = (int)this.scaleHeightNumericUpDown.Value;
+                this.backend.Scale(new Size(width, height));
+                this.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles KeyDown events for the <see cref="ArtistAssistantForm"/> (and everything else)
+        /// Used to catch key commands (such as control + z for undo)
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void ArtistAssistantForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Key Commands:
+            // Control Z -> undo
+            // Control F -> bring to front
+            // Control B -> send to back
+            // Control N -> click the new drawing button
+            // Control V -> duplicate
+            // S -> Click the select button
+            // Delete -> Delete the currently selected item
+            // M -> Click the move button
+            // N -> Click the new object button
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
+            {
+                if (this.backend != null)
+                {
+                    this.backend.Undo();
+                    this.Refresh();
+                }
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.F)
+            {
+                if (this.backend != null)
+                {
+                    this.backend.BringToFront();
+                    this.Refresh();
+                }
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.B)
+            {
+                if (this.backend != null)
+                {
+                    this.backend.SendToBack();
+                    this.Refresh();
+                }
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V)
+            {
+                if (this.backend != null)
+                {
+                    this.backend.Duplicate();
+                    this.Refresh();
+                }
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)
+            {
+                this.newDrawingButton.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S)
+            {
+                this.selectButton.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                if (this.backend != null)
+                {
+                    this.backend.Remove();
+                    this.Refresh();
+                }
+            }
+            else if (e.KeyCode == Keys.M)
+            {
+                this.moveButton.PerformClick();
+            }
+            else if (e.KeyCode == Keys.N)
+            {
+                this.newObjectButton.PerformClick();
+            }
         }
     }
 }
