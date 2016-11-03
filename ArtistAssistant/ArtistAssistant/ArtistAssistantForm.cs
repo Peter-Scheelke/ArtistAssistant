@@ -694,6 +694,7 @@ namespace ArtistAssistant
                     this.drawingPictureBox.BackgroundImage = this.backend.RenderedDrawing;
                     this.Refresh();
                 }
+                // Test change
             }
         }
     }
