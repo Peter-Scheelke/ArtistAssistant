@@ -70,6 +70,13 @@ namespace ArtistAssistant
             this.scaleHeightNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.scaleWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.fileUploadMenuPanel = new System.Windows.Forms.Panel();
+            this.uploadToCloudButton = new System.Windows.Forms.Button();
+            this.uploadFileNameTextBox = new System.Windows.Forms.TextBox();
+            this.uploadFileNameLabel = new System.Windows.Forms.Label();
+            this.downloadFileMenuPanel = new System.Windows.Forms.Panel();
+            this.downloadFromCloudButton = new System.Windows.Forms.Button();
+            this.uploadedFileListBox = new System.Windows.Forms.ListBox();
             this.toolbarPanel.SuspendLayout();
             this.createDrawingMenuPanel.SuspendLayout();
             this.addItemMenuPanel.SuspendLayout();
@@ -85,6 +92,8 @@ namespace ArtistAssistant
             this.scaleItemMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleHeightNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scaleWidthNumericUpDown)).BeginInit();
+            this.fileUploadMenuPanel.SuspendLayout();
+            this.downloadFileMenuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolbarPanel
@@ -104,7 +113,7 @@ namespace ArtistAssistant
             this.toolbarPanel.Controls.Add(this.downloadButton);
             this.toolbarPanel.Controls.Add(this.newDrawingButton);
             this.toolbarPanel.Location = new System.Drawing.Point(4, 5);
-            this.toolbarPanel.Margin = new System.Windows.Forms.Padding(1);
+            this.toolbarPanel.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.toolbarPanel.Name = "toolbarPanel";
             this.toolbarPanel.Size = new System.Drawing.Size(60, 674);
             this.toolbarPanel.TabIndex = 0;
@@ -119,7 +128,7 @@ namespace ArtistAssistant
             this.uploadButton.Size = new System.Drawing.Size(50, 50);
             this.uploadButton.TabIndex = 2;
             this.uploadButton.UseVisualStyleBackColor = false;
-            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
+            this.uploadButton.Click += new System.EventHandler(this.UploadButton_Click);
             this.uploadButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // newObjectButton
@@ -249,7 +258,7 @@ namespace ArtistAssistant
             this.downloadButton.Size = new System.Drawing.Size(50, 50);
             this.downloadButton.TabIndex = 1;
             this.downloadButton.UseVisualStyleBackColor = false;
-            this.downloadButton.Click += new System.EventHandler(this.downloadButton_Click);
+            this.downloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             this.downloadButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // newDrawingButton
@@ -267,7 +276,7 @@ namespace ArtistAssistant
             // 
             // createDrawingMenuPanel
             // 
-            this.createDrawingMenuPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.createDrawingMenuPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.createDrawingMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.createDrawingMenuPanel.Controls.Add(this.startDrawingButton);
             this.createDrawingMenuPanel.Controls.Add(this.backgroundFileButton);
@@ -279,43 +288,46 @@ namespace ArtistAssistant
             // 
             // startDrawingButton
             // 
+            this.startDrawingButton.BackColor = System.Drawing.Color.White;
             this.startDrawingButton.Location = new System.Drawing.Point(17, 64);
             this.startDrawingButton.Name = "startDrawingButton";
             this.startDrawingButton.Size = new System.Drawing.Size(99, 23);
             this.startDrawingButton.TabIndex = 2;
             this.startDrawingButton.TabStop = false;
             this.startDrawingButton.Text = "Start Drawing";
-            this.startDrawingButton.UseVisualStyleBackColor = true;
+            this.startDrawingButton.UseVisualStyleBackColor = false;
             this.startDrawingButton.Click += new System.EventHandler(this.StartDrawingButton_Click);
             this.startDrawingButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // backgroundFileButton
             // 
+            this.backgroundFileButton.BackColor = System.Drawing.Color.White;
             this.backgroundFileButton.Location = new System.Drawing.Point(17, 35);
             this.backgroundFileButton.Name = "backgroundFileButton";
             this.backgroundFileButton.Size = new System.Drawing.Size(99, 23);
             this.backgroundFileButton.TabIndex = 1;
             this.backgroundFileButton.TabStop = false;
             this.backgroundFileButton.Text = "Select File";
-            this.backgroundFileButton.UseVisualStyleBackColor = true;
+            this.backgroundFileButton.UseVisualStyleBackColor = false;
             this.backgroundFileButton.Click += new System.EventHandler(this.BackgroundFileButton_Click);
             this.backgroundFileButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // colorButton
             // 
+            this.colorButton.BackColor = System.Drawing.Color.White;
             this.colorButton.Location = new System.Drawing.Point(17, 6);
             this.colorButton.Name = "colorButton";
             this.colorButton.Size = new System.Drawing.Size(99, 23);
             this.colorButton.TabIndex = 0;
             this.colorButton.TabStop = false;
             this.colorButton.Text = "Select Color";
-            this.colorButton.UseVisualStyleBackColor = true;
+            this.colorButton.UseVisualStyleBackColor = false;
             this.colorButton.Click += new System.EventHandler(this.ColorButton_Click);
             this.colorButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // addItemMenuPanel
             // 
-            this.addItemMenuPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.addItemMenuPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.addItemMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.addItemMenuPanel.Controls.Add(this.addItemHeightLabel);
             this.addItemMenuPanel.Controls.Add(this.addItemWidthLabel);
@@ -477,7 +489,7 @@ namespace ArtistAssistant
             // 
             // scaleItemMenuPanel
             // 
-            this.scaleItemMenuPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.scaleItemMenuPanel.BackColor = System.Drawing.SystemColors.ControlDark;
             this.scaleItemMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scaleItemMenuPanel.Controls.Add(this.scaleObjectButton);
             this.scaleItemMenuPanel.Controls.Add(this.scaleHeightLabel);
@@ -491,13 +503,14 @@ namespace ArtistAssistant
             // 
             // scaleObjectButton
             // 
+            this.scaleObjectButton.BackColor = System.Drawing.Color.White;
             this.scaleObjectButton.Location = new System.Drawing.Point(21, 60);
             this.scaleObjectButton.Name = "scaleObjectButton";
             this.scaleObjectButton.Size = new System.Drawing.Size(99, 23);
             this.scaleObjectButton.TabIndex = 3;
             this.scaleObjectButton.TabStop = false;
             this.scaleObjectButton.Text = "Scale";
-            this.scaleObjectButton.UseVisualStyleBackColor = true;
+            this.scaleObjectButton.UseVisualStyleBackColor = false;
             this.scaleObjectButton.Click += new System.EventHandler(this.ScaleObjectButton_Click);
             this.scaleObjectButton.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
@@ -557,20 +570,93 @@ namespace ArtistAssistant
             0});
             this.scaleWidthNumericUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
+            // fileUploadMenuPanel
+            // 
+            this.fileUploadMenuPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.fileUploadMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fileUploadMenuPanel.Controls.Add(this.uploadFileNameLabel);
+            this.fileUploadMenuPanel.Controls.Add(this.uploadToCloudButton);
+            this.fileUploadMenuPanel.Controls.Add(this.uploadFileNameTextBox);
+            this.fileUploadMenuPanel.Location = new System.Drawing.Point(65, 121);
+            this.fileUploadMenuPanel.Name = "fileUploadMenuPanel";
+            this.fileUploadMenuPanel.Size = new System.Drawing.Size(139, 86);
+            this.fileUploadMenuPanel.TabIndex = 3;
+            // 
+            // uploadToCloudButton
+            // 
+            this.uploadToCloudButton.BackColor = System.Drawing.Color.White;
+            this.uploadToCloudButton.Location = new System.Drawing.Point(17, 45);
+            this.uploadToCloudButton.Name = "uploadToCloudButton";
+            this.uploadToCloudButton.Size = new System.Drawing.Size(99, 23);
+            this.uploadToCloudButton.TabIndex = 3;
+            this.uploadToCloudButton.TabStop = false;
+            this.uploadToCloudButton.Text = "Upload";
+            this.uploadToCloudButton.UseVisualStyleBackColor = false;
+            this.uploadToCloudButton.Click += new System.EventHandler(this.UploadToCloudButton_Click);
+            // 
+            // uploadFileNameTextBox
+            // 
+            this.uploadFileNameTextBox.Location = new System.Drawing.Point(3, 21);
+            this.uploadFileNameTextBox.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.uploadFileNameTextBox.Name = "uploadFileNameTextBox";
+            this.uploadFileNameTextBox.Size = new System.Drawing.Size(131, 20);
+            this.uploadFileNameTextBox.TabIndex = 0;
+            // 
+            // uploadFileNameLabel
+            // 
+            this.uploadFileNameLabel.AutoSize = true;
+            this.uploadFileNameLabel.Location = new System.Drawing.Point(3, 4);
+            this.uploadFileNameLabel.Name = "uploadFileNameLabel";
+            this.uploadFileNameLabel.Size = new System.Drawing.Size(57, 13);
+            this.uploadFileNameLabel.TabIndex = 4;
+            this.uploadFileNameLabel.Text = "File Name:";
+            // 
+            // downloadFileMenuPanel
+            // 
+            this.downloadFileMenuPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.downloadFileMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.downloadFileMenuPanel.Controls.Add(this.uploadedFileListBox);
+            this.downloadFileMenuPanel.Controls.Add(this.downloadFromCloudButton);
+            this.downloadFileMenuPanel.Location = new System.Drawing.Point(65, 67);
+            this.downloadFileMenuPanel.Name = "downloadFileMenuPanel";
+            this.downloadFileMenuPanel.Size = new System.Drawing.Size(139, 151);
+            this.downloadFileMenuPanel.TabIndex = 5;
+            // 
+            // downloadFromCloudButton
+            // 
+            this.downloadFromCloudButton.BackColor = System.Drawing.Color.White;
+            this.downloadFromCloudButton.Location = new System.Drawing.Point(17, 115);
+            this.downloadFromCloudButton.Name = "downloadFromCloudButton";
+            this.downloadFromCloudButton.Size = new System.Drawing.Size(99, 23);
+            this.downloadFromCloudButton.TabIndex = 3;
+            this.downloadFromCloudButton.TabStop = false;
+            this.downloadFromCloudButton.Text = "Download";
+            this.downloadFromCloudButton.UseVisualStyleBackColor = false;
+            this.downloadFromCloudButton.Click += new System.EventHandler(this.DownloadFromCloudButton_Click);
+            // 
+            // uploadedFileListBox
+            // 
+            this.uploadedFileListBox.FormattingEnabled = true;
+            this.uploadedFileListBox.Location = new System.Drawing.Point(3, 6);
+            this.uploadedFileListBox.Name = "uploadedFileListBox";
+            this.uploadedFileListBox.Size = new System.Drawing.Size(131, 108);
+            this.uploadedFileListBox.TabIndex = 5;
+            // 
             // ArtistAssistantForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1390, 685);
+            this.ClientSize = new System.Drawing.Size(1388, 683);
+            this.Controls.Add(this.downloadFileMenuPanel);
+            this.Controls.Add(this.fileUploadMenuPanel);
             this.Controls.Add(this.scaleItemMenuPanel);
             this.Controls.Add(this.addItemMenuPanel);
             this.Controls.Add(this.createDrawingMenuPanel);
             this.Controls.Add(this.toolbarPanel);
             this.Controls.Add(this.drawingPictureBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(1);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.MaximizeBox = false;
             this.Name = "ArtistAssistantForm";
             this.Text = "Artist Assistant";
@@ -592,6 +678,9 @@ namespace ArtistAssistant
             this.scaleItemMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scaleHeightNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.scaleWidthNumericUpDown)).EndInit();
+            this.fileUploadMenuPanel.ResumeLayout(false);
+            this.fileUploadMenuPanel.PerformLayout();
+            this.downloadFileMenuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -636,6 +725,13 @@ namespace ArtistAssistant
         private System.Windows.Forms.NumericUpDown scaleHeightNumericUpDown;
         private System.Windows.Forms.NumericUpDown scaleWidthNumericUpDown;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Panel fileUploadMenuPanel;
+        private System.Windows.Forms.Button uploadToCloudButton;
+        private System.Windows.Forms.TextBox uploadFileNameTextBox;
+        private System.Windows.Forms.Label uploadFileNameLabel;
+        private System.Windows.Forms.Panel downloadFileMenuPanel;
+        private System.Windows.Forms.ListBox uploadedFileListBox;
+        private System.Windows.Forms.Button downloadFromCloudButton;
     }
 }
 

@@ -9,8 +9,12 @@ namespace ArtistAssistant
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.IO;
     using Command;
     using DrawableObject;
+    using Serializer;
+    using Storage;
 
     /// <summary>
     /// A <see cref="BackendWrapper"/> wraps up a <see cref="Drawing"/>,
@@ -85,6 +89,92 @@ namespace ArtistAssistant
         }
 
         /// <summary>
+        /// Gets a list of the drawing files that are currently saved
+        /// in the cloud
+        /// </summary>
+        /// <returns>A list of drawings saved in the cloud</returns>
+        public static List<string> ListCloudFiles()
+        {
+            try
+            {
+                return CloudManager.ListFiles();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Attempts to save the current <see cref="Drawing"/> to the cloud
+        /// Returns whether it succeeded
+        /// </summary>
+        /// <param name="fileName">The name the file should have in the cloud</param>
+        /// <param name="wrapper">The <see cref="BackendWrapper"/> containing the drawing being saved</param>
+        /// <returns>Whether the upload succeeded</returns>
+        public static bool SaveToCloud(string fileName, BackendWrapper wrapper)
+        {
+            try
+            {
+                string jsonVersionOfList = DrawableObjectSerializer.Serialize(wrapper.drawableObjectList);
+                File.WriteAllText($"{fileName}.json", jsonVersionOfList);
+                ((Bitmap)wrapper.drawingBackground).Save($"{fileName}.png", ImageFormat.Png);
+                CloudManager.Upload($"{fileName}.json", $"{fileName}.png", fileName);
+                File.Delete($"{fileName}.json");
+                File.Delete($"{fileName}.png");
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Attempts to download a <see cref="Drawing"/> from the cloud
+        /// and then set the current drawing to that one
+        /// </summary>
+        /// <param name="fileName">The name of the file that should be downloaded</param>
+        /// <returns>Whether the download succeeded</returns>
+        public static BackendWrapper DownloadFromCloud(string fileName)
+        {
+            try
+            {
+                BackendWrapper wrapper = null;
+                CloudManager.Download($"{fileName}.json", $"{fileName}.png", fileName);
+                string jsonVersionOfList = File.ReadAllText($"{fileName}.json");
+                DrawableObjectList list = DrawableObjectSerializer.Deserialize(jsonVersionOfList);
+                Image background;
+                using (FileStream myStream = new FileStream($"{fileName}.png", FileMode.Open))
+                {
+                    background = Image.FromStream(myStream);
+                }
+
+                Size size = background.Size;
+                File.Delete($"{fileName}.json");
+                File.Delete($"{fileName}.png");
+                wrapper = BackendWrapper.Create(background, background.Size);
+                wrapper.drawing.Dispose();
+                wrapper.drawing = Drawing.Create(background, list, size);
+                return wrapper;
+            }
+            catch (Exception)
+            {
+                if (File.Exists($"{fileName}.json"))
+                {
+                    File.Delete($"{fileName}.json");
+                }
+
+                if (File.Exists($"{fileName}.png"))
+                {
+                    File.Delete($"{fileName}.png");
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Adds a <see cref="DrawableObject.DrawableObject"/> to the <see cref="Drawing"/>
         /// contained in the <see cref="BackendWrapper"/>
         /// </summary>
@@ -95,9 +185,17 @@ namespace ArtistAssistant
         {
             try
             {
+                // Add the object
                 DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(imageType, location, size);
                 var parameters = CommandFactory.GetCommandArgumentsObject();
                 parameters.CommandType = CommandType.Add;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.AffectedDrawableObject = drawableObject;
+                this.ExecuteCommand(parameters);
+
+                // Select the object
+                parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = drawableObject;
                 this.ExecuteCommand(parameters);

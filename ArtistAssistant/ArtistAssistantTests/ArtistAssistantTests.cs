@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ArtistAssistant.DrawableObject;
+using ArtistAssistant.Serializer;
 using System.Drawing;
-using System.Reflection;
 using System.Collections.Generic;
 using ArtistAssistant.Command;
-using System.Windows.Forms;
 using ArtistAssistant;
+using ArtistAssistant.Storage;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace ArtistAssistantTests
 {
@@ -1168,7 +1170,7 @@ namespace ArtistAssistantTests
                 }
                 catch (Exception) { }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 succeeded = false;
             }
@@ -1233,10 +1235,116 @@ namespace ArtistAssistantTests
                 backend.ClearAndStartNewDrawing(new Bitmap(500, 500), new Size(500, 500));
                 Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Assert.Fail();
             }
+        }
+
+        /// <summary>
+        /// Make sure the <see cref="DrawableObject"/> serializer
+        /// can correctly serialize/deserialize things
+        /// </summary>
+        [TestMethod]
+        public void TestSerializer()
+        {
+            try
+            {
+                DrawableObjectList list = DrawableObjectList.Create();
+                list.Add(DrawableObject.Create(ImageType.Pine, new Point(10, 10), new Size(5, 5)));
+                list.Add(DrawableObject.Create(ImageType.Pond, new Point(10, 11), new Size(5, 6)));
+                list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 12), new Size(5, 7)));
+                string str = DrawableObjectSerializer.Serialize(list);
+
+                DrawableObjectList list2 = DrawableObjectSerializer.Deserialize(str);
+
+                Assert.IsTrue(list.Count == list2.Count);
+                for (int i = 0; i < list2.Count; ++i)
+                {
+                    Assert.IsTrue(list.RenderOrder[i].Size.Width == list2.RenderOrder[i].Size.Width);
+                    Assert.IsTrue(list.RenderOrder[i].Size.Height == list2.RenderOrder[i].Size.Height);
+                    Assert.IsTrue(list.RenderOrder[i].Location.X == list2.RenderOrder[i].Location.X);
+                    Assert.IsTrue(list.RenderOrder[i].Location.Y == list2.RenderOrder[i].Location.Y);
+                    Assert.IsTrue(list.RenderOrder[i].ImageType == list2.RenderOrder[i].ImageType);
+                    Assert.IsTrue(list.RenderOrder[i].Selected == list2.RenderOrder[i].Selected);
+                }
+            }
+            catch (Exception)
+            {
+                Assert.Fail();
+            }
+
+            bool exceptionThrown = false;
+            try
+            {
+                DrawableObjectList list = DrawableObjectSerializer.Deserialize("This won't work");
+            }
+            catch (Exception)
+            {
+                exceptionThrown = true;
+            }
+
+            Assert.IsTrue(exceptionThrown);
+        }
+
+        /// <summary>
+        /// Make sure that cloud storage is working
+        /// </summary>
+        [TestMethod]
+        public void TestCloudStorage()
+        {
+            DrawableObjectList list = DrawableObjectList.Create();
+            list.Add(DrawableObject.Create(ImageType.Pine, new Point(10, 10), new Size(5, 5)));
+            list.Add(DrawableObject.Create(ImageType.Pond, new Point(10, 11), new Size(5, 6)));
+            list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 12), new Size(5, 7)));
+            string listToJson = DrawableObjectSerializer.Serialize(list);
+            Image bitmap = Image.FromFile("undo.png");
+
+            int cloudFileCount = CloudManager.ListFiles().Count;
+            string key = "testfile";
+            bitmap.Save($"{key}.png");
+            File.WriteAllText($"{key}.json", listToJson);
+            CloudManager.Upload($"{key}.json", $"{key}.png", key);
+            File.Delete($"{key}.json");
+            File.Delete($"{key}.png");
+
+            Assert.IsTrue(cloudFileCount + 1 == CloudManager.ListFiles().Count);
+
+            CloudManager.Download($"{key}2.json", $"{key}2.png", key);
+            Assert.IsTrue(File.Exists($"{key}2.json") && File.Exists($"{key}2.png"));
+
+            string jsonToList = File.ReadAllText($"{key}2.json");
+            DrawableObjectList newList = DrawableObjectSerializer.Deserialize(jsonToList);
+            File.Delete($"{key}2.json");
+            File.Delete($"{key}2.png");
+
+            for (int i = 0; i < newList.Count; ++i)
+            {
+                Assert.IsTrue(newList.RenderOrder[i].ImageType == list.RenderOrder[i].ImageType);
+                Assert.IsTrue(newList.RenderOrder[i].Selected == list.RenderOrder[i].Selected);
+                Assert.IsTrue(newList.RenderOrder[i].Size.Width == list.RenderOrder[i].Size.Width);
+                Assert.IsTrue(newList.RenderOrder[i].Size.Height == list.RenderOrder[i].Size.Height);
+                Assert.IsTrue(newList.RenderOrder[i].Location.X == list.RenderOrder[i].Location.X);
+                Assert.IsTrue(newList.RenderOrder[i].Location.Y == list.RenderOrder[i].Location.Y);
+            }
+
+            CloudManager.Delete(new List<string>() { key });
+            Assert.IsTrue(cloudFileCount == CloudManager.ListFiles().Count);
+        }
+
+        [TestMethod]
+        public void ZTempTest()
+        {
+            Bitmap bitmap = new Bitmap(50, 50);
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                using (SolidBrush brush = new SolidBrush(Color.Aqua))
+                {
+                    graphics.FillRectangle(brush, 0, 0, bitmap.Size.Width, bitmap.Size.Height);
+                }
+            }
+
+            bitmap.Save("test.png", ImageFormat.Png);
         }
     }
 }

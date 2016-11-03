@@ -9,6 +9,7 @@ namespace ArtistAssistant
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
     using System.Windows.Forms;
     using DrawableObject;
 
@@ -70,6 +71,7 @@ namespace ArtistAssistant
             this.currentImageType = ImageType.Cloud;
             this.selectionColor = Color.LightBlue;
             this.deselectionColor = Color.White;
+            this.SetPictureBoxBackColors();
         }
 
         /// <summary>
@@ -82,6 +84,8 @@ namespace ArtistAssistant
             this.menus.Add(this.createDrawingMenuPanel);
             this.menus.Add(this.addItemMenuPanel);
             this.menus.Add(this.scaleItemMenuPanel);
+            this.menus.Add(this.fileUploadMenuPanel);
+            this.menus.Add(this.downloadFileMenuPanel);
         }
 
         /// <summary>
@@ -559,6 +563,14 @@ namespace ArtistAssistant
             {
                 this.newDrawingButton.PerformClick();
             }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.D)
+            {
+                if (this.backend != null)
+                {
+                    this.backend.Deselect();
+                    this.Refresh();
+                }
+            }
             else if (e.KeyCode == Keys.S)
             {
                 this.selectButton.PerformClick();
@@ -581,14 +593,108 @@ namespace ArtistAssistant
             }
         }
 
-        private void downloadButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="downloadButton"/>
+        /// Opens a menu listing the files available for download
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DownloadButton_Click(object sender, EventArgs e)
         {
+            bool isVisible = this.downloadFileMenuPanel.Visible;
+            this.HideMenus();
+            this.uploadedFileListBox.Items.Clear();
 
+            this.downloadFileMenuPanel.Visible = !isVisible;
+            foreach (string item in BackendWrapper.ListCloudFiles())
+            {
+                this.uploadedFileListBox.Items.Add(item);
+            }
         }
 
-        private void uploadButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="uploadButton"/>
+        /// Opens a menu that allows the user to save the current drawing to the cloud
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void UploadButton_Click(object sender, EventArgs e)
         {
+            bool isVisible = this.fileUploadMenuPanel.Visible;
+            this.HideMenus();
+            this.fileUploadMenuPanel.Visible = !isVisible;
+        }
 
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="uploadToCloudButton"/>
+        /// Uploads the current drawing to the cloud
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void UploadToCloudButton_Click(object sender, EventArgs e)
+        {
+            if (this.backend == null)
+            {
+                MessageBox.Show("Please create a drawing before attemptint to save one.", "No Drawing to Save");
+            }
+            else
+            {
+                string fileName = this.uploadFileNameTextBox.Text;
+                var isValid = !string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
+                if (!isValid)
+                {
+                    MessageBox.Show("Please enter a valid file name", "Invalid File Name");
+                }
+                else
+                {
+                    bool succeeded = BackendWrapper.SaveToCloud(fileName, this.backend);
+                    if (succeeded)
+                    {
+                        this.HideMenus();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry, there was an error uploading the file", "Upload Error");
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles Click events for <see cref="downloadFromCloudButton"/>
+        /// Creates a new <see cref="BackendWrapper"/> to use to generate the drawing
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DownloadFromCloudButton_Click(object sender, EventArgs e)
+        {
+            if (!(this.uploadedFileListBox.SelectedIndex >= 0))
+            {
+                MessageBox.Show("Please select a file.", "No File Selected");
+            }
+            else
+            {
+                if (this.backend != null)
+                {
+                    DialogResult result = MessageBox.Show("Starting a new image will delete the current on.", "Are You Sure?", MessageBoxButtons.YesNoCancel);
+                    if (result != DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+
+                BackendWrapper wrapper = BackendWrapper.DownloadFromCloud(this.uploadedFileListBox.SelectedItem.ToString());
+                if (wrapper == null)
+                {
+                    MessageBox.Show($"Sorry, there was an error downloading {this.uploadedFileListBox.SelectedItem.ToString()}", "Download Error");
+                }
+                else
+                {
+                    this.backend = wrapper;
+                    this.drawingPictureBox.BackgroundImage = this.backend.RenderedDrawing;
+                    this.Refresh();
+                }
+            }
         }
     }
 }
