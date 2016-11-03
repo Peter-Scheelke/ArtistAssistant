@@ -300,6 +300,11 @@ namespace ArtistAssistant
         private void NewObjectButton_Click(object sender, EventArgs e)
         {
             bool isVisible = this.addItemMenuPanel.Visible;
+            if (isVisible && this.currentMode != DrawingMode.Add)
+            {
+                isVisible = false;
+            }
+
             this.HideMenus();
             this.currentMode = DrawingMode.Add;
             this.addItemMenuPanel.Visible = !isVisible;
@@ -692,9 +697,9 @@ namespace ArtistAssistant
                 {
                     this.backend = wrapper;
                     this.drawingPictureBox.BackgroundImage = this.backend.RenderedDrawing;
+                    this.HideMenus();
                     this.Refresh();
                 }
-                // Test change
             }
         }
     }

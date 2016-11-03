@@ -156,6 +156,7 @@ namespace ArtistAssistant
                 wrapper = BackendWrapper.Create(background, background.Size);
                 wrapper.drawing.Dispose();
                 wrapper.drawing = Drawing.Create(background, list, size);
+                wrapper.drawableObjectList = list;
                 return wrapper;
             }
             catch (Exception)

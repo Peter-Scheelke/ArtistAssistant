@@ -75,7 +75,15 @@ namespace ArtistAssistant.Storage
         /// <returns>The AWS Authentication User string</returns>
         private static string GetAWSAuthenticationUser()
         {
-            return "";
+            string[] authenticationData = File.ReadAllLines("Authentication.txt");
+            if (authenticationData.Length == 2)
+            {
+                return authenticationData[0];
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -84,7 +92,15 @@ namespace ArtistAssistant.Storage
         /// <returns>The AWS Authentication Key string</returns>
         private static string GetAwsAuthenticationKey()
         {
-            return "";
+            string[] authenticationData = File.ReadAllLines("Authentication.txt");
+            if (authenticationData.Length == 2)
+            {
+                return authenticationData[1];
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
