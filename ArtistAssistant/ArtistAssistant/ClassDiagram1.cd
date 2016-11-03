@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ArtistAssistant.ArtistAssistantForm" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMCAIoQMAmSCQNGeDYqPQWQGgqAQEGIjEDKYSEABwSU=</HashCode>
+      <FileName>ArtistAssistantForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.BackendWrapper" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIIACQgAAIAABBAAEAIIBAAAAEAgIUAAgAAAwAAAAAA=</HashCode>
+      <FileName>BackendWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Program" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Command.AddCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIABAQAAAAAAQAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\AddCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.BringToIndexCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAIAQAAAAAAAEAAAACAAAAAAAA=</HashCode>
+      <FileName>Command\BringToIndexCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.CommandFactory" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAEAAAAAAgAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\CommandFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Command.DeselectCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAABAQAAAAAAQAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\DeselectCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.DuplicateCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAAAQAgAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\DuplicateCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.MoveCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAABAQAAAAEAQAAAABAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\MoveCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.RemoveCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAABAQAAAAAAQAAAAAAAUAAAgAAAAAAAAA=</HashCode>
+      <FileName>Command\RemoveCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.ScaleCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAABAQAAAAAAQAAAAAAAEAAAEAABAAAAAA=</HashCode>
+      <FileName>Command\ScaleCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.Command.SelectCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAQAQAAAAAAAUAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\SelectCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.CompleteState" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAggAAABIAAAAAAAAAAFAAAAAAYgQAAAI=</HashCode>
+      <FileName>DrawableObject\CompleteState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.DrawableObject" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAABAIAAggAAAAIAAAAAAAACAFBEAAAAYAAAAAI=</HashCode>
+      <FileName>DrawableObject\DrawableObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.DrawableObjectList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGIIQECAAACAIAJAAEAABAAAEAACAEBAKEAAAIBEAAA=</HashCode>
+      <FileName>DrawableObject\DrawableObjectList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.Drawing" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAGCAgApAAIAIAAAAAABAAUAAABCAAAAAAAA=</HashCode>
+      <FileName>DrawableObject\Drawing.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.ExtrinsicState" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAIAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>DrawableObject\ExtrinsicState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.ImagePool" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAIAAAAAAQQAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>DrawableObject\ImagePool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.IntrinsicState" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAggAAAAIAAAAAEAAAAFAAAAAAYAAAACI=</HashCode>
+      <FileName>DrawableObject\IntrinsicState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.State" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAggAAAAIAAAAAAAAAABAAAAAAYAAAAAI=</HashCode>
+      <FileName>DrawableObject\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.DrawableObject.StateFactory" Collapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>DrawableObject\StateFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Properties.Resources" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAEEBCCAAGAABABEQAwgQQKAAAAAQAAAAABAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Properties.Settings" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Storage.CloudManager" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAQAAAAAEAAgAAAEAAAAAAAlABAAAAQA=</HashCode>
+      <FileName>Storage\CloudManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ArtistAssistant.Serializer.DrawableObjectSerializer" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Storage\DrawableObjectSerializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ArtistAssistant.Command.ICommand" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ArtistAssistant.DrawingMode" Collapsed="true">
+    <Position X="7" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAQAEAAAA=</HashCode>
+      <FileName>DrawingMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ArtistAssistant.Command.CommandType" Collapsed="true">
+    <Position X="5.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAIAAAAAAAAIABAAAAAAAIAAAAEAAQAAAAAA=</HashCode>
+      <FileName>Command\CommandType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ArtistAssistant.DrawableObject.ImageType" Collapsed="true">
+    <Position X="8.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAACCAAAAABAAAAAQAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DrawableObject\ImageType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

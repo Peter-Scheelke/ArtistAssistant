@@ -657,6 +657,13 @@ namespace ArtistAssistantTests
             command.Undo();
             Assert.IsFalse(list[0].Selected);
             Assert.IsTrue(list[3].Selected);
+
+            command = new SelectCommand(list, list[2].Id);
+            list[2].Deselect();
+            command.Execute();
+            Assert.IsTrue(list[2].Selected);
+            command.Undo();
+            Assert.IsFalse(list[2].Selected);
         }
 
         /// <summary>
@@ -1178,6 +1185,9 @@ namespace ArtistAssistantTests
             Assert.IsTrue(succeeded);
         }
 
+        /// <summary>
+        /// Test the <see cref="BackendWrapper"/> object
+        /// </summary>
         [TestMethod]
         public void TestBackendWrapper()
         {
@@ -1186,59 +1196,61 @@ namespace ArtistAssistantTests
             Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
             Assert.IsTrue(backend.GetSizeOfSelectedItem() == null);
 
-            try
-            {
-                backend.Add(ImageType.Mountain, new Point(50, 50), new Size(75, 75));
-                backend.Select(new Point(60, 60));
-                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
-                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+            backend.Add(ImageType.Mountain, new Point(50, 50), new Size(75, 75));
+            backend.Select(new Point(60, 60));
+            Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+            Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
 
-                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 50);
-                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 50);
+            Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 50);
+            Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 50);
 
-                backend.Move(new Point(30, 30));
-                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 30);
-                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 30);
+            backend.Move(new Point(30, 30));
+            Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 30);
+            Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 30);
 
-                backend.Duplicate();
-                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 45);
-                Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 45);
+            backend.Duplicate();
+            Assert.IsTrue(backend.GetLocationOfSelectedItem()?.X == 45);
+            Assert.IsTrue(backend.GetLocationOfSelectedItem()?.Y == 45);
 
-                backend.Scale(new Size(80, 80));
-                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 80);
-                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 80);
+            backend.Scale(new Size(80, 80));
+            Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 80);
+            Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 80);
 
-                backend.Undo();
-                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
-                Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+            backend.Undo();
+            Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
+            Assert.IsTrue(backend.GetSizeOfSelectedItem()?.Width == 75);
 
-                backend.BringToFront();
-                backend.SendToBack();
+            backend.BringToFront();
+            backend.SendToBack();
 
-                backend.Remove();
-                Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+            backend.Remove();
+            Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
 
-                // These shouldn't do anything (no exceptions should be thrown though)
-                backend.Move(new Point(30, 30));
-                backend.BringToFront();
-                backend.SendToBack();
-                backend.Scale(new Size(80, 80));
+            // These shouldn't do anything (no exceptions should be thrown though)
+            backend.Move(new Point(30, 30));
+            backend.BringToFront();
+            backend.SendToBack();
+            backend.Scale(new Size(80, 80));
 
-                backend.Undo();
-                Assert.IsFalse(backend.GetLocationOfSelectedItem() == null);
+            backend.Undo();
+            Assert.IsFalse(backend.GetLocationOfSelectedItem() == null);
 
-                backend.Deselect();
-                Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
-                backend.Undo();
-                Assert.IsFalse(backend.GetLocationOfSelectedItem() == null);
+            backend.Deselect();
+            Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+            backend.Undo();
+            Assert.IsFalse(backend.GetLocationOfSelectedItem() == null);
 
-                backend.ClearAndStartNewDrawing(new Bitmap(500, 500), new Size(500, 500));
-                Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
-            }
-            catch (Exception)
-            {
-                Assert.Fail();
-            }
+            backend.ClearAndStartNewDrawing(new Bitmap(500, 500), new Size(500, 500));
+            Assert.IsTrue(backend.GetLocationOfSelectedItem() == null);
+
+            
+            BackendWrapper.SaveToCloud("testinginginginginginging12341234", backend);
+            var list = BackendWrapper.ListCloudFiles();
+            Assert.IsTrue(list.Contains("testinginginginginginging12341234"));
+            backend = null;
+            backend = BackendWrapper.DownloadFromCloud("testinginginginginginging12341234");
+            Assert.IsTrue(backend != null);
+            CloudManager.Delete(new List<string>() { "testinginginginginginging12341234" });
         }
 
         /// <summary>
@@ -1308,7 +1320,9 @@ namespace ArtistAssistantTests
             File.Delete($"{key}.json");
             File.Delete($"{key}.png");
 
-            Assert.IsTrue(cloudFileCount + 1 == CloudManager.ListFiles().Count);
+            var listFromCloud = CloudManager.ListFiles();
+            Assert.IsTrue(cloudFileCount + 1 == listFromCloud.Count);
+            Assert.IsTrue(listFromCloud.Contains(key));
 
             CloudManager.Download($"{key}2.json", $"{key}2.png", key);
             Assert.IsTrue(File.Exists($"{key}2.json") && File.Exists($"{key}2.png"));
@@ -1330,21 +1344,6 @@ namespace ArtistAssistantTests
 
             CloudManager.Delete(new List<string>() { key });
             Assert.IsTrue(cloudFileCount == CloudManager.ListFiles().Count);
-        }
-
-        [TestMethod]
-        public void ZTempTest()
-        {
-            Bitmap bitmap = new Bitmap(50, 50);
-            using (Graphics graphics = Graphics.FromImage(bitmap))
-            {
-                using (SolidBrush brush = new SolidBrush(Color.Aqua))
-                {
-                    graphics.FillRectangle(brush, 0, 0, bitmap.Size.Width, bitmap.Size.Height);
-                }
-            }
-
-            bitmap.Save("test.png", ImageFormat.Png);
         }
     }
 }

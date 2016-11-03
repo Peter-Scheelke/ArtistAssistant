@@ -186,6 +186,7 @@ namespace ArtistAssistant
                     break;
                 case DrawingMode.Select:
                     this.backend.Select(e.Location);
+                    this.UpdateScaleDimensions();
                     break;
             }
 
@@ -492,8 +493,23 @@ namespace ArtistAssistant
         private void ScaleButton_Click(object sender, EventArgs e)
         {
             bool isVisible = this.scaleItemMenuPanel.Visible;
+            this.UpdateScaleDimensions();
+
             this.HideMenus();
             this.scaleItemMenuPanel.Visible = !isVisible;
+        }
+
+        private void UpdateScaleDimensions()
+        {
+            if (this.backend != null)
+            {
+                Size? size = this.backend.GetSizeOfSelectedItem();
+                if (size != null)
+                {
+                    this.scaleWidthNumericUpDown.Value = Convert.ToDecimal(size?.Width);
+                    this.scaleHeightNumericUpDown.Value = Convert.ToDecimal(size?.Height);
+                }
+            }
         }
 
         /// <summary>
