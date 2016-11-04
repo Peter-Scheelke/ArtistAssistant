@@ -109,7 +109,7 @@ namespace ArtistAssistant.Command
         /// </summary>
         public void Execute()
         {
-            if (this.removedObject != null)
+            if (this.removedObject != null && this.DrawableObjectList.Contains(this.removedObject))
             {
                 this.wasSelected = this.removedObject.Selected;
                 this.DrawableObjectList.Remove(this.removedObject);

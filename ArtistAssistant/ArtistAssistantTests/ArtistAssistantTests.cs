@@ -8,7 +8,6 @@ using ArtistAssistant.Command;
 using ArtistAssistant;
 using ArtistAssistant.Storage;
 using System.IO;
-using System.Drawing.Imaging;
 
 namespace ArtistAssistantTests
 {
@@ -473,6 +472,28 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list.Count == 1);
             command.Undo();
             Assert.IsTrue(list.Count == 0);
+
+            // Try a negative location
+            command = AddCommand.Create(list, DrawableObject.Create(ImageType.Cloud, new Point(-3, -3), new Size(5, 5)));
+            command.Execute();
+            Assert.IsTrue(list.Count == 1);
+            command.Execute();
+            Assert.IsTrue(list.Count == 2);
+            command.Undo();
+            Assert.IsTrue(list.Count == 1);
+            command.Undo();
+            Assert.IsTrue(list.Count == 0);
+
+            // Try a negative size
+            command = AddCommand.Create(list, DrawableObject.Create(ImageType.Cloud, new Point(5, 5), new Size(-5, -5)));
+            command.Execute();
+            Assert.IsTrue(list.Count == 1);
+            command.Execute();
+            Assert.IsTrue(list.Count == 2);
+            command.Undo();
+            Assert.IsTrue(list.Count == 1);
+            command.Undo();
+            Assert.IsTrue(list.Count == 0);
         }
 
         /// <summary>
@@ -521,6 +542,13 @@ namespace ArtistAssistantTests
             // This should return the list to its original state
             command.Undo();
             Assert.IsTrue(list.RenderOrder[8].Id == id);
+
+            // Try moving with invalid indices
+            command = BringToIndexCommand.Create(list, -1, 8);
+            command.Execute();
+
+            command = BringToIndexCommand.Create(list, 0, 18);
+            command.Execute();
         }
 
         /// <summary>
@@ -564,6 +592,18 @@ namespace ArtistAssistantTests
             removeCommand.Undo();
             Assert.IsTrue(third.Id == list.RenderOrder[3].Id);
 
+            // Try to remove an object that isn't there
+            DrawableObject notInList = DrawableObject.Create(ImageType.Mountain, new Point(15, 15), new Size(10, 10));
+            int count = list.Count;
+            removeCommand = RemoveCommand.Create(list, notInList);
+            removeCommand.Execute();
+
+            Assert.IsTrue(count == list.Count);
+
+            removeCommand = RemoveCommand.Create(list, notInList.Id);
+            removeCommand.Execute();
+
+            Assert.IsTrue(count == list.Count);
         }
 
         /// <summary>
@@ -664,6 +704,16 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list[2].Selected);
             command.Undo();
             Assert.IsFalse(list[2].Selected);
+
+            // Try selecting something not in the list
+            int id = list.SelectedObject.Id;
+            DrawableObject notInList = DrawableObject.Create(ImageType.Mountain, new Point(5, 5), new Size(5, 5));
+            Assert.IsFalse(notInList.Selected);
+            command = SelectCommand.Create(list, notInList);
+            command.Execute();
+
+            Assert.IsTrue(list.SelectedObject.Id == id);
+            Assert.IsTrue(notInList.Selected);
         }
 
         /// <summary>
@@ -714,6 +764,29 @@ namespace ArtistAssistantTests
                     Assert.IsFalse(obj.Selected);
                 }
             }
+
+            // Make sure another item in the list can be selected
+            list[2].Select();
+            Assert.IsTrue(list[2].Selected);
+            command.Execute();
+
+            // Nothing should be selected now
+            foreach (var obj in list)
+            {
+                Assert.IsFalse(obj.Selected);
+            }
+
+            // This should reselect only list[2]
+            command.Undo();
+            Assert.IsTrue(list[2].Selected);
+
+            foreach (var obj in list)
+            {
+                if (obj.Id != list[2].Id)
+                {
+                    Assert.IsFalse(obj.Selected);
+                }
+            }
         }
 
         /// <summary>
@@ -755,6 +828,34 @@ namespace ArtistAssistantTests
             // There should be no position to go back to
             command.Undo();
             Assert.IsTrue(list[4].Location.X == 0 && list[4].Location.Y == 0);
+
+            // Moving to a negative location should be fine
+            command = MoveCommand.Create(list, list[2], new Point(-20, -20));
+            Point currentLocation = list[2].Location;
+            command.Execute();
+            Assert.IsTrue(list[2].Location.X == -20);
+            Assert.IsTrue(list[2].Location.Y == -20);
+            command.Undo();
+            Assert.IsTrue(list[2].Location.X == currentLocation.X);
+            Assert.IsTrue(list[2].Location.Y == currentLocation.Y);
+
+            // Try one negative and one positive
+            command = MoveCommand.Create(list, list[2], new Point(-20, 20));
+            currentLocation = list[2].Location;
+            command.Execute();
+            Assert.IsTrue(list[2].Location.X == -20);
+            Assert.IsTrue(list[2].Location.Y == 20);
+            command.Undo();
+            Assert.IsTrue(list[2].Location.X == currentLocation.X);
+            Assert.IsTrue(list[2].Location.Y == currentLocation.Y);
+            command = MoveCommand.Create(list, list[2], new Point(20, -20));
+            currentLocation = list[2].Location;
+            command.Execute();
+            Assert.IsTrue(list[2].Location.X == 20);
+            Assert.IsTrue(list[2].Location.Y == -20);
+            command.Undo();
+            Assert.IsTrue(list[2].Location.X == currentLocation.X);
+            Assert.IsTrue(list[2].Location.Y == currentLocation.Y);
         }
 
         /// <summary>
@@ -794,6 +895,25 @@ namespace ArtistAssistantTests
             // This should change the size back to (1, 1)
             command.Undo();
             Assert.IsTrue(list[5].Size.Width == 1 && list[5].Size.Height == 1);
+
+            // Try a negative size
+            command = ScaleCommand.Create(list, list[2], new Size(-20, -20));
+            command.Execute();
+            Assert.IsTrue(list[2].Size.Width == -20 && list[2].Size.Height == -20);
+            command.Undo();
+            Assert.IsTrue(list[2].Size.Width == 1 && list[2].Size.Height == 1);
+
+            // Try one negative one positive
+            command = ScaleCommand.Create(list, list[2], new Size(-20, 20));
+            command.Execute();
+            Assert.IsTrue(list[2].Size.Width == -20 && list[2].Size.Height == 20);
+            command.Undo();
+            Assert.IsTrue(list[2].Size.Width == 1 && list[2].Size.Height == 1);
+            command = ScaleCommand.Create(list, list[2], new Size(20, -20));
+            command.Execute();
+            Assert.IsTrue(list[2].Size.Width == 20 && list[2].Size.Height == -20);
+            command.Undo();
+            Assert.IsTrue(list[2].Size.Width == 1 && list[2].Size.Height == 1);
         }
 
         /// <summary>
