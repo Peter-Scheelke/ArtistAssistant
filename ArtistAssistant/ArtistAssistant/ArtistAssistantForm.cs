@@ -499,6 +499,10 @@ namespace ArtistAssistant
             this.scaleItemMenuPanel.Visible = !isVisible;
         }
 
+        /// <summary>
+        /// Updates the numbers contained in the scale menu to the dimensions
+        /// of the currently selected object
+        /// </summary>
         private void UpdateScaleDimensions()
         {
             if (this.backend != null)

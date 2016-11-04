@@ -70,40 +70,6 @@ namespace ArtistAssistant.Storage
         }
 
         /// <summary>
-        /// Get the AWS Authentication User from a file
-        /// </summary>
-        /// <returns>The AWS Authentication User string</returns>
-        private static string GetAWSAuthenticationUser()
-        {
-            string[] authenticationData = File.ReadAllLines("Authentication.txt");
-            if (authenticationData.Length == 2)
-            {
-                return authenticationData[0];
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Get the AWS Authentication Key from a file
-        /// </summary>
-        /// <returns>The AWS Authentication Key string</returns>
-        private static string GetAwsAuthenticationKey()
-        {
-            string[] authenticationData = File.ReadAllLines("Authentication.txt");
-            if (authenticationData.Length == 2)
-            {
-                return authenticationData[1];
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
         /// Gets a list of the names of the files in the bucket
         /// </summary>
         /// <returns>A list of the names of the files in the bucket</returns>
@@ -195,6 +161,40 @@ namespace ArtistAssistant.Storage
                 };
 
                 response = client.DeleteObject(request);
+            }
+        }
+
+        /// <summary>
+        /// Get the AWS Authentication User from a file
+        /// </summary>
+        /// <returns>The AWS Authentication User string</returns>
+        private static string GetAWSAuthenticationUser()
+        {
+            string[] authenticationData = File.ReadAllLines("Authentication.txt");
+            if (authenticationData.Length == 2)
+            {
+                return authenticationData[0];
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Get the AWS Authentication Key from a file
+        /// </summary>
+        /// <returns>The AWS Authentication Key string</returns>
+        private static string GetAwsAuthenticationKey()
+        {
+            string[] authenticationData = File.ReadAllLines("Authentication.txt");
+            if (authenticationData.Length == 2)
+            {
+                return authenticationData[1];
+            }
+            else
+            {
+                return string.Empty;
             }
         }
     }
