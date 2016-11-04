@@ -15,7 +15,7 @@ namespace ArtistAssistant.Storage
     /// Manages saving/downloading <see cref="Drawing"/> data
     /// from an AWS bucket
     /// </summary>
-    public class CloudManager
+    public static class CloudManager
     {
         /// <summary>
         /// The AWS S3 user id

@@ -14,7 +14,7 @@ namespace ArtistAssistant.Serializer
     /// <summary>
     /// Serializes <see cref="DrawableObject"/>s into JSON objects
     /// </summary>
-    public class DrawableObjectSerializer
+    public static class DrawableObjectSerializer
     {
         /// <summary>
         /// Serializes a <see cref="DrawableObjectList"/> into a JSON string
