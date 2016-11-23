@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace ArtistAssistant.Command
+namespace ArtistAssistant.Command.Commands
 {
     using System.Drawing;
     using DrawableObject;

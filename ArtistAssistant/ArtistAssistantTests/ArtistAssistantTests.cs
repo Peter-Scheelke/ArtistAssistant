@@ -8,6 +8,8 @@ using ArtistAssistant.Command;
 using ArtistAssistant;
 using ArtistAssistant.Storage;
 using System.IO;
+using ArtistAssistant.Command.Factory;
+using ArtistAssistant.Command.Commands;
 
 namespace ArtistAssistantTests
 {
@@ -983,7 +985,7 @@ namespace ArtistAssistantTests
         {
             bool failed = true; // Failed is used to make sure that exceptions were thrown
             CommandFactory factory = CommandFactory.Create();
-            CommandFactory.CommandArguments parameters;
+            CommandParameters parameters;
             DrawableObjectList list = DrawableObjectList.Create();
             ICommand command = null;
             DrawableObject drawableObject = null;
@@ -1011,10 +1013,10 @@ namespace ArtistAssistantTests
 
         // The methods below are used to test the CommandFactory
 
-        private static bool CheckSelectCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckSelectCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test SelectCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Select;
             parameters.DrawableObjectList = list;
 
@@ -1037,10 +1039,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckScaleCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckScaleCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test ScaleCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Scale;
             parameters.DrawableObjectList = list;
             parameters.AffectedDrawableObject = list[7];
@@ -1068,10 +1070,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckRemoveCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckRemoveCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test RemoveCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Remove;
             parameters.DrawableObjectList = list;
 
@@ -1094,10 +1096,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckMoveCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckMoveCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test MoveCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Move;
             parameters.DrawableObjectList = list;
 
@@ -1120,10 +1122,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckDuplicateCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckDuplicateCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test DuplicateCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Duplicate;
             parameters.DrawableObjectList = list;
 
@@ -1149,10 +1151,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckDeselectCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckDeselectCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test DeselectCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
 
             // Parameters isn't correct for a DeselectCommand and should fail
             try
@@ -1201,10 +1203,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckBringToIndexCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command)
+        private static bool CheckBringToIndexCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test BringToIndexCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.BringToIndex;
             parameters.DrawableObjectList = list;
 
@@ -1231,10 +1233,10 @@ namespace ArtistAssistantTests
             return failed;
         }
 
-        private static bool CheckAddCommandCreation(bool failed, CommandFactory factory, out CommandFactory.CommandArguments parameters, DrawableObjectList list, out ICommand command, out DrawableObject drawableObject)
+        private static bool CheckAddCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command, out DrawableObject drawableObject)
         {
             // Test AddCommand creation
-            parameters = CommandFactory.GetCommandArgumentsObject();
+            parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Add;
             drawableObject = DrawableObject.Create(ImageType.Mountain, new Point(10, 10), new Size(5, 5));
             parameters.DrawableObjectList = list;

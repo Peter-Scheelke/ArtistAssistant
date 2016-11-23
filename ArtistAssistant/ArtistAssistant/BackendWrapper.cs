@@ -11,7 +11,8 @@ namespace ArtistAssistant
     using System.Drawing;
     using System.Drawing.Imaging;
     using System.IO;
-    using Command;
+    using Command.Commands;
+    using Command.Factory;
     using DrawableObject;
     using Serializer;
     using Storage;
@@ -188,14 +189,14 @@ namespace ArtistAssistant
             {
                 // Add the object
                 DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(imageType, location, size);
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Add;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = drawableObject;
                 this.ExecuteCommand(parameters);
 
                 // Select the object
-                parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = drawableObject;
@@ -215,7 +216,7 @@ namespace ArtistAssistant
         {
             try
             {
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.BringToIndex;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 int startIndex = -1;
@@ -251,7 +252,7 @@ namespace ArtistAssistant
         {
             try
             {
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.BringToIndex;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 int startIndex = -1;
@@ -287,7 +288,7 @@ namespace ArtistAssistant
         {
             try
             {
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Deselect;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 this.ExecuteCommand(parameters);
@@ -307,14 +308,14 @@ namespace ArtistAssistant
             try
             {
                 // Duplicate the object
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Duplicate;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
                 this.ExecuteCommand(parameters);
 
                 // Move the object slightly (so it isn't in the exact same place)
-                parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Move;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.RenderOrder[this.drawableObjectList.Count - 1];
@@ -323,7 +324,7 @@ namespace ArtistAssistant
                 this.ExecuteCommand(parameters);
 
                 // Select the new object
-                parameters = CommandFactory.GetCommandArgumentsObject();
+                parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.RenderOrder[this.drawableObjectList.Count - 1];
@@ -344,7 +345,7 @@ namespace ArtistAssistant
         {
             try
             { 
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Move;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
@@ -365,7 +366,7 @@ namespace ArtistAssistant
         {
             try
             {
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Remove;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
@@ -386,7 +387,7 @@ namespace ArtistAssistant
         {
             try
             {
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Scale;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
@@ -408,7 +409,7 @@ namespace ArtistAssistant
         {
             try
             {
-                var parameters = CommandFactory.GetCommandArgumentsObject();
+                var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = this.drawableObjectList.GetObjectFromLocation(location);
@@ -495,7 +496,7 @@ namespace ArtistAssistant
         /// then added to the undo stack
         /// </summary>
         /// <param name="parameters">The parameters used to create the <see cref="ICommand"/> object</param>
-        private void ExecuteCommand(CommandFactory.CommandArguments parameters)
+        private void ExecuteCommand(CommandParameters parameters)
         {
             ICommand command = this.commandFactory.CreateCommand(parameters);
             command.Execute();

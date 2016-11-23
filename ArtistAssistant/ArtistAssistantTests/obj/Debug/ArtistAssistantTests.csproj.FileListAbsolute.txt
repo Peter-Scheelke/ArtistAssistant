@@ -16,23 +16,6 @@ C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistA
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.csprojResolveAssemblyReference.cache
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.dll
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistantTests.dll
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistantTests.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistant.exe
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistant.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.csprojResolveAssemblyReference.cache
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.dll
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.dll
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.dll
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.xml
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.xml
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.dll
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Newtonsoft.Json.dll
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.dll
@@ -41,3 +24,20 @@ C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistA
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Newtonsoft.Json.xml
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.pdb
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.xml
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistantTests.dll
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistantTests.pdb
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistant.exe
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.dll
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.dll
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\ArtistAssistant.pdb
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.pdb
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.S3.xml
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.pdb
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\bin\Debug\AWSSDK.Core.xml
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.csprojResolveAssemblyReference.cache
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.dll
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistantTests\obj\Debug\ArtistAssistantTests.pdb
