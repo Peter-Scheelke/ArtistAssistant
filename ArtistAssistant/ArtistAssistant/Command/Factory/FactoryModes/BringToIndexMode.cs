@@ -20,7 +20,7 @@ namespace ArtistAssistant.Command.Factory.FactoryModes
         /// <returns>A new <see cref="BringToIndexCommand"/></returns>
         protected override ICommand Create(CommandParameters parameters)
         {
-            return new BringToIndexCommand(parameters.DrawableObjectList, (int)parameters.StartIndex, (int)parameters.TargetIndex);
+            return BringToIndexCommand.Create(parameters.DrawableObjectList, (int)parameters.StartIndex, (int)parameters.TargetIndex);
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace ArtistAssistant.Command.Factory.FactoryModes
         /// <returns>A new <see cref="RemoveCommand"/></returns>
         protected override ICommand Create(CommandParameters parameters)
         {
-            return new RemoveCommand(parameters.DrawableObjectList, parameters.AffectedDrawableObject);
+            return RemoveCommand.Create(parameters.DrawableObjectList, parameters.AffectedDrawableObject);
         }
 
         /// <summary>

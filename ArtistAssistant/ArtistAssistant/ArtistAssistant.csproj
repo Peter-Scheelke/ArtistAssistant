@@ -83,16 +83,17 @@
     <Compile Include="Command\Factory\FactoryModes\RemoveMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\ScaleMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\SelectMode.cs" />
-    <Compile Include="DrawableObject\CompleteState.cs" />
+    <Compile Include="DrawableObject\ClippingArea.cs" />
+    <Compile Include="DrawableObject\Internal\CompleteState.cs" />
     <Compile Include="DrawableObject\DrawableObject.cs" />
     <Compile Include="DrawableObject\DrawableObjectList.cs" />
     <Compile Include="DrawableObject\Drawing.cs" />
-    <Compile Include="DrawableObject\ExtrinsicState.cs" />
+    <Compile Include="DrawableObject\Internal\ExtrinsicState.cs" />
     <Compile Include="DrawableObject\ImagePool.cs" />
     <Compile Include="DrawableObject\ImageType.cs" />
-    <Compile Include="DrawableObject\IntrinsicState.cs" />
-    <Compile Include="DrawableObject\State.cs" />
-    <Compile Include="DrawableObject\StateFactory.cs" />
+    <Compile Include="DrawableObject\Internal\IntrinsicState.cs" />
+    <Compile Include="DrawableObject\Internal\State.cs" />
+    <Compile Include="DrawableObject\Internal\StateFactory.cs" />
     <Compile Include="ArtistAssistantForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -9,6 +9,7 @@ namespace ArtistAssistant.DrawableObject
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using Internal;
 
     /// <summary>
     /// A <see cref="DrawableObject"/> can be used to draw images on

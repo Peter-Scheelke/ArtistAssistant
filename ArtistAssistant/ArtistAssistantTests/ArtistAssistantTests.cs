@@ -716,6 +716,12 @@ namespace ArtistAssistantTests
 
             Assert.IsTrue(list.SelectedObject.Id == id);
             Assert.IsTrue(notInList.Selected);
+
+            // Try the other constructor
+            id = list[0].Id;
+            command = SelectCommand.Create(list, id);
+
+            var padding = command.DrawableObjectList.Capacity;
         }
 
         /// <summary>
@@ -858,6 +864,14 @@ namespace ArtistAssistantTests
             command.Undo();
             Assert.IsTrue(list[2].Location.X == currentLocation.X);
             Assert.IsTrue(list[2].Location.Y == currentLocation.Y);
+
+            command = MoveCommand.Create(list, list[2], new Point(-20, 20));
+            Point previousLocation = list[2].Location;
+            command.Undo();
+            Assert.IsTrue(previousLocation.X == list[2].Location.X);
+            Assert.IsTrue(previousLocation.Y == list[2].Location.Y);
+
+            var padding = command.DrawableObjectList.Capacity;
         }
 
         /// <summary>
@@ -916,6 +930,8 @@ namespace ArtistAssistantTests
             Assert.IsTrue(list[2].Size.Width == 20 && list[2].Size.Height == -20);
             command.Undo();
             Assert.IsTrue(list[2].Size.Width == 1 && list[2].Size.Height == 1);
+
+            var padding = command.DrawableObjectList.Capacity;
         }
 
         /// <summary>
@@ -1029,6 +1045,22 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Select;
+            parameters.AffectedDrawableObject = list[0];
+
+            // Parameters isn't correct for a SelectCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Select;
+            parameters.DrawableObjectList = list;
             parameters.AffectedDrawableObject = list.RenderOrder[list.Count - 1];
             command = factory.CreateCommand(parameters);
             Assert.IsFalse(list.RenderOrder[list.Count - 1].Selected);
@@ -1042,6 +1074,8 @@ namespace ArtistAssistantTests
         private static bool CheckScaleCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test ScaleCommand creation
+
+            // Try with a null location
             parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Scale;
             parameters.DrawableObjectList = list;
@@ -1056,7 +1090,40 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
+            // Try with a null list
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Scale;
+            parameters.AffectedDrawableObject = list[7];
+            parameters.Size = new Size(50, 50);
+            // Parameters isn't correct for a ScaleCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
 
+            // Try with a null drawable object
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Scale;
+            parameters.DrawableObjectList = list;
+            parameters.Size = new Size(50, 50);
+            // Parameters isn't correct for a ScaleCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+
+            // Try with correct parameters
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Scale;
+            parameters.AffectedDrawableObject = list[7];
+            parameters.DrawableObjectList = list;
             parameters.Size = new Size(50, 50);
             command = factory.CreateCommand(parameters);
             Assert.IsTrue(list[7].Size.Width == 1);
@@ -1073,6 +1140,8 @@ namespace ArtistAssistantTests
         private static bool CheckRemoveCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test RemoveCommand creation
+
+            // Test without a drawable object
             parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Remove;
             parameters.DrawableObjectList = list;
@@ -1086,6 +1155,23 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
+            // Test without a list
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Remove;
+            parameters.AffectedDrawableObject = list[3];
+            // Parameters isn't correct for a RemoveCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            // Test with correct parameters
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Remove;
+            parameters.DrawableObjectList = list;
             parameters.AffectedDrawableObject = list.RenderOrder[list.Count - 1];
             command = factory.CreateCommand(parameters);
             int id = list.RenderOrder[list.Count - 1].Id;
@@ -1099,6 +1185,8 @@ namespace ArtistAssistantTests
         private static bool CheckMoveCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test MoveCommand creation
+
+            // Test without a drawable object
             parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Move;
             parameters.DrawableObjectList = list;
@@ -1111,6 +1199,39 @@ namespace ArtistAssistantTests
             }
             catch (Exception) { }
             Assert.IsTrue(failed);
+
+            // Test without a list
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Move;
+            parameters.Location = new Point(80, 80);
+            parameters.AffectedDrawableObject = list[8];
+            // Parameters isn't correct for a MoveCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            // Test without a location
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Move;
+            parameters.DrawableObjectList = list;
+            parameters.AffectedDrawableObject = list[8];
+            // Parameters isn't correct for a MoveCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            // Test with correct parameters
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Move;
+            parameters.DrawableObjectList = list;
             parameters.Location = new Point(80, 80);
             parameters.AffectedDrawableObject = list[8];
             command = factory.CreateCommand(parameters);
@@ -1125,6 +1246,8 @@ namespace ArtistAssistantTests
         private static bool CheckDuplicateCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test DuplicateCommand creation
+
+            // Test without a drawable object
             parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Duplicate;
             parameters.DrawableObjectList = list;
@@ -1137,6 +1260,25 @@ namespace ArtistAssistantTests
             }
             catch (Exception) { }
             Assert.IsTrue(failed);
+
+            // Test without a list
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Duplicate;
+            parameters.AffectedDrawableObject = list[6];
+
+            // Parameters isn't correct for a DuplicateCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            // Test with correct parameters
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Duplicate;
+            parameters.DrawableObjectList = list;
             parameters.AffectedDrawableObject = list[6];
             command = factory.CreateCommand(parameters);
             int count = list.Count;
@@ -1155,6 +1297,7 @@ namespace ArtistAssistantTests
         {
             // Test DeselectCommand creation
             parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Deselect;
 
             // Parameters isn't correct for a DeselectCommand and should fail
             try
@@ -1206,9 +1349,12 @@ namespace ArtistAssistantTests
         private static bool CheckBringToIndexCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command)
         {
             // Test BringToIndexCommand creation
+
+            // Test without a list
             parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.BringToIndex;
-            parameters.DrawableObjectList = list;
+            parameters.StartIndex = 0;
+            parameters.TargetIndex = 5;
 
             // Parameters isn't correct for a BringToIndexCommand and should fail
             try
@@ -1219,6 +1365,37 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
+            // Test without a start index
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.BringToIndex;
+            parameters.DrawableObjectList = list;
+            parameters.TargetIndex = 5;
+            // Parameters isn't correct for a BringToIndexCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            // Test without a target index
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.BringToIndex;
+            parameters.DrawableObjectList = list;
+            parameters.StartIndex = 0;// Parameters isn't correct for a BringToIndexCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+            // Test with correct parameters
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.BringToIndex;
+            parameters.DrawableObjectList = list;
             parameters.StartIndex = 0;
             parameters.TargetIndex = 5;
             int id0 = list.RenderOrder[0].Id;
@@ -1236,6 +1413,8 @@ namespace ArtistAssistantTests
         private static bool CheckAddCommandCreation(bool failed, CommandFactory factory, out CommandParameters parameters, DrawableObjectList list, out ICommand command, out DrawableObject drawableObject)
         {
             // Test AddCommand creation
+
+            // Test without a drawable object
             parameters = CommandParameters.Create();
             parameters.CommandType = CommandType.Add;
             drawableObject = DrawableObject.Create(ImageType.Mountain, new Point(10, 10), new Size(5, 5));
@@ -1250,7 +1429,25 @@ namespace ArtistAssistantTests
             catch (Exception) { }
             Assert.IsTrue(failed);
 
+            // Test without a list
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Add;
             parameters.AffectedDrawableObject = drawableObject;
+            // Parameters isn't correct for an AddCommand and should fail
+            try
+            {
+                command = factory.CreateCommand(parameters);
+                failed = false;
+            }
+            catch (Exception) { }
+            Assert.IsTrue(failed);
+
+
+            // Test with correct parameters
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Add;
+            parameters.AffectedDrawableObject = drawableObject;
+            parameters.DrawableObjectList = list;
             command = factory.CreateCommand(parameters);
             Assert.IsTrue(list.Count == 10);
             command.Execute();

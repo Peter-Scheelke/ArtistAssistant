@@ -20,7 +20,7 @@ namespace ArtistAssistant.Command.Factory.FactoryModes
         /// <returns>A new <see cref="DeselectCommand"/></returns>
         protected override ICommand Create(CommandParameters parameters)
         {
-            return new DeselectCommand(parameters.DrawableObjectList);
+            return DeselectCommand.Create(parameters.DrawableObjectList);
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace ArtistAssistant.Command.Factory.FactoryModes
         /// <returns>A new <see cref="ScaleCommand"/></returns>
         protected override ICommand Create(CommandParameters parameters)
         {
-            return new ScaleCommand(parameters.DrawableObjectList, parameters.AffectedDrawableObject, (Size)parameters.Size);
+            return ScaleCommand.Create(parameters.DrawableObjectList, parameters.AffectedDrawableObject, (Size)parameters.Size);
         }
 
         /// <summary>

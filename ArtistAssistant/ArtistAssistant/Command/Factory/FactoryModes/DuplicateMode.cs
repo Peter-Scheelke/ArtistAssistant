@@ -20,7 +20,7 @@ namespace ArtistAssistant.Command.Factory.FactoryModes
         /// <returns>A new <see cref="DuplicateCommand"/></returns>
         protected override ICommand Create(CommandParameters parameters)
         {
-            return new DuplicateCommand(parameters.DrawableObjectList, parameters.AffectedDrawableObject);
+            return DuplicateCommand.Create(parameters.DrawableObjectList, parameters.AffectedDrawableObject);
         }
 
         /// <summary>

@@ -31,9 +31,6 @@ C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistA
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.Core.xml
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.pdb
 C:\Users\labuser\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.xml
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.ArtistAssistantForm.resources
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.Properties.Resources.resources
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csproj.GenerateResource.Cache
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.exe.config
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.exe
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\ArtistAssistant.pdb
@@ -45,6 +42,8 @@ C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.pdb
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.xml
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.ArtistAssistantForm.resources
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.Properties.Resources.resources
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csproj.GenerateResource.Cache
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.exe
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.pdb
-C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csprojResolveAssemblyReference.cache

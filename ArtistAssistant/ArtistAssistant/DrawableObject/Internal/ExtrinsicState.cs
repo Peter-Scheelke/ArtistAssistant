@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace ArtistAssistant.DrawableObject
+namespace ArtistAssistant.DrawableObject.Internal
 {
     using System.Drawing;
     

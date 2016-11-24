@@ -21,7 +21,7 @@ namespace ArtistAssistant.Command.Factory.FactoryModes
         /// <returns>A new <see cref="MoveCommand"/></returns>
         protected override ICommand Create(CommandParameters parameters)
         {
-            return new MoveCommand(parameters.DrawableObjectList, parameters.AffectedDrawableObject, (Point)parameters.Location);
+            return MoveCommand.Create(parameters.DrawableObjectList, parameters.AffectedDrawableObject, (Point)parameters.Location);
         }
 
         /// <summary>
