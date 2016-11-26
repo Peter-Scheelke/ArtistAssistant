@@ -47,3 +47,4 @@ C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csproj.GenerateResource.Cache
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.exe
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.pdb
+C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csprojResolveAssemblyReference.cache

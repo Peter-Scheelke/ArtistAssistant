@@ -1664,5 +1664,44 @@ namespace ArtistAssistantTests
             CloudManager.Delete(new List<string>() { key });
             Assert.IsTrue(cloudFileCount == CloudManager.ListFiles().Count);
         }
+
+        /// <summary>
+        /// Make sure the <see cref="ClippingArea"/> works correctly
+        /// </summary>
+        [TestMethod]
+        public void TestClippingArea()
+        {
+            ClippingArea area = new ClippingArea(new Point(10, 10), new Size(20, 20));
+
+            // Test the top left
+            Point testPoint = new Point(8, 8);
+            Size testSize = new Size(1, 1);
+
+            Assert.IsFalse(area.DoesClip(testPoint, testSize));
+
+            testSize = new Size(2, 2);
+            Assert.IsTrue(area.DoesClip(testPoint, testSize));
+
+            // Test the top right
+            testPoint = new Point(31, 9);
+            testSize = new Size(1, 1);
+            Assert.IsFalse(area.DoesClip(testPoint, testSize));
+            testPoint = new Point(30, 9);
+            Assert.IsTrue(area.DoesClip(testPoint, testSize));
+
+            // Test the bottom left
+            testPoint = new Point(9, 31);
+            Assert.IsFalse(area.DoesClip(testPoint, testSize));
+            testPoint = new Point(9, 30);
+            Assert.IsTrue(area.DoesClip(testPoint, testSize));
+
+            // Test the bottom right
+            testSize = new Size(1, 1);
+            testPoint = new Point(31, 30);
+            Assert.IsFalse(area.DoesClip(testPoint, testSize));
+            testPoint = new Point(30, 30);
+            Assert.IsTrue(area.DoesClip(testPoint, testSize));
+
+        }
     }
 }
