@@ -1585,6 +1585,7 @@ namespace ArtistAssistantTests
                 list.Add(DrawableObject.Create(ImageType.Pine, new Point(10, 10), new Size(5, 5)));
                 list.Add(DrawableObject.Create(ImageType.Pond, new Point(10, 11), new Size(5, 6)));
                 list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 12), new Size(5, 7)));
+                list[1].Select();
                 string str = DrawableObjectSerializer.Serialize(list);
 
                 DrawableObjectList list2 = DrawableObjectSerializer.Deserialize(str);
@@ -1702,6 +1703,94 @@ namespace ArtistAssistantTests
             testPoint = new Point(30, 30);
             Assert.IsTrue(area.DoesClip(testPoint, testSize));
 
+        }
+
+        /// <summary>
+        /// Make sure <see cref="MacroCommand"/>s can be created and that they work correctly
+        /// </summary>
+        [TestMethod]
+        public void TestMacroCommand()
+        {
+            CommandFactory factory = CommandFactory.Create();
+            DrawableObjectList list = DrawableObjectList.Create();
+            List<DrawableObject> objList = new List<DrawableObject>();
+            List<ICommand> commands = new List<ICommand>();
+            CommandParameters parameters = null;
+
+            for (int i = 0; i < 10; ++i)
+            {
+                objList.Add(DrawableObject.Create(ImageType.Cloud, new Point(0, 0), new Size(1, 1)));
+            }
+
+            foreach (var obj in objList)
+            {
+                list.Add(obj);
+            }
+
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Move;
+            parameters.DrawableObjectList = list;
+            parameters.AffectedDrawableObject = list[3];
+            parameters.Location = new Point(80, 80);
+            commands.Add(factory.CreateCommand(parameters));
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Scale;
+            parameters.DrawableObjectList = list;
+            parameters.AffectedDrawableObject = list[3];
+            parameters.Size = new Size(50, 50);
+            commands.Add(factory.CreateCommand(parameters));
+
+            // Parameters has no list of commands
+            parameters = CommandParameters.Create();
+            parameters.DrawableObjectList = list;
+            parameters.CommandType = CommandType.Macro;
+            bool exceptionWasThrown = false;
+            try
+            {
+                ICommand failedCommand = factory.CreateCommand(parameters);
+            }
+            catch (Exception)
+            {
+                exceptionWasThrown = true;
+            }
+
+            Assert.IsTrue(exceptionWasThrown);
+            exceptionWasThrown = false;
+
+
+            // Parameters has no list of drawable objects
+            parameters = CommandParameters.Create();
+            parameters.CommandType = CommandType.Macro;
+            parameters.Commands = commands;
+            try
+            {
+                ICommand failedCommand = factory.CreateCommand(parameters);
+            }
+            catch (Exception)
+            {
+                exceptionWasThrown = true;
+            }
+
+            Assert.IsTrue(exceptionWasThrown);
+            exceptionWasThrown = false;
+
+            parameters.DrawableObjectList = list;
+            ICommand command = factory.CreateCommand(parameters);
+            Point originalLocation = list[3].Location;
+            Size originalSize = list[3].Size;
+
+            command.Execute();
+            Assert.IsFalse(list[3].Location.X == originalLocation.X);
+            Assert.IsFalse(list[3].Location.Y == originalLocation.Y);
+            Assert.IsFalse(list[3].Size.Width == originalSize.Width);
+            Assert.IsFalse(list[3].Size.Height == originalSize.Height);
+            command.Undo();
+            Assert.IsTrue(list[3].Location.X == originalLocation.X);
+            Assert.IsTrue(list[3].Location.Y == originalLocation.Y);
+            Assert.IsTrue(list[3].Size.Width == originalSize.Width);
+            Assert.IsTrue(list[3].Size.Height == originalSize.Height);
+
+            Assert.IsTrue(object.ReferenceEquals(list, command.DrawableObjectList));
         }
     }
 }
