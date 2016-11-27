@@ -325,7 +325,6 @@ namespace ArtistAssistant
                 List<ICommand> commands = new List<ICommand>();
 
                 // Create an add command
-
                 ImageType type = this.drawableObjectList.SelectedObject.ImageType;
                 Size size = this.drawableObjectList.SelectedObject.Size;
                 Point location = new Point(this.drawableObjectList.SelectedObject.Location.X + 15, this.drawableObjectList.SelectedObject.Location.Y + 15);

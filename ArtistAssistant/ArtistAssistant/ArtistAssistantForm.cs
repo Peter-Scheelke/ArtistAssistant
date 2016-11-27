@@ -21,6 +21,11 @@ namespace ArtistAssistant
     public partial class ArtistAssistantForm : Form
     {
         /// <summary>
+        /// Tracks whether the mouse is currently down over <see cref="drawingPictureBox"/>
+        /// </summary>
+        private bool mouseIsDown;
+
+        /// <summary>
         /// The <see cref="BackendWrapper"/> that handles
         /// all of the commands, drawn objects, etc.
         /// </summary>
@@ -72,6 +77,7 @@ namespace ArtistAssistant
             this.selectionColor = Color.LightBlue;
             this.deselectionColor = Color.White;
             this.SetPictureBoxBackColors();
+            this.mouseIsDown = false;
         }
 
         /// <summary>
@@ -192,6 +198,60 @@ namespace ArtistAssistant
 
             this.drawingPictureBox.BackgroundImage = this.backend.RenderedDrawing;
             this.Refresh();
+        }
+
+        /// <summary>
+        /// The event handler that handles MouseDown events for <see cref="drawingPictureBox"/>
+        /// Tracks whether the mouse is currently down
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DrawingPictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.mouseIsDown = true;
+        }
+
+        /// <summary>
+        /// The event handler that handles MouseUp events for <see cref="drawingPictureBox"/>
+        /// Tracks whether the mouse is currently down
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DrawingPictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            this.mouseIsDown = false;
+        }
+
+        /// <summary>
+        /// The event handler that handles MouseMove events for <see cref="drawingPictureBox"/>
+        /// Allows an object to be dragged across the form if the correct mode is selected
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DrawingPictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.mouseIsDown)
+            {
+                if (this.currentMode == DrawingMode.Move)
+                {
+                    Point newLocation = new Point(e.X, e.Y);
+                    this.backend.Move(e.Location);
+                    this.drawingPictureBox.BackgroundImage = this.backend.RenderedDrawing;
+                    this.Refresh();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The event handler that handles MouseLeave events for <see cref="drawingPictureBox"/>
+        /// Tracks whether the mouse is currently down (leaving the picture box means the mouse
+        /// is up).
+        /// </summary>
+        /// <param name="sender">The sender of the event</param>
+        /// <param name="e">The arguments of the event</param>
+        private void DrawingPictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            this.mouseIsDown = false;
         }
 
         /// <summary>

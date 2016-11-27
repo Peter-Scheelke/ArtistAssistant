@@ -439,6 +439,11 @@ namespace ArtistAssistant.DrawableObject
         {
             this.observers.Add(observer);
             Unsubscriber unsubsciber = new Unsubscriber(this.observers, observer);
+            foreach (DrawableObject drawableObject in this.RenderOrder)
+            {
+                this.ClippingAreaBuffer.Add(new ClippingArea(drawableObject.Location, drawableObject.Size));
+            }
+
             return unsubsciber;
         }
 
