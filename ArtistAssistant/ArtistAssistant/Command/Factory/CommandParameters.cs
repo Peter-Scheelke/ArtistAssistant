@@ -6,6 +6,7 @@
 
 namespace ArtistAssistant.Command.Factory
 {
+    using System.Collections.Generic;
     using System.Drawing;
     using Commands;
     using DrawableObject;
@@ -55,6 +56,11 @@ namespace ArtistAssistant.Command.Factory
         /// that changes the render order of the list of <see cref="DrawableObject"/>s
         /// </summary>
         public int? TargetIndex { get; set; } = null;
+
+        /// <summary>
+        /// Gets or sets a list of <see cref="ICommand"/>s used to create <see cref="MacroCommand"/>s
+        /// </summary>
+        public List<ICommand> Commands { get; set; } = null;
 
         /// <summary>
         /// Creates a <see cref="CommandParameters"/> object

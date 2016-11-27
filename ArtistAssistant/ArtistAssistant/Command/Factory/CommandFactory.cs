@@ -35,6 +35,7 @@ namespace ArtistAssistant.Command.Factory
             this.factoryModes.Add(CommandType.Remove, new RemoveMode());
             this.factoryModes.Add(CommandType.Scale, new ScaleMode());
             this.factoryModes.Add(CommandType.Select, new SelectMode());
+            this.factoryModes.Add(CommandType.Macro, new MacroMode());
         }
 
         /// <summary>

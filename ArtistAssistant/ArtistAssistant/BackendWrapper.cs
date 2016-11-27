@@ -187,19 +187,29 @@ namespace ArtistAssistant
         {
             try
             {
-                // Add the object
+                List<ICommand> commands = new List<ICommand>();
+
+                // Create an add command
                 DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(imageType, location, size);
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Add;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = drawableObject;
-                this.ExecuteCommand(parameters);
+                commands.Add(this.commandFactory.CreateCommand(parameters));
 
-                // Select the object
+                // Create a select command
                 parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
                 parameters.AffectedDrawableObject = drawableObject;
+                commands.Add(this.commandFactory.CreateCommand(parameters));
+
+                // Set up the parameters to create a macro command
+                parameters = CommandParameters.Create();
+                parameters.CommandType = CommandType.Macro;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.Commands = commands;
+
                 this.ExecuteCommand(parameters);
             }
             catch (Exception)
@@ -307,27 +317,38 @@ namespace ArtistAssistant
         {
             try
             {
-                // Duplicate the object
+                if (this.drawableObjectList.SelectedObject == null)
+                {
+                    return;
+                }
+
+                List<ICommand> commands = new List<ICommand>();
+
+                // Create an add command
+
+                ImageType type = this.drawableObjectList.SelectedObject.ImageType;
+                Size size = this.drawableObjectList.SelectedObject.Size;
+                Point location = new Point(this.drawableObjectList.SelectedObject.Location.X + 15, this.drawableObjectList.SelectedObject.Location.Y + 15);
+                DrawableObject.DrawableObject drawableObject = DrawableObject.DrawableObject.Create(type, location, size);
                 var parameters = CommandParameters.Create();
-                parameters.CommandType = CommandType.Duplicate;
+                parameters.CommandType = CommandType.Add;
                 parameters.DrawableObjectList = this.drawableObjectList;
-                parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
-                this.ExecuteCommand(parameters);
+                parameters.AffectedDrawableObject = drawableObject;
+                commands.Add(this.commandFactory.CreateCommand(parameters));
 
-                // Move the object slightly (so it isn't in the exact same place)
-                parameters = CommandParameters.Create();
-                parameters.CommandType = CommandType.Move;
-                parameters.DrawableObjectList = this.drawableObjectList;
-                parameters.AffectedDrawableObject = this.drawableObjectList.RenderOrder[this.drawableObjectList.Count - 1];
-                Point newLocation = new Point(parameters.AffectedDrawableObject.Location.X + 15, parameters.AffectedDrawableObject.Location.Y + 15);
-                parameters.Location = newLocation;
-                this.ExecuteCommand(parameters);
-
-                // Select the new object
+                // Create a select command
                 parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
-                parameters.AffectedDrawableObject = this.drawableObjectList.RenderOrder[this.drawableObjectList.Count - 1];
+                parameters.AffectedDrawableObject = drawableObject;
+                commands.Add(this.commandFactory.CreateCommand(parameters));
+
+                // Set up the parameters to create a macro command
+                parameters = CommandParameters.Create();
+                parameters.CommandType = CommandType.Macro;
+                parameters.DrawableObjectList = this.drawableObjectList;
+                parameters.Commands = commands;
+
                 this.ExecuteCommand(parameters);
             }
             catch (Exception)

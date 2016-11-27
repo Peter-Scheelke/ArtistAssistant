@@ -153,6 +153,7 @@ namespace ArtistAssistant.DrawableObject
             this.unsubscribers.Add(item.Subscribe(this));
             base.Add(item);
             this.RenderOrder.Add(item);
+            this.ClippingAreaBuffer.Add(new ClippingArea(item.Location, item.Size));
             this.Notify();
         }
 

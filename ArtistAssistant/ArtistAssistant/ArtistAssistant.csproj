@@ -64,6 +64,7 @@
     <Compile Include="BackendWrapper.cs" />
     <Compile Include="Command\Commands\AddCommand.cs" />
     <Compile Include="Command\Commands\BringToIndexCommand.cs" />
+    <Compile Include="Command\Commands\MacroCommand.cs" />
     <Compile Include="Command\Factory\CommandFactory.cs" />
     <Compile Include="Command\Commands\CommandType.cs" />
     <Compile Include="Command\Commands\DeselectCommand.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Command\Factory\FactoryModes\DeselectMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\DuplicateMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\FactoryMode.cs" />
+    <Compile Include="Command\Factory\FactoryModes\MacroMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\MoveMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\RemoveMode.cs" />
     <Compile Include="Command\Factory\FactoryModes\ScaleMode.cs" />

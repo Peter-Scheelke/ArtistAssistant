@@ -51,6 +51,11 @@ namespace ArtistAssistant.Command.Commands
         /// A command that changes the order in which <see cref="DrawableObject.DrawableObject"/>s
         /// are rendered
         /// </summary>
-        BringToIndex
+        BringToIndex,
+
+        /// <summary>
+        /// A command made up of sub-commands, all of which will be executed/undone at once
+        /// </summary>
+        Macro
     }
 }
