@@ -46,11 +46,17 @@ namespace ArtistAssistant.DrawableObject
         public DrawableObject(ImageType imageType, Point location, Size size)
         {
             this.observers = new List<IObserver<DrawableObject>>();
+            this.ClippingAreaBuffer = new List<ClippingArea>();
             StateFactory factory = new StateFactory();
             this.state = factory.Create(imageType, location, size);
             this.Id = DrawableObject.drawableObjectCount;
             ++DrawableObject.drawableObjectCount;
         }
+
+        /// <summary>
+        /// Gets a list of the <see cref="ClippingArea"/>s that have changed since the last time observers were notified
+        /// </summary>
+        public List<ClippingArea> ClippingAreaBuffer { get; private set; }
 
         /// <summary>
         /// Gets a unique identifier for the <see cref="DrawableObject"/>
@@ -69,8 +75,10 @@ namespace ArtistAssistant.DrawableObject
 
             set
             {
+                this.ClippingAreaBuffer.Add(new ClippingArea(this.state.Location, this.state.Size));
                 this.state.ImageType = value;
                 this.Notify();
+                this.ClippingAreaBuffer.Clear();
             }
         }
 
@@ -97,8 +105,11 @@ namespace ArtistAssistant.DrawableObject
 
             set
             {
+                this.ClippingAreaBuffer.Add(new ClippingArea(this.state.Location, this.state.Size));
                 this.state.Location = value;
+                this.ClippingAreaBuffer.Add(new ClippingArea(this.state.Location, this.state.Size));
                 this.Notify();
+                this.ClippingAreaBuffer.Clear();
             }
         }
 
@@ -115,7 +126,9 @@ namespace ArtistAssistant.DrawableObject
             set
             {
                 this.state.Size = value;
+                this.ClippingAreaBuffer.Add(new ClippingArea(this.state.Location, this.state.Size));
                 this.Notify();
+                this.ClippingAreaBuffer.Clear();
             }
         }
 
@@ -151,7 +164,9 @@ namespace ArtistAssistant.DrawableObject
         public void Select()
         {
             this.state.Select();
+            this.ClippingAreaBuffer.Add(new ClippingArea(this.state.Location, this.state.Size));
             this.Notify();
+            this.ClippingAreaBuffer.Clear();
         }
 
         /// <summary>
@@ -160,7 +175,9 @@ namespace ArtistAssistant.DrawableObject
         public void Deselect()
         {
             this.state.Deselect();
+            this.ClippingAreaBuffer.Add(new ClippingArea(this.state.Location, this.state.Size));
             this.Notify();
+            this.ClippingAreaBuffer.Clear();
         }
 
         /// <summary>

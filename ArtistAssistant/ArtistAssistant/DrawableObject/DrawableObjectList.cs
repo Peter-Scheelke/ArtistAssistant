@@ -42,7 +42,13 @@ namespace ArtistAssistant.DrawableObject
             this.RenderOrder = new List<DrawableObject>();
             this.isChangingState = false;
             this.SelectedObject = null;
+            this.ClippingAreaBuffer = new List<ClippingArea>();
         }
+
+        /// <summary>
+        /// Gets a list of the <see cref="ClippingArea"/>s that have changed since the last time observers were notified
+        /// </summary>
+        public List<ClippingArea> ClippingAreaBuffer { get; private set; }
 
         /// <summary>
         /// Gets the order in which the <see cref="DrawableObject"/>s in the <see cref="DrawableObjectList"/>
@@ -208,6 +214,7 @@ namespace ArtistAssistant.DrawableObject
         public new void Remove(DrawableObject item)
         {
             int index = this.IndexOf(item);
+            this.ClippingAreaBuffer.Add(new ClippingArea(item.Location, item.Size));
             IDisposable unsubsriber = this.unsubscribers[index];
             this.unsubscribers.RemoveAt(index);
             unsubsriber.Dispose();
@@ -222,6 +229,7 @@ namespace ArtistAssistant.DrawableObject
         /// <param name="index">The index of the <see cref="DrawableObject"/> that is being removed</param>
         public new void RemoveAt(int index)
         {
+            this.ClippingAreaBuffer.Add(new ClippingArea(this[index].Location, this[index].Size));
             IDisposable unsubsriber = this.unsubscribers[index];
             this.unsubscribers.RemoveAt(index);
             unsubsriber.Dispose();
@@ -243,6 +251,7 @@ namespace ArtistAssistant.DrawableObject
             {
                 int index = this.IndexOf(objectMatch);
                 unsubscribers.Add(this.unsubscribers[index]);
+                this.ClippingAreaBuffer.Add(new ClippingArea(objectMatch.Location, objectMatch.Size));
             }
 
             foreach (IDisposable unsubscriber in unsubscribers)
@@ -267,6 +276,7 @@ namespace ArtistAssistant.DrawableObject
             {
                 this.unsubscribers[i].Dispose();
                 this.RenderOrder.Remove(this[i]);
+                this.ClippingAreaBuffer.Add(new ClippingArea(this[i].Location, this[i].Size));
             }
 
             this.unsubscribers.RemoveRange(index, count);
@@ -284,6 +294,22 @@ namespace ArtistAssistant.DrawableObject
                 unsubsciber.Dispose();
             }
 
+            int maxWidth = 0;
+            int maxHeight = 0;
+            foreach (DrawableObject drawableObject in this)
+            {
+                if (drawableObject.Size.Width > maxWidth)
+                {
+                    maxWidth = drawableObject.Size.Width;
+                }
+
+                if (drawableObject.Size.Height > maxHeight)
+                {
+                    maxHeight = drawableObject.Size.Height;
+                }
+            }
+
+            this.ClippingAreaBuffer.Add(new ClippingArea(new Point(0, 0), new Size(maxWidth, maxHeight)));
             this.unsubscribers.Clear();
             this.RenderOrder.Clear(); 
             base.Clear();
@@ -316,16 +342,19 @@ namespace ArtistAssistant.DrawableObject
                     // Shift things to the right until the target index is free
                     --currentIndex;
                     this.RenderOrder[currentIndex + 1] = this.RenderOrder[currentIndex];
+                    this.ClippingAreaBuffer.Add(new ClippingArea(this.RenderOrder[currentIndex + 1].Location, this.RenderOrder[currentIndex + 1].Size));
                 }
                 else if (targetIndex > currentIndex)
                 {
                     // Shift stuff left until the target index is free
                     ++currentIndex;
                     this.RenderOrder[currentIndex - 1] = this.RenderOrder[currentIndex];
+                    this.ClippingAreaBuffer.Add(new ClippingArea(this.RenderOrder[currentIndex - 1].Location, this.RenderOrder[currentIndex - 1].Size));
                 }
                 else
                 {
                     this.RenderOrder[currentIndex] = temp;
+                    this.ClippingAreaBuffer.Add(new ClippingArea(this.RenderOrder[currentIndex].Location, this.RenderOrder[currentIndex].Size));
                     this.Notify();
                     break;
                 }
@@ -362,6 +391,11 @@ namespace ArtistAssistant.DrawableObject
                 return;
             }
 
+            foreach (ClippingArea area in value.ClippingAreaBuffer)
+            {
+                this.ClippingAreaBuffer.Add(area);
+            }
+
             // This makes sure that only one element can be selected
             // at a time (isChangingState prevents OnNext from calling
             // itself in an infinite loop).
@@ -374,6 +408,7 @@ namespace ArtistAssistant.DrawableObject
                     {
                         if (this[i].Selected)
                         {
+                            this.ClippingAreaBuffer.Add(new ClippingArea(this[i].Location, this[i].Size));
                             this[i].Deselect();
                         }
                     }
@@ -420,6 +455,8 @@ namespace ArtistAssistant.DrawableObject
             {
                 observer.OnNext(this);
             }
+
+            this.ClippingAreaBuffer.Clear();
         }
 
         /// <summary>
