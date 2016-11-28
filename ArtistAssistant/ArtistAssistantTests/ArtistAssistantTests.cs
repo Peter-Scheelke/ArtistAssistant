@@ -1471,6 +1471,8 @@ namespace ArtistAssistantTests
                 Drawing drawing = Drawing.Create(bitmap, list, new Size(100, 100));
                 list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 10), new Size(5, 5)));
                 Image background = drawing.RenderedDrawing;
+                list.Add(DrawableObject.Create(ImageType.Mountain, new Point(99, 10), new Size(10, 10)));
+                list.Add(DrawableObject.Create(ImageType.Mountain, new Point(10, 99), new Size(10, 10)));
 
                 for (int i = 0; i < 10; ++i)
                 {

@@ -73,19 +73,13 @@ namespace ArtistAssistant.DrawableObject
         }
 
         /// <summary>
-        /// Gets or sets the background image of the drawing
+        /// Gets the background image of the drawing
         /// </summary>
         public Bitmap BackgroundImage
         {
             get
             {
                 return this.backgroundImage;
-            }
-
-            set
-            {
-                this.backgroundImage = (Bitmap)value.Clone();
-                this.Render();
             }
         }
 
