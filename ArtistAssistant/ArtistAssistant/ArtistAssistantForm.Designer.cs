@@ -112,10 +112,10 @@ namespace ArtistAssistant
             this.toolbarPanel.Controls.Add(this.moveButton);
             this.toolbarPanel.Controls.Add(this.downloadButton);
             this.toolbarPanel.Controls.Add(this.newDrawingButton);
-            this.toolbarPanel.Location = new System.Drawing.Point(11, 12);
-            this.toolbarPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.toolbarPanel.Location = new System.Drawing.Point(4, 5);
+            this.toolbarPanel.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.toolbarPanel.Name = "toolbarPanel";
-            this.toolbarPanel.Size = new System.Drawing.Size(157, 1604);
+            this.toolbarPanel.Size = new System.Drawing.Size(60, 674);
             this.toolbarPanel.TabIndex = 0;
             // 
             // uploadButton
@@ -123,10 +123,9 @@ namespace ArtistAssistant
             this.uploadButton.BackColor = System.Drawing.Color.White;
             this.uploadButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.upload;
             this.uploadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.uploadButton.Location = new System.Drawing.Point(8, 274);
-            this.uploadButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.uploadButton.Location = new System.Drawing.Point(3, 115);
             this.uploadButton.Name = "uploadButton";
-            this.uploadButton.Size = new System.Drawing.Size(133, 119);
+            this.uploadButton.Size = new System.Drawing.Size(50, 50);
             this.uploadButton.TabIndex = 2;
             this.uploadButton.UseVisualStyleBackColor = false;
             this.uploadButton.Click += new System.EventHandler(this.UploadButton_Click);
@@ -137,10 +136,9 @@ namespace ArtistAssistant
             this.newObjectButton.BackColor = System.Drawing.Color.White;
             this.newObjectButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.additem1;
             this.newObjectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.newObjectButton.Location = new System.Drawing.Point(8, 675);
-            this.newObjectButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.newObjectButton.Location = new System.Drawing.Point(3, 283);
             this.newObjectButton.Name = "newObjectButton";
-            this.newObjectButton.Size = new System.Drawing.Size(133, 119);
+            this.newObjectButton.Size = new System.Drawing.Size(50, 50);
             this.newObjectButton.TabIndex = 5;
             this.newObjectButton.UseVisualStyleBackColor = false;
             this.newObjectButton.Click += new System.EventHandler(this.NewObjectButton_Click);
@@ -151,10 +149,9 @@ namespace ArtistAssistant
             this.selectButton.BackColor = System.Drawing.Color.White;
             this.selectButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.cursor;
             this.selectButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.selectButton.Location = new System.Drawing.Point(8, 408);
-            this.selectButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.selectButton.Location = new System.Drawing.Point(3, 171);
             this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(133, 119);
+            this.selectButton.Size = new System.Drawing.Size(50, 50);
             this.selectButton.TabIndex = 3;
             this.selectButton.UseVisualStyleBackColor = false;
             this.selectButton.Click += new System.EventHandler(this.SelectButton_Click);
@@ -165,10 +162,9 @@ namespace ArtistAssistant
             this.bringToFrontButton.BackColor = System.Drawing.Color.White;
             this.bringToFrontButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.bringtofront;
             this.bringToFrontButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bringToFrontButton.Location = new System.Drawing.Point(8, 1075);
-            this.bringToFrontButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.bringToFrontButton.Location = new System.Drawing.Point(3, 451);
             this.bringToFrontButton.Name = "bringToFrontButton";
-            this.bringToFrontButton.Size = new System.Drawing.Size(133, 119);
+            this.bringToFrontButton.Size = new System.Drawing.Size(50, 50);
             this.bringToFrontButton.TabIndex = 8;
             this.bringToFrontButton.UseVisualStyleBackColor = false;
             this.bringToFrontButton.Click += new System.EventHandler(this.BringToFrontButton_Click);
@@ -179,10 +175,9 @@ namespace ArtistAssistant
             this.sendToBackButton.BackColor = System.Drawing.Color.White;
             this.sendToBackButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.sendtoback;
             this.sendToBackButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.sendToBackButton.Location = new System.Drawing.Point(8, 1209);
-            this.sendToBackButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.sendToBackButton.Location = new System.Drawing.Point(3, 507);
             this.sendToBackButton.Name = "sendToBackButton";
-            this.sendToBackButton.Size = new System.Drawing.Size(133, 119);
+            this.sendToBackButton.Size = new System.Drawing.Size(50, 50);
             this.sendToBackButton.TabIndex = 9;
             this.sendToBackButton.UseVisualStyleBackColor = false;
             this.sendToBackButton.Click += new System.EventHandler(this.SendToBackButton_Click);
@@ -193,10 +188,9 @@ namespace ArtistAssistant
             this.undoButton.BackColor = System.Drawing.Color.White;
             this.undoButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.undo;
             this.undoButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.undoButton.Location = new System.Drawing.Point(8, 1476);
-            this.undoButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.undoButton.Location = new System.Drawing.Point(3, 619);
             this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(133, 119);
+            this.undoButton.Size = new System.Drawing.Size(50, 50);
             this.undoButton.TabIndex = 11;
             this.undoButton.UseVisualStyleBackColor = false;
             this.undoButton.Click += new System.EventHandler(this.UndoButton_Click);
@@ -207,10 +201,9 @@ namespace ArtistAssistant
             this.duplicateButton.BackColor = System.Drawing.Color.White;
             this.duplicateButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.duplicate;
             this.duplicateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.duplicateButton.Location = new System.Drawing.Point(8, 942);
-            this.duplicateButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.duplicateButton.Location = new System.Drawing.Point(3, 395);
             this.duplicateButton.Name = "duplicateButton";
-            this.duplicateButton.Size = new System.Drawing.Size(133, 119);
+            this.duplicateButton.Size = new System.Drawing.Size(50, 50);
             this.duplicateButton.TabIndex = 7;
             this.duplicateButton.UseVisualStyleBackColor = false;
             this.duplicateButton.Click += new System.EventHandler(this.DuplicateButton_Click);
@@ -221,10 +214,9 @@ namespace ArtistAssistant
             this.deleteButton.BackColor = System.Drawing.Color.White;
             this.deleteButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.delete;
             this.deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.deleteButton.Location = new System.Drawing.Point(8, 1343);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.deleteButton.Location = new System.Drawing.Point(3, 563);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(133, 119);
+            this.deleteButton.Size = new System.Drawing.Size(50, 50);
             this.deleteButton.TabIndex = 10;
             this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
@@ -235,10 +227,9 @@ namespace ArtistAssistant
             this.scaleButton.BackColor = System.Drawing.Color.White;
             this.scaleButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.resize;
             this.scaleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.scaleButton.Location = new System.Drawing.Point(8, 808);
-            this.scaleButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.scaleButton.Location = new System.Drawing.Point(3, 339);
             this.scaleButton.Name = "scaleButton";
-            this.scaleButton.Size = new System.Drawing.Size(133, 119);
+            this.scaleButton.Size = new System.Drawing.Size(50, 50);
             this.scaleButton.TabIndex = 6;
             this.scaleButton.UseVisualStyleBackColor = false;
             this.scaleButton.Click += new System.EventHandler(this.ScaleButton_Click);
@@ -249,10 +240,9 @@ namespace ArtistAssistant
             this.moveButton.BackColor = System.Drawing.Color.White;
             this.moveButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.move;
             this.moveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.moveButton.Location = new System.Drawing.Point(8, 541);
-            this.moveButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.moveButton.Location = new System.Drawing.Point(3, 227);
             this.moveButton.Name = "moveButton";
-            this.moveButton.Size = new System.Drawing.Size(133, 119);
+            this.moveButton.Size = new System.Drawing.Size(50, 50);
             this.moveButton.TabIndex = 4;
             this.moveButton.UseVisualStyleBackColor = false;
             this.moveButton.Click += new System.EventHandler(this.MoveButton_Click);
@@ -263,10 +253,9 @@ namespace ArtistAssistant
             this.downloadButton.BackColor = System.Drawing.Color.White;
             this.downloadButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.download;
             this.downloadButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.downloadButton.Location = new System.Drawing.Point(8, 141);
-            this.downloadButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.downloadButton.Location = new System.Drawing.Point(3, 59);
             this.downloadButton.Name = "downloadButton";
-            this.downloadButton.Size = new System.Drawing.Size(133, 119);
+            this.downloadButton.Size = new System.Drawing.Size(50, 50);
             this.downloadButton.TabIndex = 1;
             this.downloadButton.UseVisualStyleBackColor = false;
             this.downloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
@@ -277,10 +266,9 @@ namespace ArtistAssistant
             this.newDrawingButton.BackColor = System.Drawing.Color.White;
             this.newDrawingButton.BackgroundImage = global::ArtistAssistant.Properties.Resources.newdrawing;
             this.newDrawingButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.newDrawingButton.Location = new System.Drawing.Point(8, 7);
-            this.newDrawingButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.newDrawingButton.Location = new System.Drawing.Point(3, 3);
             this.newDrawingButton.Name = "newDrawingButton";
-            this.newDrawingButton.Size = new System.Drawing.Size(133, 119);
+            this.newDrawingButton.Size = new System.Drawing.Size(50, 50);
             this.newDrawingButton.TabIndex = 0;
             this.newDrawingButton.UseVisualStyleBackColor = false;
             this.newDrawingButton.Click += new System.EventHandler(this.NewDrawingButton_Click);
@@ -293,19 +281,17 @@ namespace ArtistAssistant
             this.createDrawingMenuPanel.Controls.Add(this.startDrawingButton);
             this.createDrawingMenuPanel.Controls.Add(this.backgroundFileButton);
             this.createDrawingMenuPanel.Controls.Add(this.colorButton);
-            this.createDrawingMenuPanel.Location = new System.Drawing.Point(173, 12);
-            this.createDrawingMenuPanel.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.createDrawingMenuPanel.Location = new System.Drawing.Point(65, 5);
             this.createDrawingMenuPanel.Name = "createDrawingMenuPanel";
-            this.createDrawingMenuPanel.Size = new System.Drawing.Size(367, 236);
+            this.createDrawingMenuPanel.Size = new System.Drawing.Size(139, 100);
             this.createDrawingMenuPanel.TabIndex = 0;
             // 
             // startDrawingButton
             // 
             this.startDrawingButton.BackColor = System.Drawing.Color.White;
-            this.startDrawingButton.Location = new System.Drawing.Point(45, 153);
-            this.startDrawingButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.startDrawingButton.Location = new System.Drawing.Point(17, 64);
             this.startDrawingButton.Name = "startDrawingButton";
-            this.startDrawingButton.Size = new System.Drawing.Size(264, 55);
+            this.startDrawingButton.Size = new System.Drawing.Size(99, 23);
             this.startDrawingButton.TabIndex = 2;
             this.startDrawingButton.TabStop = false;
             this.startDrawingButton.Text = "Start Drawing";
@@ -316,10 +302,9 @@ namespace ArtistAssistant
             // backgroundFileButton
             // 
             this.backgroundFileButton.BackColor = System.Drawing.Color.White;
-            this.backgroundFileButton.Location = new System.Drawing.Point(45, 83);
-            this.backgroundFileButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.backgroundFileButton.Location = new System.Drawing.Point(17, 35);
             this.backgroundFileButton.Name = "backgroundFileButton";
-            this.backgroundFileButton.Size = new System.Drawing.Size(264, 55);
+            this.backgroundFileButton.Size = new System.Drawing.Size(99, 23);
             this.backgroundFileButton.TabIndex = 1;
             this.backgroundFileButton.TabStop = false;
             this.backgroundFileButton.Text = "Select File";
@@ -330,10 +315,9 @@ namespace ArtistAssistant
             // colorButton
             // 
             this.colorButton.BackColor = System.Drawing.Color.White;
-            this.colorButton.Location = new System.Drawing.Point(45, 14);
-            this.colorButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.colorButton.Location = new System.Drawing.Point(17, 6);
             this.colorButton.Name = "colorButton";
-            this.colorButton.Size = new System.Drawing.Size(264, 55);
+            this.colorButton.Size = new System.Drawing.Size(99, 23);
             this.colorButton.TabIndex = 0;
             this.colorButton.TabStop = false;
             this.colorButton.Text = "Select Color";
@@ -355,43 +339,39 @@ namespace ArtistAssistant
             this.addItemMenuPanel.Controls.Add(this.pinePictureBox);
             this.addItemMenuPanel.Controls.Add(this.mountainPictureBox);
             this.addItemMenuPanel.Controls.Add(this.cloudPictureBox);
-            this.addItemMenuPanel.Location = new System.Drawing.Point(173, 689);
-            this.addItemMenuPanel.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.addItemMenuPanel.Location = new System.Drawing.Point(65, 289);
             this.addItemMenuPanel.Name = "addItemMenuPanel";
-            this.addItemMenuPanel.Size = new System.Drawing.Size(367, 333);
+            this.addItemMenuPanel.Size = new System.Drawing.Size(139, 141);
             this.addItemMenuPanel.TabIndex = 3;
             // 
             // addItemHeightLabel
             // 
             this.addItemHeightLabel.AutoSize = true;
-            this.addItemHeightLabel.Location = new System.Drawing.Point(61, 269);
-            this.addItemHeightLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.addItemHeightLabel.Location = new System.Drawing.Point(23, 113);
             this.addItemHeightLabel.Name = "addItemHeightLabel";
-            this.addItemHeightLabel.Size = new System.Drawing.Size(106, 32);
+            this.addItemHeightLabel.Size = new System.Drawing.Size(41, 13);
             this.addItemHeightLabel.TabIndex = 10;
             this.addItemHeightLabel.Text = "Height:";
             // 
             // addItemWidthLabel
             // 
             this.addItemWidthLabel.AutoSize = true;
-            this.addItemWidthLabel.Location = new System.Drawing.Point(69, 207);
-            this.addItemWidthLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.addItemWidthLabel.Location = new System.Drawing.Point(26, 87);
             this.addItemWidthLabel.Name = "addItemWidthLabel";
-            this.addItemWidthLabel.Size = new System.Drawing.Size(96, 32);
+            this.addItemWidthLabel.Size = new System.Drawing.Size(38, 13);
             this.addItemWidthLabel.TabIndex = 9;
             this.addItemWidthLabel.Text = "Width:";
             // 
             // addHeightNumericUpDown
             // 
-            this.addHeightNumericUpDown.Location = new System.Drawing.Point(187, 265);
-            this.addHeightNumericUpDown.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.addHeightNumericUpDown.Location = new System.Drawing.Point(70, 111);
             this.addHeightNumericUpDown.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
             this.addHeightNumericUpDown.Name = "addHeightNumericUpDown";
-            this.addHeightNumericUpDown.Size = new System.Drawing.Size(152, 38);
+            this.addHeightNumericUpDown.Size = new System.Drawing.Size(57, 20);
             this.addHeightNumericUpDown.TabIndex = 8;
             this.addHeightNumericUpDown.TabStop = false;
             this.addHeightNumericUpDown.Value = new decimal(new int[] {
@@ -403,15 +383,14 @@ namespace ArtistAssistant
             // 
             // addWidthNumericUpDown
             // 
-            this.addWidthNumericUpDown.Location = new System.Drawing.Point(187, 203);
-            this.addWidthNumericUpDown.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.addWidthNumericUpDown.Location = new System.Drawing.Point(70, 85);
             this.addWidthNumericUpDown.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
             this.addWidthNumericUpDown.Name = "addWidthNumericUpDown";
-            this.addWidthNumericUpDown.Size = new System.Drawing.Size(152, 38);
+            this.addWidthNumericUpDown.Size = new System.Drawing.Size(57, 20);
             this.addWidthNumericUpDown.TabIndex = 7;
             this.addWidthNumericUpDown.TabStop = false;
             this.addWidthNumericUpDown.Value = new decimal(new int[] {
@@ -427,10 +406,9 @@ namespace ArtistAssistant
             this.treePictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Tree;
             this.treePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.treePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.treePictureBox.Location = new System.Drawing.Point(243, 105);
-            this.treePictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.treePictureBox.Location = new System.Drawing.Point(91, 44);
             this.treePictureBox.Name = "treePictureBox";
-            this.treePictureBox.Size = new System.Drawing.Size(90, 81);
+            this.treePictureBox.Size = new System.Drawing.Size(35, 35);
             this.treePictureBox.TabIndex = 5;
             this.treePictureBox.TabStop = false;
             this.treePictureBox.Click += new System.EventHandler(this.TreePictureBox_Click);
@@ -441,10 +419,9 @@ namespace ArtistAssistant
             this.rainPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Rain;
             this.rainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.rainPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rainPictureBox.Location = new System.Drawing.Point(133, 105);
-            this.rainPictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.rainPictureBox.Location = new System.Drawing.Point(50, 44);
             this.rainPictureBox.Name = "rainPictureBox";
-            this.rainPictureBox.Size = new System.Drawing.Size(90, 81);
+            this.rainPictureBox.Size = new System.Drawing.Size(35, 35);
             this.rainPictureBox.TabIndex = 4;
             this.rainPictureBox.TabStop = false;
             this.rainPictureBox.Click += new System.EventHandler(this.RainPictureBox_Click);
@@ -455,10 +432,9 @@ namespace ArtistAssistant
             this.pondPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Pond;
             this.pondPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pondPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pondPictureBox.Location = new System.Drawing.Point(24, 105);
-            this.pondPictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.pondPictureBox.Location = new System.Drawing.Point(9, 44);
             this.pondPictureBox.Name = "pondPictureBox";
-            this.pondPictureBox.Size = new System.Drawing.Size(90, 81);
+            this.pondPictureBox.Size = new System.Drawing.Size(35, 35);
             this.pondPictureBox.TabIndex = 3;
             this.pondPictureBox.TabStop = false;
             this.pondPictureBox.Click += new System.EventHandler(this.PondPictureBox_Click);
@@ -469,10 +445,9 @@ namespace ArtistAssistant
             this.pinePictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Pine;
             this.pinePictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pinePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pinePictureBox.Location = new System.Drawing.Point(243, 7);
-            this.pinePictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.pinePictureBox.Location = new System.Drawing.Point(91, 3);
             this.pinePictureBox.Name = "pinePictureBox";
-            this.pinePictureBox.Size = new System.Drawing.Size(90, 81);
+            this.pinePictureBox.Size = new System.Drawing.Size(35, 35);
             this.pinePictureBox.TabIndex = 2;
             this.pinePictureBox.TabStop = false;
             this.pinePictureBox.Click += new System.EventHandler(this.PinePictureBox_Click);
@@ -483,10 +458,9 @@ namespace ArtistAssistant
             this.mountainPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Mountain;
             this.mountainPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mountainPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mountainPictureBox.Location = new System.Drawing.Point(133, 7);
-            this.mountainPictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.mountainPictureBox.Location = new System.Drawing.Point(50, 3);
             this.mountainPictureBox.Name = "mountainPictureBox";
-            this.mountainPictureBox.Size = new System.Drawing.Size(90, 81);
+            this.mountainPictureBox.Size = new System.Drawing.Size(35, 35);
             this.mountainPictureBox.TabIndex = 1;
             this.mountainPictureBox.TabStop = false;
             this.mountainPictureBox.Click += new System.EventHandler(this.MountainPictureBox_Click);
@@ -497,10 +471,9 @@ namespace ArtistAssistant
             this.cloudPictureBox.BackgroundImage = global::ArtistAssistant.Properties.Resources.Cloud;
             this.cloudPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cloudPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cloudPictureBox.Location = new System.Drawing.Point(24, 7);
-            this.cloudPictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.cloudPictureBox.Location = new System.Drawing.Point(9, 3);
             this.cloudPictureBox.Name = "cloudPictureBox";
-            this.cloudPictureBox.Size = new System.Drawing.Size(90, 81);
+            this.cloudPictureBox.Size = new System.Drawing.Size(35, 35);
             this.cloudPictureBox.TabIndex = 0;
             this.cloudPictureBox.TabStop = false;
             this.cloudPictureBox.Click += new System.EventHandler(this.CloudPictureBox_Click);
@@ -508,10 +481,9 @@ namespace ArtistAssistant
             // drawingPictureBox
             // 
             this.drawingPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.drawingPictureBox.Location = new System.Drawing.Point(181, 12);
-            this.drawingPictureBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.drawingPictureBox.Location = new System.Drawing.Point(68, 5);
             this.drawingPictureBox.Name = "drawingPictureBox";
-            this.drawingPictureBox.Size = new System.Drawing.Size(3512, 1607);
+            this.drawingPictureBox.Size = new System.Drawing.Size(1317, 674);
             this.drawingPictureBox.TabIndex = 12;
             this.drawingPictureBox.TabStop = false;
             this.drawingPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawingPictureBox_MouseClick);
@@ -529,19 +501,17 @@ namespace ArtistAssistant
             this.scaleItemMenuPanel.Controls.Add(this.scaleWidthLabel);
             this.scaleItemMenuPanel.Controls.Add(this.scaleHeightNumericUpDown);
             this.scaleItemMenuPanel.Controls.Add(this.scaleWidthNumericUpDown);
-            this.scaleItemMenuPanel.Location = new System.Drawing.Point(173, 825);
-            this.scaleItemMenuPanel.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.scaleItemMenuPanel.Location = new System.Drawing.Point(65, 346);
             this.scaleItemMenuPanel.Name = "scaleItemMenuPanel";
-            this.scaleItemMenuPanel.Size = new System.Drawing.Size(367, 248);
+            this.scaleItemMenuPanel.Size = new System.Drawing.Size(139, 105);
             this.scaleItemMenuPanel.TabIndex = 11;
             // 
             // scaleObjectButton
             // 
             this.scaleObjectButton.BackColor = System.Drawing.Color.White;
-            this.scaleObjectButton.Location = new System.Drawing.Point(56, 143);
-            this.scaleObjectButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.scaleObjectButton.Location = new System.Drawing.Point(21, 60);
             this.scaleObjectButton.Name = "scaleObjectButton";
-            this.scaleObjectButton.Size = new System.Drawing.Size(264, 55);
+            this.scaleObjectButton.Size = new System.Drawing.Size(99, 23);
             this.scaleObjectButton.TabIndex = 3;
             this.scaleObjectButton.TabStop = false;
             this.scaleObjectButton.Text = "Scale";
@@ -552,34 +522,31 @@ namespace ArtistAssistant
             // scaleHeightLabel
             // 
             this.scaleHeightLabel.AutoSize = true;
-            this.scaleHeightLabel.Location = new System.Drawing.Point(43, 86);
-            this.scaleHeightLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.scaleHeightLabel.Location = new System.Drawing.Point(16, 36);
             this.scaleHeightLabel.Name = "scaleHeightLabel";
-            this.scaleHeightLabel.Size = new System.Drawing.Size(106, 32);
+            this.scaleHeightLabel.Size = new System.Drawing.Size(41, 13);
             this.scaleHeightLabel.TabIndex = 10;
             this.scaleHeightLabel.Text = "Height:";
             // 
             // scaleWidthLabel
             // 
             this.scaleWidthLabel.AutoSize = true;
-            this.scaleWidthLabel.Location = new System.Drawing.Point(51, 24);
-            this.scaleWidthLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.scaleWidthLabel.Location = new System.Drawing.Point(19, 10);
             this.scaleWidthLabel.Name = "scaleWidthLabel";
-            this.scaleWidthLabel.Size = new System.Drawing.Size(96, 32);
+            this.scaleWidthLabel.Size = new System.Drawing.Size(38, 13);
             this.scaleWidthLabel.TabIndex = 9;
             this.scaleWidthLabel.Text = "Width:";
             // 
             // scaleHeightNumericUpDown
             // 
-            this.scaleHeightNumericUpDown.Location = new System.Drawing.Point(168, 81);
-            this.scaleHeightNumericUpDown.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.scaleHeightNumericUpDown.Location = new System.Drawing.Point(63, 34);
             this.scaleHeightNumericUpDown.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
             this.scaleHeightNumericUpDown.Name = "scaleHeightNumericUpDown";
-            this.scaleHeightNumericUpDown.Size = new System.Drawing.Size(152, 38);
+            this.scaleHeightNumericUpDown.Size = new System.Drawing.Size(57, 20);
             this.scaleHeightNumericUpDown.TabIndex = 8;
             this.scaleHeightNumericUpDown.TabStop = false;
             this.scaleHeightNumericUpDown.Value = new decimal(new int[] {
@@ -591,15 +558,14 @@ namespace ArtistAssistant
             // 
             // scaleWidthNumericUpDown
             // 
-            this.scaleWidthNumericUpDown.Location = new System.Drawing.Point(168, 19);
-            this.scaleWidthNumericUpDown.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.scaleWidthNumericUpDown.Location = new System.Drawing.Point(63, 8);
             this.scaleWidthNumericUpDown.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
             this.scaleWidthNumericUpDown.Name = "scaleWidthNumericUpDown";
-            this.scaleWidthNumericUpDown.Size = new System.Drawing.Size(152, 38);
+            this.scaleWidthNumericUpDown.Size = new System.Drawing.Size(57, 20);
             this.scaleWidthNumericUpDown.TabIndex = 7;
             this.scaleWidthNumericUpDown.TabStop = false;
             this.scaleWidthNumericUpDown.Value = new decimal(new int[] {
@@ -616,29 +582,26 @@ namespace ArtistAssistant
             this.fileUploadMenuPanel.Controls.Add(this.uploadFileNameLabel);
             this.fileUploadMenuPanel.Controls.Add(this.uploadToCloudButton);
             this.fileUploadMenuPanel.Controls.Add(this.uploadFileNameTextBox);
-            this.fileUploadMenuPanel.Location = new System.Drawing.Point(173, 289);
-            this.fileUploadMenuPanel.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.fileUploadMenuPanel.Location = new System.Drawing.Point(65, 121);
             this.fileUploadMenuPanel.Name = "fileUploadMenuPanel";
-            this.fileUploadMenuPanel.Size = new System.Drawing.Size(367, 202);
+            this.fileUploadMenuPanel.Size = new System.Drawing.Size(139, 86);
             this.fileUploadMenuPanel.TabIndex = 3;
             // 
             // uploadFileNameLabel
             // 
             this.uploadFileNameLabel.AutoSize = true;
-            this.uploadFileNameLabel.Location = new System.Drawing.Point(8, 10);
-            this.uploadFileNameLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.uploadFileNameLabel.Location = new System.Drawing.Point(3, 4);
             this.uploadFileNameLabel.Name = "uploadFileNameLabel";
-            this.uploadFileNameLabel.Size = new System.Drawing.Size(152, 32);
+            this.uploadFileNameLabel.Size = new System.Drawing.Size(57, 13);
             this.uploadFileNameLabel.TabIndex = 4;
             this.uploadFileNameLabel.Text = "File Name:";
             // 
             // uploadToCloudButton
             // 
             this.uploadToCloudButton.BackColor = System.Drawing.Color.White;
-            this.uploadToCloudButton.Location = new System.Drawing.Point(45, 107);
-            this.uploadToCloudButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.uploadToCloudButton.Location = new System.Drawing.Point(17, 45);
             this.uploadToCloudButton.Name = "uploadToCloudButton";
-            this.uploadToCloudButton.Size = new System.Drawing.Size(264, 55);
+            this.uploadToCloudButton.Size = new System.Drawing.Size(99, 23);
             this.uploadToCloudButton.TabIndex = 3;
             this.uploadToCloudButton.TabStop = false;
             this.uploadToCloudButton.Text = "Upload";
@@ -648,10 +611,10 @@ namespace ArtistAssistant
             // 
             // uploadFileNameTextBox
             // 
-            this.uploadFileNameTextBox.Location = new System.Drawing.Point(8, 50);
-            this.uploadFileNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.uploadFileNameTextBox.Location = new System.Drawing.Point(3, 21);
+            this.uploadFileNameTextBox.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.uploadFileNameTextBox.Name = "uploadFileNameTextBox";
-            this.uploadFileNameTextBox.Size = new System.Drawing.Size(343, 38);
+            this.uploadFileNameTextBox.Size = new System.Drawing.Size(131, 20);
             this.uploadFileNameTextBox.TabIndex = 0;
             // 
             // downloadFileMenuPanel
@@ -660,30 +623,26 @@ namespace ArtistAssistant
             this.downloadFileMenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.downloadFileMenuPanel.Controls.Add(this.uploadedFileListBox);
             this.downloadFileMenuPanel.Controls.Add(this.downloadFromCloudButton);
-            this.downloadFileMenuPanel.Location = new System.Drawing.Point(173, 160);
-            this.downloadFileMenuPanel.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.downloadFileMenuPanel.Location = new System.Drawing.Point(65, 67);
             this.downloadFileMenuPanel.Name = "downloadFileMenuPanel";
-            this.downloadFileMenuPanel.Size = new System.Drawing.Size(367, 357);
+            this.downloadFileMenuPanel.Size = new System.Drawing.Size(139, 151);
             this.downloadFileMenuPanel.TabIndex = 5;
             // 
             // uploadedFileListBox
             // 
             this.uploadedFileListBox.FormattingEnabled = true;
-            this.uploadedFileListBox.ItemHeight = 31;
-            this.uploadedFileListBox.Location = new System.Drawing.Point(8, 14);
-            this.uploadedFileListBox.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.uploadedFileListBox.Location = new System.Drawing.Point(3, 6);
             this.uploadedFileListBox.Name = "uploadedFileListBox";
-            this.uploadedFileListBox.Size = new System.Drawing.Size(343, 252);
+            this.uploadedFileListBox.Size = new System.Drawing.Size(131, 108);
             this.uploadedFileListBox.TabIndex = 5;
             this.uploadedFileListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ArtistAssistantForm_KeyDown);
             // 
             // downloadFromCloudButton
             // 
             this.downloadFromCloudButton.BackColor = System.Drawing.Color.White;
-            this.downloadFromCloudButton.Location = new System.Drawing.Point(45, 274);
-            this.downloadFromCloudButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
+            this.downloadFromCloudButton.Location = new System.Drawing.Point(17, 115);
             this.downloadFromCloudButton.Name = "downloadFromCloudButton";
-            this.downloadFromCloudButton.Size = new System.Drawing.Size(264, 55);
+            this.downloadFromCloudButton.Size = new System.Drawing.Size(99, 23);
             this.downloadFromCloudButton.TabIndex = 3;
             this.downloadFromCloudButton.TabStop = false;
             this.downloadFromCloudButton.Text = "Download";
@@ -693,10 +652,10 @@ namespace ArtistAssistant
             // 
             // ArtistAssistantForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(3704, 1629);
+            this.ClientSize = new System.Drawing.Size(1389, 682);
             this.Controls.Add(this.fileUploadMenuPanel);
             this.Controls.Add(this.scaleItemMenuPanel);
             this.Controls.Add(this.addItemMenuPanel);
@@ -704,8 +663,9 @@ namespace ArtistAssistant
             this.Controls.Add(this.toolbarPanel);
             this.Controls.Add(this.downloadFileMenuPanel);
             this.Controls.Add(this.drawingPictureBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.MaximizeBox = false;
             this.Name = "ArtistAssistantForm";
             this.Text = "Artist Assistant";

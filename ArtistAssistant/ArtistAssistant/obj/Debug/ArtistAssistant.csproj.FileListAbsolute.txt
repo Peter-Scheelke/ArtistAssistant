@@ -48,3 +48,12 @@ C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.exe
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.pdb
 C:\Users\Peter Scheelke\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.csprojResolveAssemblyReference.cache
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.Core.dll
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.dll
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\Newtonsoft.Json.dll
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.Core.pdb
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.Core.xml
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.pdb
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\AWSSDK.S3.xml
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\bin\Debug\Newtonsoft.Json.xml
+C:\Users\A01963010\Dropbox\School\Object Oriented Programming\Assignment 3\ArtistAssistant\ArtistAssistant\ArtistAssistant\obj\Debug\ArtistAssistant.ArtistAssistantForm.resources
