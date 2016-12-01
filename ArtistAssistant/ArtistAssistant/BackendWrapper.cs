@@ -364,7 +364,17 @@ namespace ArtistAssistant
         public void Move(Point location)
         {
             try
-            { 
+            {
+                if (location.X > this.drawing.Size.Width || location.X < 0)
+                {
+                    return;
+                }
+
+                if (location.Y > this.drawing.Size.Height || location.Y < 0)
+                {
+                    return;
+                }
+
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Move;
                 parameters.DrawableObjectList = this.drawableObjectList;
