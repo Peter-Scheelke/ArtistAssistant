@@ -8,7 +8,8 @@ Improvements:
   creates a single type of ICommand. This allows the CommandFactory
   to choose between multiple factory modes at run time without a
   massive switch statement. This makes the code more readable
-  and more extensible.
+  and more extensible. Additionally, it allows for CommandParameter
+  object validation to be localized.
 
 - The way the program renders DrawableObjects now figures out which
   objects have changed and re-renders only those objects (rather
