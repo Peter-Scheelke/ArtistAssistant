@@ -22,6 +22,9 @@ Improvements:
   duplication is now undone in one step rather than three).
 
 - The user can now move objects by dragging them with the mouse.
-  Allowing this makes the program more intuitive for the user.
+  This means that all consecutive move commands will be undone at
+  the same time (even if the user leaves an object at a point for
+  a little while before moving it some more). Overall, this should
+  make moving objects around more intuitive for the user.
 
 - The unit tests have been updated in order to test these new features.

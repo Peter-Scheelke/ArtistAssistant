@@ -53,6 +53,11 @@ namespace ArtistAssistant
         private Image drawingBackground;
 
         /// <summary>
+        /// A command used to undo moves with drags quickly
+        /// </summary>
+        private ICommand undoMoveCommand = null;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BackendWrapper"/> class
         /// </summary>
         /// <param name="backgroundImage">The background image used in the <see cref="BackendWrapper"/>'s <see cref="Drawing"/></param>
@@ -187,6 +192,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 List<ICommand> commands = new List<ICommand>();
 
                 // Create an add command
@@ -226,6 +232,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.BringToIndex;
                 parameters.DrawableObjectList = this.drawableObjectList;
@@ -262,6 +269,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.BringToIndex;
                 parameters.DrawableObjectList = this.drawableObjectList;
@@ -298,6 +306,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Deselect;
                 parameters.DrawableObjectList = this.drawableObjectList;
@@ -322,6 +331,7 @@ namespace ArtistAssistant
                     return;
                 }
 
+                this.CommitMove();
                 List<ICommand> commands = new List<ICommand>();
 
                 // Create an add command
@@ -381,6 +391,15 @@ namespace ArtistAssistant
                 parameters.AffectedDrawableObject = this.drawableObjectList.SelectedObject;
                 parameters.Location = location;
                 this.ExecuteCommand(parameters);
+
+                if (this.undoMoveCommand == null)
+                {
+                    this.undoMoveCommand = this.undoStack.Peek();
+                }
+                else
+                {
+                    this.undoStack.Pop();
+                }
             }
             catch (Exception)
             {
@@ -396,6 +415,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Remove;
                 parameters.DrawableObjectList = this.drawableObjectList;
@@ -417,6 +437,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Scale;
                 parameters.DrawableObjectList = this.drawableObjectList;
@@ -439,6 +460,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 var parameters = CommandParameters.Create();
                 parameters.CommandType = CommandType.Select;
                 parameters.DrawableObjectList = this.drawableObjectList;
@@ -461,6 +483,7 @@ namespace ArtistAssistant
         {
             try
             {
+                this.CommitMove();
                 ICommand commandToUndo = this.undoStack.Pop();
                 commandToUndo.Undo();
             }
@@ -531,6 +554,14 @@ namespace ArtistAssistant
             ICommand command = this.commandFactory.CreateCommand(parameters);
             command.Execute();
             this.undoStack.Push(command);
+        }
+
+        /// <summary>
+        /// Makes sure that if the last command was a move command it gets added to the undo stack 
+        /// </summary>
+        private void CommitMove()
+        {
+            this.undoMoveCommand = null;
         }
     }
 }
