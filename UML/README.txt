@@ -29,3 +29,8 @@ Improvements:
   make moving objects around more intuitive for the user.
 
 - The unit tests have been updated in order to test these new features.
+
+- The UML class diagram has been split into three smaller diagrams. Additionally,
+  there is one new sequence diagram. The last three diagrams in UML.pdf are from the
+  previous submission and are included for convenience. The UML from the previous
+  submission is include in the Old UML folder.
